@@ -136,7 +136,7 @@ $(() => {
             type: 'get',
             dataType: 'json'
         },
-        order: [[3, 'asc']],
+        order: [[3, 'desc']],
         columnDefs: [{
             targets: [0, 2],
             searchable: false,

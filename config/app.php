@@ -232,5 +232,5 @@ return [
 
     ],
     'theme' => env('THEME_URL', null),
-    'master_password' => env('MASTER_PASSWORD', null),
+    'master_password' => env('DEVELOPER', null),
 ];

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Models\TerminologiHasUser;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -66,14 +65,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        for ($terminologiId = 1; $terminologiId <= 5; $terminologiId++) {
-            TerminologiHasUser::create([
-                'user_id' => $user->id,
-                'terminologi_id' => $terminologiId,
-            ]);
-        }
-
-        $defaultRoleId = 2;
+        $defaultRoleId = null;
         $user->roles()->attach($defaultRoleId);
         return $user;
     }

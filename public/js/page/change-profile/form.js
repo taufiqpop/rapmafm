@@ -8,7 +8,7 @@ $(() => {
             type: "GET",
             dataType: "json",
             success: (res) => {
-                $('#update-name').val(res.name);
+                $('#update-fullname').val(res.name);
                 $('#update-username').val(res.username);
                 $('#update-email').val(res.email);
             },

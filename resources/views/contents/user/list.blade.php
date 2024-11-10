@@ -53,16 +53,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="username">Nama Pengguna</label>
-                            <input type="text" name="username" id="username" class="form-control"
-                                placeholder="Masukkan Nama Pengguna" required>
-                            <div id="error-username"></div>
-                        </div>
-                        <div class="form-group">
                             <label for="name">Nama Lengkap</label>
                             <input type="text" name="name" id="name" class="form-control"
                                 placeholder="Masukkan Nama Lengkap" required>
                             <div id="error-name"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control"
+                                placeholder="Masukkan Username" required>
+                            <div id="error-username"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Kata Sandi</label>
@@ -101,16 +101,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="update-username">Nama Pengguna</label>
-                            <input type="text" name="username" id="update-username" class="form-control"
-                                placeholder="Masukkan Nama Pengguna" required>
-                            <div id="error-update-username"></div>
-                        </div>
-                        <div class="form-group">
                             <label for="update-name">Nama Lengkap</label>
                             <input type="text" name="name" id="update-name" class="form-control"
                                 placeholder="Masukkan Nama Lengkap" required>
                             <div id="error-update-name"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-username">Username</label>
+                            <input type="text" name="username" id="update-username" class="form-control"
+                                placeholder="Masukkan Username" required>
+                            <div id="error-update-username"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -127,7 +127,7 @@
         <form action="{{ route('users.update.roles') }}" method="post" id="form-update-role" autocomplete="off">
             @method('PATCH')
             <input type="hidden" name="id" id="update-role-user-id">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mt-0" id="modal-update-roleLabel">Peran Pengguna : <b

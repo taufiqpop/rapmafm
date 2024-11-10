@@ -13,10 +13,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="update-name">Nama User</label>
-                        <input type="text" name="name" id="update-name" class="form-control"
-                            placeholder="Masukkan Nama User" required>
-                        <div id="error-update-name"></div>
+                        <label for="update-fullname">Nama Lengkap</label>
+                        <input type="text" name="name" id="update-fullname" class="form-control"
+                            placeholder="Masukkan Nama Lengkap" required>
+                        <div id="error-update-fullname"></div>
                     </div>
                     <div class="form-group">
                         <label for="update-username">Username</label>

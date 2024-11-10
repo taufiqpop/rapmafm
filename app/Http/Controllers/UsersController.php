@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Models\Role;
-use App\Models\TerminologiHasUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,13 +50,6 @@ class UsersController extends Controller
                 'username' => $request->username,
                 'password' => Hash::make($request->password)
             ]);
-
-            for ($terminologiId = 1; $terminologiId <= 5; $terminologiId++) {
-                TerminologiHasUser::create([
-                    'user_id' => $user->id,
-                    'terminologi_id' => $terminologiId,
-                ]);
-            }
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -117,7 +109,7 @@ class UsersController extends Controller
         try {
             $user = User::find($request->id);
 
-            $user->password = Hash::make('pengguna12345');
+            $user->password = Hash::make('hutaowangy');
 
             if ($user->isDirty()) {
                 $user->save();
