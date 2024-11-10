@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "rapmafm",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Radio Rapma FM",
     "keywords": [
         "framework",
         "laravel"
@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "barryvdh/laravel-dompdf": "^2.2",
-        "chartisan/chartisan": "^1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
