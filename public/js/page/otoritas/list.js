@@ -1,5 +1,6 @@
 let table;
 $(() => {
+    // Delete
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
@@ -31,6 +32,7 @@ $(() => {
         })
     })
 
+    // Update
     $('#form-otoritas-update').on('submit', function (e) {
         e.preventDefault();
 
@@ -81,6 +83,7 @@ $(() => {
         $('#modal-otoritas-update').modal('show');
     })
 
+    // Create
     $('#form-otoritas').on('submit', function (e) {
         e.preventDefault();
 
@@ -123,6 +126,7 @@ $(() => {
         $('#modal-otoritas').modal('show');
     });
 
+    // List
     table = $('#table-data').DataTable({
         processing: true,
         serverSide: true,
@@ -132,7 +136,7 @@ $(() => {
             type: 'get',
             dataType: 'json'
         },
-        order: [[3, 'desc']],
+        order: [[3, 'asc']],
         columnDefs: [{
             targets: [0, 2],
             searchable: false,
@@ -188,7 +192,6 @@ $(() => {
                             arr.push(button_permission)
                             arr.push(button_edit)
                         }
-                        // if (UPDATE) arr.push(button_edit)
                         if (permissions.delete) arr.push(button_delete)
 
                         return arr;

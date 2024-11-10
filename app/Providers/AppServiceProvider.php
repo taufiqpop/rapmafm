@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
         if ($this->app->environment('production')) {
             \URL::forceRootUrl(\Config::get('app.url'));
-            \URL::forceScheme('https');
+            // \URL::forceScheme('https');
         }
         View::share('plugins', []);
     }

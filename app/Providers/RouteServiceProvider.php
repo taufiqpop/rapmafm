@@ -21,7 +21,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/check-access';
+    public const HOME = '/';
+    public const DASHBOARD = '/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -52,25 +53,9 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->mapUserRoutes();
 
-            $this->mapTerminologiRoutes();
-
             $this->mapMenuRoutes();
 
             $this->mapOtoritasRoutes();
-
-            $this->mapPerumusanRoutes();
-
-            $this->mapPenyampaianRoutes();
-
-            $this->mapImplementasiRoutes();
-
-            $this->mapFeedbackRoutes();
-
-            $this->mapMonitoringRoutes();
-
-            $this->mapKetercapaianRoutes();
-
-            $this->mapMateriMatpelRoutes();
         });
     }
 
@@ -117,13 +102,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/panel/users.php'));
     }
 
-    protected function mapTerminologiRoutes()
-    {
-        Route::prefix('terminologi')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/terminologi.php'));
-    }
-
     protected function mapMenuRoutes()
     {
         Route::prefix('manajemen-menu')
@@ -136,52 +114,5 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('otoritas')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/otoritas.php'));
-    }
-    protected function mapPerumusanRoutes()
-    {
-        Route::prefix('perumusan')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/perumusan.php'));
-    }
-
-    protected function mapPenyampaianRoutes()
-    {
-        Route::prefix('penyampaian')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/penyampaian.php'));
-    }
-    protected function mapImplementasiRoutes()
-    {
-        Route::prefix('implementasi')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/implementasi.php'));
-    }
-
-    protected function mapFeedbackRoutes()
-    {
-        Route::prefix('feedback')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/feedback.php'));
-    }
-
-    protected function mapMonitoringRoutes()
-    {
-        Route::prefix('monitoring-peserta-didik')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/monitoring.php'));
-    }
-
-    protected function mapKetercapaianRoutes()
-    {
-        Route::prefix('ketercapaian-tujuan')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/ketercapaian.php'));
-    }
-
-    protected function mapMateriMatpelRoutes()
-    {
-        Route::prefix('materi-matpel')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/materi_matpel.php'));
     }
 }

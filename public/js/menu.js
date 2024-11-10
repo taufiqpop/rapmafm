@@ -60,7 +60,6 @@ const generateMenu = (data, container, is_parent = true) => {
                 let label = $('<span>', {
                     text: name,
                     key: 't-' + name,
-                    style: 'font-size: 1rem;',
                 });
 
                 let menu_icon = $('<i>', {
