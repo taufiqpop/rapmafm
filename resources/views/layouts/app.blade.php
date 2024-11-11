@@ -126,7 +126,7 @@
                         <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © AFEL.
+                            </script> © TAUFIQ POP.
                         </div>
                     </div>
                 </div>

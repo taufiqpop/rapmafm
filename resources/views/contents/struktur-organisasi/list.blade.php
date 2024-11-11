@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('pesan', 2))
+                    @if (rbacCheck('struktur_organisasi', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-right">
@@ -26,10 +26,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">#</th>
-                                    <th>Nama Pengirim</th>
-                                    <th>Email Pengirim</th>
-                                    <th>Subject</th>
-                                    <th>Message</th>
+                                    <th>Divisi</th>
+                                    <th>Status</th>
+                                    <th>Tahun</th>
+                                    <th>Order</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                     <th></th>
                                 </tr>
@@ -43,13 +44,14 @@
     </div>
 
     {{-- Create --}}
-    <div id="modal-pesan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-pesanLabel"
-        aria-hidden="true">
-        <form action="{{ route('pesan.store') }}" method="post" id="form-pesan" autocomplete="off">
+    <div id="modal-struktur-organisasi" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-struktur-organisasiLabel" aria-hidden="true">
+        <form action="{{ route('struktur-organisasi.store') }}" method="post" id="form-struktur-organisasi"
+            autocomplete="off">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-pesanLabel">Form Pesan</h5>
+                        <h5 class="modal-title mt-0" id="modal-struktur-organisasiLabel">Form Struktur Organisasi</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -58,33 +60,37 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="nama">Nama Pengirim</label>
-                                    <input type="text" name="nama" id="nama" class="form-control"
-                                        placeholder="Masukkan Nama Pengirim" required>
-                                    <div id="error-nama"></div>
+                                    <label for="divisi">Divisi</label>
+                                    <input type="text" name="divisi" id="divisi" class="form-control"
+                                        placeholder="Masukkan Divisi" required>
+                                    <div id="error-divisi"></div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="email">Email Pengirim</label>
-                                    <input type="email" name="email" id="email" class="form-control"
-                                        placeholder="Masukkan Email Pengirim" required>
-                                    <div id="error-email"></div>
+                                    <label for="pangkat">Status</label>
+                                    <select name="pangkat" id="pangkat" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Status Kepengurusan</option>
+                                        <option value="Pengurus">Pengurus</option>
+                                        <option value="Crew">Crew</option>
+                                    </select>
+                                    <div id="error-pangkat"></div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="subject">Subject</label>
-                                    <input type="text" name="subject" id="subject" class="form-control"
-                                        placeholder="Masukkan Subject" required>
-                                    <div id="error-subject"></div>
+                                    <label for="tahun">Tahun</label>
+                                    <input type="number" name="tahun" id="tahun" class="form-control"
+                                        placeholder="Masukkan Tahun" required>
+                                    <div id="error-tahun"></div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea name="message" id="message" class="form-control" placeholder="Masukkan Message" required></textarea>
-                                    <div id="error-message"></div>
+                                    <label for="order">Order</label>
+                                    <input type="number" name="order" id="order" class="form-control"
+                                        placeholder="Masukkan Order" required>
+                                    <div id="error-order"></div>
                                 </div>
                             </div>
                         </div>
@@ -99,15 +105,17 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-pesan-update" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-pesan-updateLabel"
-        aria-hidden="true">
-        <form action="{{ route('pesan.update') }}" method="post" id="form-pesan-update" autocomplete="off">
+    <div id="modal-struktur-organisasi-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-struktur-organisasi-updateLabel" aria-hidden="true">
+        <form action="{{ route('struktur-organisasi.update') }}" method="post" id="form-struktur-organisasi-update"
+            autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-pesan-updateLabel">Form Pesan</h5>
+                        <h5 class="modal-title mt-0" id="modal-struktur-organisasi-updateLabel">Form Struktur Organisasi
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -116,33 +124,37 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-nama">Nama Pengirim</label>
-                                    <input type="text" name="nama" id="update-nama" class="form-control"
-                                        placeholder="Masukkan Nama Pengirim" required>
-                                    <div id="error-update-nama"></div>
+                                    <label for="update-divisi">Divisi</label>
+                                    <input type="text" name="divisi" id="update-divisi" class="form-control"
+                                        placeholder="Masukkan Divisi" required>
+                                    <div id="error-update-divisi"></div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-email">Email Pengirim</label>
-                                    <input type="email" name="email" id="update-email" class="form-control"
-                                        placeholder="Masukkan Email Pengirim" required>
-                                    <div id="error-update-email"></div>
+                                    <label for="update-pangkat">Pangkat</label>
+                                    <select name="pangkat" id="update-pangkat" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Status Kepengurusan</option>
+                                        <option value="Pengurus">Pengurus</option>
+                                        <option value="Crew">Crew</option>
+                                    </select>
+                                    <div id="error-update-pangkat"></div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="update-subject">Subject</label>
-                                    <input type="text" name="subject" id="update-subject" class="form-control"
-                                        placeholder="Masukkan Subject" required>
-                                    <div id="error-update-subject"></div>
+                                    <label for="update-tahun">Tahun</label>
+                                    <input type="number" name="tahun" id="update-tahun" class="form-control"
+                                        placeholder="Masukkan Tahun" required>
+                                    <div id="error-update-tahun"></div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="update-message">Message</label>
-                                    <textarea name="message" id="update-message" class="form-control" placeholder="Masukkan Message" required></textarea>
-                                    <div id="error-update-message"></div>
+                                    <label for="update-order">Order</label>
+                                    <input type="number" name="order" id="update-order" class="form-control"
+                                        placeholder="Masukkan Order" required>
+                                    <div id="error-update-order"></div>
                                 </div>
                             </div>
                         </div>
@@ -158,5 +170,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/pesan/list.js?q=' . Str::random(5)) }}"></script>
+    <script src="{{ asset('js/page/struktur-organisasi/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

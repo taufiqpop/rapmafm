@@ -11,11 +11,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PesanController extends Controller
 {
-    // List Pesan
+    // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Pesan Dari CampusBrainers'
+            'title' => 'Pesan'
         ];
 
         return view('contents.pesan.list', $data);
@@ -33,7 +33,7 @@ class PesanController extends Controller
             ->make();
     }
 
-    // Store Pesan
+    // Store
     public function store(Request $request)
     {
         $request->validate([
@@ -59,7 +59,7 @@ class PesanController extends Controller
         }
     }
 
-    // Update Pesan
+    // Update
     public function update(Request $request)
     {
         $request->validate([
@@ -88,7 +88,7 @@ class PesanController extends Controller
         }
     }
 
-    // Delete Pesan
+    // Delete
     public function delete(Request $request)
     {
         try {

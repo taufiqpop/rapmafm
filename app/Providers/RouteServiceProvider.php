@@ -58,6 +58,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapOtoritasRoutes();
 
             $this->mapPesanRoutes();
+
+            $this->mapStrukturOrganisasiRoutes();
         });
     }
 
@@ -123,5 +125,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('pesan')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/pesan.php'));
+    }
+
+    protected function mapStrukturOrganisasiRoutes()
+    {
+        Route::prefix('struktur-organisasi')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/struktur-organisasi.php'));
     }
 }
