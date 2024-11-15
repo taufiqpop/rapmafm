@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="AFEL" name="description" />
-    <meta content="TaufiqPop" name="author" />
+    <meta content="RAPMA FM" name="description" />
+    <meta content="Taufiq Pop" name="author" />
     <meta content="{{ url('/') }}/" name="base_url" />
     <meta content="{{ config('app.theme') }}" name="asset_url">
     <meta name="csrf-token" content="{{ csrf_token() }}">

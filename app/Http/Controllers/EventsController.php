@@ -95,6 +95,14 @@ class EventsController extends Controller
             $events->link = $request->link;
 
             if ($request->hasFile('image')) {
+                if ($events->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+
+                    if (file_exists(public_path($decodedPath))) {
+                        unlink(public_path($decodedPath));
+                    }
+                }
+
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
                 $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event . '/' . $request->nama_event);
@@ -123,10 +131,23 @@ class EventsController extends Controller
     {
         try {
             $events = Events::find($request->id);
-            $events->delete();
 
-            if ($events->trashed()) {
-                return response()->json(['status' => true], 200);
+            if ($events) {
+                if ($events->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+
+                    if (file_exists(public_path($decodedPath))) {
+                        unlink(public_path($decodedPath));
+                    }
+                }
+
+                $events->delete();
+
+                if ($events->trashed()) {
+                    return response()->json(['status' => true], 200);
+                }
+            } else {
+                return response()->json(['status' => false, 'msg' => 'Event not found'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
@@ -136,14 +157,14 @@ class EventsController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $user = Events::find($request->id);
-            $user->is_active = $request->value;
+            $events = Events::find($request->id);
+            $events->is_active = $request->value;
 
-            if ($user->isDirty()) {
-                $user->save();
+            if ($events->isDirty()) {
+                $events->save();
             }
 
-            if ($user->wasChanged()) {
+            if ($events->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {

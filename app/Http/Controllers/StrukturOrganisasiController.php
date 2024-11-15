@@ -91,6 +91,14 @@ class StrukturOrganisasiController extends Controller
             $struktur->order = $request->order;
 
             if ($request->hasFile('image')) {
+                if ($struktur->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $struktur->path);
+
+                    if (file_exists(public_path($decodedPath))) {
+                        unlink(public_path($decodedPath));
+                    }
+                }
+
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
                 $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun . '/' . $request->divisi);
@@ -119,10 +127,23 @@ class StrukturOrganisasiController extends Controller
     {
         try {
             $struktur = StrukturOrganisasi::find($request->id);
-            $struktur->delete();
 
-            if ($struktur->trashed()) {
-                return response()->json(['status' => true], 200);
+            if ($struktur) {
+                if ($struktur->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $struktur->path);
+
+                    if (file_exists(public_path($decodedPath))) {
+                        unlink(public_path($decodedPath));
+                    }
+                }
+
+                $struktur->delete();
+
+                if ($struktur->trashed()) {
+                    return response()->json(['status' => true], 200);
+                }
+            } else {
+                return response()->json(['status' => false, 'msg' => 'Event not found'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
@@ -132,14 +153,14 @@ class StrukturOrganisasiController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $user = StrukturOrganisasi::find($request->id);
-            $user->is_active = $request->value;
+            $struktur = StrukturOrganisasi::find($request->id);
+            $struktur->is_active = $request->value;
 
-            if ($user->isDirty()) {
-                $user->save();
+            if ($struktur->isDirty()) {
+                $struktur->save();
             }
 
-            if ($user->wasChanged()) {
+            if ($struktur->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
