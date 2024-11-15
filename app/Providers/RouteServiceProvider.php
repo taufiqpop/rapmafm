@@ -60,6 +60,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapPesanRoutes();
 
             $this->mapStrukturOrganisasiRoutes();
+
+            $this->mapEventsRoutes();
         });
     }
 
@@ -132,5 +134,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('struktur-organisasi')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/struktur-organisasi.php'));
+    }
+
+    protected function mapEventsRoutes()
+    {
+        Route::prefix('events')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/events.php'));
     }
 }

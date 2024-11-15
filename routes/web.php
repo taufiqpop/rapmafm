@@ -3,7 +3,6 @@
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

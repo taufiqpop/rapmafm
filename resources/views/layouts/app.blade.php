@@ -5,19 +5,18 @@
     <meta charset="utf-8" />
     <title>{{ $title ?? config('app.name') }} | {{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Boilerplate Laravel System" name="description" />
-    <meta content="Phicosdev" name="author" />
+    <meta content="RAPMAFM" name="description" />
+    <meta content="TaufiqPop" name="author" />
     <meta content="{{ url('/') }}/" name="base_url" />
     <meta content="{{ config('app.theme') }}" name="asset_url">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- App Favicon -->
+    {{-- Favicons --}}
     <link rel="shortcut icon" href="{{ config('app.theme') }}assets/images/logo/afel_putih.png">
 
     @include('layouts.component._style')
     @stack('styles')
 </head>
-
 
 <body data-sidebar="dark">
     <div id="layout-wrapper">
@@ -80,28 +79,17 @@
             </div>
         </header>
 
-        <!-- ========== Left Sidebar Start ========== -->
+        {{-- Sidebar --}}
         <div class="vertical-menu">
-
             <div data-simplebar class="h-100">
-
-                <!--- Sidemenu -->
                 <div id="sidebar-menu">
-                    <!-- Left Menu Start -->
-                    <ul class="metismenu list-unstyled" id="side-menu" style="font-size: 2rem">
-
-                    </ul>
+                    <ul class="metismenu list-unstyled" id="side-menu"></ul>
                 </div>
-                <!-- Sidebar -->
             </div>
         </div>
-        <!-- Left Sidebar End -->
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
+        {{-- Content --}}
         <div class="main-content">
-
             <div class="page-content">
                 <div class="container-fluid">
                     <div class="row">
@@ -132,10 +120,7 @@
                 </div>
             </footer>
         </div>
-        <!-- end main content-->
-
     </div>
-    <!-- END layout-wrapper -->
 
     @include('layouts.component._script')
     @stack('scripts')

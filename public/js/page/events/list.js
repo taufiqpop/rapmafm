@@ -4,11 +4,11 @@ $(() => {
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
-        let { id, divisi } = data;
+        let { id, nama_event } = data;
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus struktur-organisasi "<b>${divisi}</b>"!`,
+            html: `Anda akan menghapus events "<b>${nama_event}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -17,11 +17,11 @@ $(() => {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post(BASE_URL + 'struktur-organisasi/delete', {
+                $.post(BASE_URL + 'events/delete', {
                     id,
                     _method: 'DELETE'
                 }).done((res) => {
-                    showSuccessToastr('Sukses', 'Struktur Organisasi berhasil dihapus');
+                    showSuccessToastr('Sukses', 'Events berhasil dihapus');
                     table.ajax.reload();
                 }).fail((res) => {
                     let { status, responseJSON } = res;
@@ -32,7 +32,7 @@ $(() => {
     })
 
     // Update
-    $('#form-struktur-organisasi-update').on('submit', function (e) {
+    $('#form-events-update').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -46,17 +46,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-struktur-organisasi-update').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-struktur-organisasi-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-struktur-organisasi-update').modal('hide');
+                $('#modal-events-update').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-struktur-organisasi-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -73,17 +73,17 @@ $(() => {
         let data = table.row(tr).data();
 
         clearErrorMessage();
-        $('#form-struktur-organisasi-update')[0].reset();
+        $('#form-events-update')[0].reset();
 
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
         })
 
-        $('#modal-struktur-organisasi-update').modal('show');
+        $('#modal-events-update').modal('show');
     })
 
     // Create
-    $('#form-struktur-organisasi').on('submit', function (e) {
+    $('#form-events').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -97,17 +97,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-struktur-organisasi').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-events').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-struktur-organisasi').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-struktur-organisasi').modal('hide');
+                $('#modal-events').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-struktur-organisasi').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -120,9 +120,9 @@ $(() => {
     })
 
     $('.btn-tambah').on('click', function () {
-        $('#form-struktur-organisasi')[0].reset();
+        $('#form-events')[0].reset();
         clearErrorMessage();
-        $('#modal-struktur-organisasi').modal('show');
+        $('#modal-events').modal('show');
     });
 
     // List
@@ -131,7 +131,7 @@ $(() => {
         serverSide: true,
         language: dtLang,
         ajax: {
-            url: BASE_URL + 'struktur-organisasi/data',
+            url: BASE_URL + 'events/data',
             type: 'get',
             dataType: 'json'
         },
@@ -151,9 +151,9 @@ $(() => {
         columns: [{
             data: 'DT_RowIndex'
         }, {
-            data: 'divisi',
+            data: 'jenis_event',
         }, {
-            data: 'pangkat',
+            data: 'nama_event',
         }, {
             data: 'tahun',
         }, {
@@ -169,8 +169,29 @@ $(() => {
                 `;
             }
         }, {
+            data: 'path',
+            render: function(data, type, row) {
+                if (data) {
+                    return `<img src="${data}" alt="Image" style="width: 100px; height: auto;">`;
+                } else {
+                    return 'No Image';
+                }
+            }
+        }, {
             data: 'id',
             render: (data, type, row) => {
+                const button_link = $('<a>', {
+                    style: 'color: white',
+                    class: 'btn btn-info btn-link',
+                    html: '<i class="bx bx-link"></i>',
+                    'data-id': data,
+                    title: 'Link Event',
+                    'data-placement': 'top',
+                    'data-toggle': 'tooltip',
+                    href: row.link,
+                    target: '_blank'
+                });
+
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',
                     html: '<i class="bx bx-pencil"></i>',
@@ -193,6 +214,7 @@ $(() => {
                     class: 'btn-group',
                     html: () => {
                         let arr = [];
+                        arr.push(button_link)
 
                         if (permissions.update) {
                             arr.push(button_edit)
@@ -216,12 +238,12 @@ $(() => {
         var id = $(this).data('id');
         var value = $(this).val();
 
-        $.post(BASE_URL + 'struktur-organisasi/switch', {
+        $.post(BASE_URL + 'events/switch', {
             id,
             value,
             _method: 'PATCH'
         }).done((res) => {
-            showSuccessToastr('sukses', value == '1' ? 'Divisi berhasil diaktifkan' : 'Divisi berhasil dinonaktifkan');
+            showSuccessToastr('sukses', value == '1' ? 'Events berhasil diaktifkan' : 'Events berhasil dinonaktifkan');
             table.ajax.reload();
         }).fail((res) => {
             let { status, responseJSON } = res;

@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('struktur_organisasi', 2))
+                    @if (rbacCheck('events', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-right">
@@ -26,11 +26,12 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">#</th>
-                                    <th>Divisi</th>
-                                    <th>Pangkat</th>
+                                    <th>Jenis Event</th>
+                                    <th>Nama Event</th>
                                     <th>Tahun</th>
                                     <th>Order</th>
                                     <th>Status</th>
+                                    <th>Artwork</th>
                                     <th>Aksi</th>
                                     <th></th>
                                 </tr>
@@ -44,14 +45,13 @@
     </div>
 
     {{-- Create --}}
-    <div id="modal-struktur-organisasi" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-struktur-organisasiLabel" aria-hidden="true">
-        <form action="{{ route('struktur-organisasi.store') }}" method="post" id="form-struktur-organisasi"
-            autocomplete="off">
+    <div id="modal-events" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-eventsLabel"
+        aria-hidden="true">
+        <form action="{{ route('events.store') }}" method="post" id="form-events" autocomplete="off">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-struktur-organisasiLabel">Form Struktur Organisasi</h5>
+                        <h5 class="modal-title mt-0" id="modal-eventsLabel">Form Events</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -60,21 +60,22 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
-                                    <div id="error-divisi"></div>
+                                    <label for="jenis_event">Jenis Event</label>
+                                    <select name="jenis_event" id="jenis_event" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Jenis Event</option>
+                                        <option value="RAPMADAY">RAPMADAY</option>
+                                        <option value="RAPMAFEST">RAPMAFEST</option>
+                                        <option value="OPEN RECRUITMENT">OPEN RECRUITMENT</option>
+                                    </select>
+                                    <div id="error-jenis_event"></div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="pangkat">Pangkat</label>
-                                    <select name="pangkat" id="pangkat" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Pangkat Kepengurusan</option>
-                                        <option value="Pengurus">Pengurus</option>
-                                        <option value="Crew">Crew</option>
-                                    </select>
-                                    <div id="error-pangkat"></div>
+                                    <label for="nama_event">Nama Event</label>
+                                    <input type="text" name="nama_event" id="nama_event" class="form-control"
+                                        placeholder="Masukkan Nama Event" required>
+                                    <div id="error-nama_event"></div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -93,6 +94,22 @@
                                     <div id="error-order"></div>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="link">Link</label>
+                                    <input type="text" name="link" id="link" class="form-control"
+                                        placeholder="Masukkan Order" required>
+                                    <div id="error-link"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="image">Artwork</label>
+                                    <input type="file" name="image" id="image" class="form-control-file"
+                                        accept="image/*">
+                                    <div id="error-image"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -105,16 +122,15 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-struktur-organisasi-update" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-struktur-organisasi-updateLabel" aria-hidden="true">
-        <form action="{{ route('struktur-organisasi.update') }}" method="post" id="form-struktur-organisasi-update"
-            autocomplete="off">
+    <div id="modal-events-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-events-updateLabel" aria-hidden="true">
+        <form action="{{ route('events.update') }}" method="post" id="form-events-update" autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-struktur-organisasi-updateLabel">Form Struktur Organisasi
+                        <h5 class="modal-title mt-0" id="modal-events-updateLabel">Form Events
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -124,21 +140,22 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="update-divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
-                                    <div id="error-update-divisi"></div>
+                                    <label for="update-jenis_event">Jenis Event</label>
+                                    <select name="jenis_event" id="update-jenis_event" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Jenis Event</option>
+                                        <option value="RAPMADAY">RAPMADAY</option>
+                                        <option value="RAPMAFEST">RAPMAFEST</option>
+                                        <option value="OPEN RECRUITMENT">OPEN RECRUITMENT</option>
+                                    </select>
+                                    <div id="error-update-jenis_event"></div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-pangkat">Pangkat</label>
-                                    <select name="pangkat" id="update-pangkat" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Pangkat Kepengurusan</option>
-                                        <option value="Pengurus">Pengurus</option>
-                                        <option value="Crew">Crew</option>
-                                    </select>
-                                    <div id="error-update-pangkat"></div>
+                                    <label for="update-nama_event">Nama Event</label>
+                                    <input type="text" name="nama_event" id="update-nama_event" class="form-control"
+                                        placeholder="Masukkan Nama Event" required>
+                                    <div id="error-update-nama_event"></div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -157,6 +174,22 @@
                                     <div id="error-update-order"></div>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="update-link">Link</label>
+                                    <input type="text" name="link" id="update-link" class="form-control"
+                                        placeholder="Masukkan Link" required>
+                                    <div id="error-update-link"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="update-image">Artwork</label>
+                                    <input type="file" name="image" id="update-image" class="form-control-file"
+                                        accept="image/*">
+                                    <div id="error-update-image"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -170,5 +203,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/struktur-organisasi/list.js?q=' . Str::random(5)) }}"></script>
+    <script src="{{ asset('js/page/events/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

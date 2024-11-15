@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StrukturOrganisasi;
+use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
-class StrukturOrganisasiController extends Controller
+class EventsController extends Controller
 {
     // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Struktur Organisasi'
+            'title' => 'Events'
         ];
 
-        return view('contents.struktur-organisasi.list', $data);
+        return view('contents.events.list', $data);
     }
 
     public function data(Request $request)
     {
-        $list = StrukturOrganisasi::select(DB::raw('*'));
+        $list = Events::select(DB::raw('*'));
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -37,25 +37,27 @@ class StrukturOrganisasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'divisi' => 'required|string',
-            'pangkat' => 'required|string',
+            'jenis_event' => 'required|string',
+            'nama_event' => 'required|string',
             'tahun' => 'required|string',
             'order' => 'required|string',
+            'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
             $data = [
-                'divisi' => $request->divisi,
-                'pangkat' => $request->pangkat,
+                'jenis_event' => $request->jenis_event,
+                'nama_event' => $request->nama_event,
                 'tahun' => $request->tahun,
                 'order' => $request->order,
+                'link' => $request->link,
             ];
 
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun . '/' . $request->divisi);
+                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event . '/' . $request->nama_event);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
@@ -64,7 +66,7 @@ class StrukturOrganisasiController extends Controller
                 $data['path'] = $encodedPath;
             }
 
-            StrukturOrganisasi::create($data);
+            Events::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -76,37 +78,39 @@ class StrukturOrganisasiController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'divisi' => 'required|string',
-            'pangkat' => 'required|string',
+            'jenis_event' => 'required|string',
+            'nama_event' => 'required|string',
             'tahun' => 'required|string',
             'order' => 'required|string',
+            'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
-            $struktur = StrukturOrganisasi::find($request->id);
-            $struktur->divisi = $request->divisi;
-            $struktur->pangkat = $request->pangkat;
-            $struktur->tahun = $request->tahun;
-            $struktur->order = $request->order;
+            $events = Events::find($request->id);
+            $events->jenis_event = $request->jenis_event;
+            $events->nama_event = $request->nama_event;
+            $events->tahun = $request->tahun;
+            $events->order = $request->order;
+            $events->link = $request->link;
 
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun . '/' . $request->divisi);
+                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event . '/' . $request->nama_event);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
 
-                $struktur->filename = $originalName;
-                $struktur->path = $encodedPath;
+                $events->filename = $originalName;
+                $events->path = $encodedPath;
             }
 
-            if ($struktur->isDirty()) {
-                $struktur->save();
+            if ($events->isDirty()) {
+                $events->save();
             }
 
-            if ($struktur->wasChanged()) {
+            if ($events->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -118,10 +122,10 @@ class StrukturOrganisasiController extends Controller
     public function delete(Request $request)
     {
         try {
-            $struktur = StrukturOrganisasi::find($request->id);
-            $struktur->delete();
+            $events = Events::find($request->id);
+            $events->delete();
 
-            if ($struktur->trashed()) {
+            if ($events->trashed()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -132,7 +136,7 @@ class StrukturOrganisasiController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $user = StrukturOrganisasi::find($request->id);
+            $user = Events::find($request->id);
             $user->is_active = $request->value;
 
             if ($user->isDirty()) {
