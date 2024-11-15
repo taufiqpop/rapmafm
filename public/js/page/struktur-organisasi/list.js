@@ -228,4 +228,25 @@ $(() => {
             showErrorToastr('oops', responseJSON.message);
         })
     })
+
+    // Image Preview
+    $('.images').on('change', function() {
+        let reader = new FileReader();
+        let preview = $('.images-preview');
+
+        reader.onload = function(e) {
+            preview.attr('src', e.target.result);
+            preview.show();
+        }
+
+        if (this.files && this.files[0]) {
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    // Images Clear
+    $('#modal-events').on('hidden.bs.modal', function () {
+        $('.images').val('');
+        $('.images-preview').attr('src', '').hide();
+    });
 })

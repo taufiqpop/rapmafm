@@ -21,11 +21,12 @@
                             </div>
                         </div>
                     @endif
+                    {{-- Table --}}
                     <div class="table-responsive" data-pattern="priority-columns">
                         <table class="table table-striped" id="table-data" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th style="width: 5%;">#</th>
+                                    <th style="width: 5%;">No</th>
                                     <th>Jenis Event</th>
                                     <th>Nama Event</th>
                                     <th>Tahun</th>
@@ -58,6 +59,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+
+                            {{-- Jenis Event --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="jenis_event">Jenis Event</label>
@@ -70,6 +73,8 @@
                                     <div id="error-jenis_event"></div>
                                 </div>
                             </div>
+
+                            {{-- Nama Event --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="nama_event">Nama Event</label>
@@ -78,6 +83,8 @@
                                     <div id="error-nama_event"></div>
                                 </div>
                             </div>
+
+                            {{-- Tahun --}}
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="tahun">Tahun</label>
@@ -86,6 +93,8 @@
                                     <div id="error-tahun"></div>
                                 </div>
                             </div>
+
+                            {{-- Order --}}
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="order">Order</label>
@@ -94,6 +103,8 @@
                                     <div id="error-order"></div>
                                 </div>
                             </div>
+
+                            {{-- Link --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="link">Link</label>
@@ -102,12 +113,20 @@
                                     <div id="error-link"></div>
                                 </div>
                             </div>
+
+                            {{-- Artwork --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="image">Artwork</label>
-                                    <input type="file" name="image" id="image" class="form-control-file"
+                                    <input type="file" name="image" id="image" class="form-control-file images"
                                         accept="image/*">
                                     <div id="error-image"></div>
+
+                                    {{-- Preview Images --}}
+                                    <div id="image-preview-container">
+                                        <img class="images-preview"
+                                            style="max-width: 100%; margin-top: 10px; display: none;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +157,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            {{-- Jenis Event --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-jenis_event">Jenis Event</label>
@@ -150,6 +170,8 @@
                                     <div id="error-update-jenis_event"></div>
                                 </div>
                             </div>
+
+                            {{-- Nama Event --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-nama_event">Nama Event</label>
@@ -158,6 +180,8 @@
                                     <div id="error-update-nama_event"></div>
                                 </div>
                             </div>
+
+                            {{-- Tahun --}}
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-tahun">Tahun</label>
@@ -166,6 +190,8 @@
                                     <div id="error-update-tahun"></div>
                                 </div>
                             </div>
+
+                            {{-- Order --}}
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-order">Order</label>
@@ -174,6 +200,8 @@
                                     <div id="error-update-order"></div>
                                 </div>
                             </div>
+
+                            {{-- Link --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-link">Link</label>
@@ -182,12 +210,21 @@
                                     <div id="error-update-link"></div>
                                 </div>
                             </div>
+
+                            {{-- Artwork --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-image">Artwork</label>
-                                    <input type="file" name="image" id="update-image" class="form-control-file"
-                                        accept="image/*">
+                                    <input type="file" name="image" id="update-image"
+                                        class="form-control-file images" accept="image/*">
+                                    <small>*Kosongkan Jika Tidak Ingin Mengganti Artwork</small>
                                     <div id="error-update-image"></div>
+
+                                    {{-- Preview Images --}}
+                                    <div id="image-preview-container">
+                                        <img class="images-preview"
+                                            style="max-width: 100%; margin-top: 10px; display: none;">
+                                    </div>
                                 </div>
                             </div>
                         </div>

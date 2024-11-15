@@ -21,6 +21,7 @@
                             </div>
                         </div>
                     @endif
+                    {{-- Table --}}
                     <div class="table-responsive" data-pattern="priority-columns">
                         <table class="table table-striped" id="table-data" style="width: 100%;">
                             <thead>
@@ -56,6 +57,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            {{-- Nama Pengirim --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="nama">Nama Pengirim</label>
@@ -64,6 +66,8 @@
                                     <div id="error-nama"></div>
                                 </div>
                             </div>
+
+                            {{-- Email Pengirim --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="email">Email Pengirim</label>
@@ -72,6 +76,8 @@
                                     <div id="error-email"></div>
                                 </div>
                             </div>
+
+                            {{-- Subject --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="subject">Subject</label>
@@ -80,6 +86,8 @@
                                     <div id="error-subject"></div>
                                 </div>
                             </div>
+
+                            {{-- Message --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="message">Message</label>
@@ -114,6 +122,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            {{-- Nama Pengirim --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-nama">Nama Pengirim</label>
@@ -122,6 +131,8 @@
                                     <div id="error-update-nama"></div>
                                 </div>
                             </div>
+
+                            {{-- Email Pengirim --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-email">Email Pengirim</label>
@@ -130,6 +141,8 @@
                                     <div id="error-update-email"></div>
                                 </div>
                             </div>
+
+                            {{-- Subject --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-subject">Subject</label>
@@ -138,6 +151,8 @@
                                     <div id="error-update-subject"></div>
                                 </div>
                             </div>
+
+                            {{-- Message --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="update-message">Message</label>

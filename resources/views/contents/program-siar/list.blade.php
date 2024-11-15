@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @php
-    $plugins = ['datatable', 'swal'];
+    $plugins = ['datatable', 'swal', 'select2'];
 @endphp
 
 @section('contents')
@@ -10,10 +10,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('struktur_organisasi', 2))
+                    @if (rbacCheck('program_siar', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-right">
+                                    <a href="{{ route('ref-jenis-program-siar') }}"
+                                        class="btn btn-primary btn-rounded waves-effect waves-light"><i
+                                            class="bx bx-package mr-1"></i> Jenis Program Siar</a>
+                                    <a href="{{ route('ref-program-siar') }}"
+                                        class="btn btn-info btn-rounded waves-effect waves-light"><i
+                                            class="bx bx-radio mr-1"></i> Daftar Program Siar</a>
                                     <button type="button"
                                         class="btn btn-success btn-rounded waves-effect waves-light btn-tambah"><i
                                             class="bx bx-plus-circle mr-1"></i> Tambah</button>
@@ -27,11 +33,12 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">No</th>
-                                    <th>Divisi</th>
-                                    <th>Pangkat</th>
+                                    <th>Jenis Program</th>
+                                    <th>Nama Program</th>
                                     <th>Tahun</th>
                                     <th>Order</th>
                                     <th>Status</th>
+                                    <th>Artwork</th>
                                     <th>Aksi</th>
                                     <th></th>
                                 </tr>
@@ -45,40 +52,43 @@
     </div>
 
     {{-- Create --}}
-    <div id="modal-struktur-organisasi" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-struktur-organisasiLabel" aria-hidden="true">
-        <form action="{{ route('struktur-organisasi.store') }}" method="post" id="form-struktur-organisasi"
-            autocomplete="off">
+    <div id="modal-program-siar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-program-siarLabel"
+        aria-hidden="true">
+        <form action="{{ route('program-siar.store') }}" method="post" id="form-program-siar" autocomplete="off">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-struktur-organisasiLabel">Form Struktur Organisasi</h5>
+                        <h5 class="modal-title mt-0" id="modal-program-siarLabel">Form Program Siar</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            {{-- Divisi --}}
+
+                            {{-- Jenis Program --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
-                                    <div id="error-divisi"></div>
+                                    <label for="jenis_program_id">Jenis Program</label>
+                                    <select name="jenis_program_id" id="jenis_program_id" class="form-control select2"
+                                        required>
+                                        <option value="" selected disabled>Pilih Jenis Program</option>
+                                        @foreach ($jenis_program as $jenis)
+                                            <option value="{{ $jenis->id }}">{{ $jenis->jenis }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="error-jenis_program_id"></div>
                                 </div>
                             </div>
 
-                            {{-- Pangkat --}}
+                            {{-- Nama Program --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="pangkat">Pangkat</label>
-                                    <select name="pangkat" id="pangkat" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Pangkat Kepengurusan</option>
-                                        <option value="Pengurus">Pengurus</option>
-                                        <option value="Crew">Crew</option>
+                                    <label for="program_id">Nama Program</label>
+                                    <select name="program_id" id="program_id" class="form-control select2" required>
+                                        <option value="" selected disabled>Pilih Program Siar</option>
                                     </select>
-                                    <div id="error-pangkat"></div>
+                                    <div id="error-program_id"></div>
                                 </div>
                             </div>
 
@@ -99,6 +109,16 @@
                                     <input type="number" name="order" id="order" class="form-control"
                                         placeholder="Masukkan Order" required>
                                     <div id="error-order"></div>
+                                </div>
+                            </div>
+
+                            {{-- Link --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="link">Link</label>
+                                    <input type="text" name="link" id="link" class="form-control"
+                                        placeholder="Masukkan Order" required>
+                                    <div id="error-link"></div>
                                 </div>
                             </div>
 
@@ -129,16 +149,16 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-struktur-organisasi-update" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-struktur-organisasi-updateLabel" aria-hidden="true">
-        <form action="{{ route('struktur-organisasi.update') }}" method="post" id="form-struktur-organisasi-update"
+    <div id="modal-program-siar-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-program-siar-updateLabel" aria-hidden="true">
+        <form action="{{ route('program-siar.update') }}" method="post" id="form-program-siar-update"
             autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-struktur-organisasi-updateLabel">Form Struktur Organisasi
+                        <h5 class="modal-title mt-0" id="modal-program-siar-updateLabel">Form Program Siar
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -146,26 +166,30 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            {{-- Divisi --}}
+                            {{-- Jenis Program --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="update-divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
-                                    <div id="error-update-divisi"></div>
+                                    <label for="update-jenis_program_id">Jenis Program</label>
+                                    <select name="jenis_program_id" id="update-jenis_program_id"
+                                        class="form-control select2" required>
+                                        <option value="" selected disabled>Pilih Jenis Program</option>
+                                        @foreach ($jenis_program as $jenis)
+                                            <option value="{{ $jenis->id }}">{{ $jenis->jenis }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="error-update-jenis_program_id"></div>
                                 </div>
                             </div>
 
-                            {{-- Pangkat --}}
+                            {{-- Nama Program --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-pangkat">Pangkat</label>
-                                    <select name="pangkat" id="update-pangkat" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Pangkat Kepengurusan</option>
-                                        <option value="Pengurus">Pengurus</option>
-                                        <option value="Crew">Crew</option>
+                                    <label for="update-program_id">Nama Program</label>
+                                    <select name="program_id" id="update-program_id" class="form-control select2"
+                                        required>
+                                        <option value="" selected disabled>Pilih Program Siar</option>
                                     </select>
-                                    <div id="error-update-pangkat"></div>
+                                    <div id="error-update-program_id"></div>
                                 </div>
                             </div>
 
@@ -186,6 +210,16 @@
                                     <input type="number" name="order" id="update-order" class="form-control"
                                         placeholder="Masukkan Order" required>
                                     <div id="error-update-order"></div>
+                                </div>
+                            </div>
+
+                            {{-- Link --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="update-link">Link</label>
+                                    <input type="text" name="link" id="update-link" class="form-control"
+                                        placeholder="Masukkan Link" required>
+                                    <div id="error-update-link"></div>
                                 </div>
                             </div>
 
@@ -218,5 +252,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/struktur-organisasi/list.js?q=' . Str::random(5)) }}"></script>
+    <script src="{{ asset('js/page/program-siar/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

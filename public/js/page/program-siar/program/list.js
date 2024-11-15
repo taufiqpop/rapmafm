@@ -1,14 +1,19 @@
 let table;
 $(() => {
+    // Select2
+    $('.select2').select2({
+        width: '100%'
+    });
+
     // Delete
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
-        let { id, nama_event } = data;
+        let { id, nama } = data;
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus events "<b>${nama_event}</b>"!`,
+            html: `Anda akan menghapus program siar "<b>${nama}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -17,11 +22,11 @@ $(() => {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post(BASE_URL + 'events/delete', {
+                $.post(BASE_URL + 'ref-program-siar/delete', {
                     id,
                     _method: 'DELETE'
                 }).done((res) => {
-                    showSuccessToastr('Sukses', 'Events berhasil dihapus');
+                    showSuccessToastr('Sukses', 'Program Siar berhasil dihapus');
                     table.ajax.reload();
                 }).fail((res) => {
                     let { status, responseJSON } = res;
@@ -32,7 +37,7 @@ $(() => {
     })
 
     // Update
-    $('#form-events-update').on('submit', function (e) {
+    $('#form-ref-program-siar-update').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -46,17 +51,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-ref-program-siar-update').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-ref-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-events-update').modal('hide');
+                $('#modal-ref-program-siar-update').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-ref-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -73,17 +78,17 @@ $(() => {
         let data = table.row(tr).data();
 
         clearErrorMessage();
-        $('#form-events-update')[0].reset();
+        $('#form-ref-program-siar-update')[0].reset();
 
         $.each(data, (key, value) => {
-            $('#update-' + key).val(value);
+            $('#update-' + key).val(value).trigger('change');
         })
 
-        $('#modal-events-update').modal('show');
+        $('#modal-ref-program-siar-update').modal('show');
     })
 
     // Create
-    $('#form-events').on('submit', function (e) {
+    $('#form-ref-program-siar').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -97,17 +102,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-ref-program-siar').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-ref-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-events').modal('hide');
+                $('#modal-ref-program-siar').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-ref-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -120,9 +125,9 @@ $(() => {
     })
 
     $('.btn-tambah').on('click', function () {
-        $('#form-events')[0].reset();
+        $('#form-ref-program-siar')[0].reset();
         clearErrorMessage();
-        $('#modal-events').modal('show');
+        $('#modal-ref-program-siar').modal('show');
     });
 
     // List
@@ -131,7 +136,7 @@ $(() => {
         serverSide: true,
         language: dtLang,
         ajax: {
-            url: BASE_URL + 'events/data',
+            url: BASE_URL + 'ref-program-siar/data',
             type: 'get',
             dataType: 'json'
         },
@@ -142,7 +147,7 @@ $(() => {
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2],
             className: 'text-left align-top'
         }, {
             targets: [-1],
@@ -151,13 +156,9 @@ $(() => {
         columns: [{
             data: 'DT_RowIndex'
         }, {
-            data: 'jenis_event',
+            data: 'jenis_program.jenis',
         }, {
-            data: 'nama_event',
-        }, {
-            data: 'tahun',
-        }, {
-            data: 'order',
+            data: 'nama',
         }, {
             data: 'is_active',
             render: (data, type, row) => {
@@ -169,29 +170,8 @@ $(() => {
                 `;
             }
         }, {
-            data: 'path',
-            render: function(data, type, row) {
-                if (data) {
-                    return `<img src="${data}" alt="Image" style="width: 100px; height: auto;">`;
-                } else {
-                    return 'No Image';
-                }
-            }
-        }, {
             data: 'id',
             render: (data, type, row) => {
-                const button_link = $('<a>', {
-                    style: 'color: white',
-                    class: 'btn btn-info btn-link',
-                    html: '<i class="bx bx-link"></i>',
-                    'data-id': data,
-                    title: 'Link Event',
-                    'data-placement': 'top',
-                    'data-toggle': 'tooltip',
-                    href: row.link,
-                    target: '_blank'
-                });
-
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',
                     html: '<i class="bx bx-pencil"></i>',
@@ -214,7 +194,6 @@ $(() => {
                     class: 'btn-group',
                     html: () => {
                         let arr = [];
-                        arr.push(button_link)
 
                         if (permissions.update) {
                             arr.push(button_edit)
@@ -238,37 +217,16 @@ $(() => {
         let id = $(this).data('id');
         let value = $(this).val();
 
-        $.post(BASE_URL + 'events/switch', {
+        $.post(BASE_URL + 'ref-program-siar/switch', {
             id,
             value,
             _method: 'PATCH'
         }).done((res) => {
-            showSuccessToastr('sukses', value == '1' ? 'Events berhasil diaktifkan' : 'Events berhasil dinonaktifkan');
+            showSuccessToastr('sukses', value == '1' ? 'Program Siar berhasil diaktifkan' : 'Program Siar berhasil dinonaktifkan');
             table.ajax.reload();
         }).fail((res) => {
             let { status, responseJSON } = res;
             showErrorToastr('oops', responseJSON.message);
         })
     })
-
-    // Image Preview
-    $('.images').on('change', function() {
-        let reader = new FileReader();
-        let preview = $('.images-preview');
-
-        reader.onload = function(e) {
-            preview.attr('src', e.target.result);
-            preview.show();
-        }
-
-        if (this.files && this.files[0]) {
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-
-    // Images Clear
-    $('#modal-events').on('hidden.bs.modal', function () {
-        $('.images').val('');
-        $('.images-preview').attr('src', '').hide();
-    });
 })

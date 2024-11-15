@@ -42,7 +42,7 @@ class EventsController extends Controller
             'tahun' => 'required|string',
             'order' => 'required|string',
             'link' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
@@ -154,6 +154,7 @@ class EventsController extends Controller
         }
     }
 
+    // Switch Status
     public function switchStatus(Request $request)
     {
         try {

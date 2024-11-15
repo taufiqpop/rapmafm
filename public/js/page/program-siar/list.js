@@ -1,14 +1,19 @@
 let table;
 $(() => {
+    // Select2
+    $('.select2').select2({
+        width: '100%'
+    });
+    
     // Delete
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
-        let { id, nama_event } = data;
+        let { id } = data;
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus events "<b>${nama_event}</b>"!`,
+            html: `Anda akan menghapus program siar "<b>${data.program_siar.nama}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -17,11 +22,11 @@ $(() => {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post(BASE_URL + 'events/delete', {
+                $.post(BASE_URL + 'program-siar/delete', {
                     id,
                     _method: 'DELETE'
                 }).done((res) => {
-                    showSuccessToastr('Sukses', 'Events berhasil dihapus');
+                    showSuccessToastr('Sukses', 'Program Siar berhasil dihapus');
                     table.ajax.reload();
                 }).fail((res) => {
                     let { status, responseJSON } = res;
@@ -32,7 +37,7 @@ $(() => {
     })
 
     // Update
-    $('#form-events-update').on('submit', function (e) {
+    $('#form-program-siar-update').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -46,17 +51,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-program-siar-update').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-events-update').modal('hide');
+                $('#modal-program-siar-update').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -73,17 +78,33 @@ $(() => {
         let data = table.row(tr).data();
 
         clearErrorMessage();
-        $('#form-events-update')[0].reset();
+        $('#form-program-siar-update')[0].reset();
 
         $.each(data, (key, value) => {
-            $('#update-' + key).val(value);
+            $('#update-' + key).val(value).trigger('change');
         })
 
-        $('#modal-events-update').modal('show');
+        if (data.jenis_program_id) {
+            $.ajax({
+                url: BASE_URL + 'program-siar/getProgramSiar/' + data.jenis_program_id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (programs) {
+                    $('#update-program_id').empty();
+                    $('#update-program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+                    $.each(programs, function (key, program) {
+                        let selected = program.id == data.program_id ? 'selected' : '';
+                        $('#update-program_id').append(`<option value="${program.id}" ${selected}>${program.nama}</option>`);
+                    });
+                }
+            });
+        }
+        
+        $('#modal-program-siar-update').modal('show');
     })
 
     // Create
-    $('#form-events').on('submit', function (e) {
+    $('#form-program-siar').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -97,17 +118,17 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-program-siar').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-events').modal('hide');
+                $('#modal-program-siar').modal('hide');
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -120,9 +141,9 @@ $(() => {
     })
 
     $('.btn-tambah').on('click', function () {
-        $('#form-events')[0].reset();
+        $('#form-program-siar')[0].reset();
         clearErrorMessage();
-        $('#modal-events').modal('show');
+        $('#modal-program-siar').modal('show');
     });
 
     // List
@@ -131,7 +152,7 @@ $(() => {
         serverSide: true,
         language: dtLang,
         ajax: {
-            url: BASE_URL + 'events/data',
+            url: BASE_URL + 'program-siar/data',
             type: 'get',
             dataType: 'json'
         },
@@ -151,9 +172,9 @@ $(() => {
         columns: [{
             data: 'DT_RowIndex'
         }, {
-            data: 'jenis_event',
+            data: 'program_siar.jenis_program.jenis',
         }, {
-            data: 'nama_event',
+            data: 'program_siar.nama',
         }, {
             data: 'tahun',
         }, {
@@ -182,10 +203,10 @@ $(() => {
             render: (data, type, row) => {
                 const button_link = $('<a>', {
                     style: 'color: white',
-                    class: 'btn btn-info btn-link',
-                    html: '<i class="bx bx-link"></i>',
+                    class: 'btn btn-success btn-link',
+                    html: '<i class="fab fa-spotify"></i>',
                     'data-id': data,
-                    title: 'Link Event',
+                    title: 'Link Spotify',
                     'data-placement': 'top',
                     'data-toggle': 'tooltip',
                     href: row.link,
@@ -238,12 +259,12 @@ $(() => {
         let id = $(this).data('id');
         let value = $(this).val();
 
-        $.post(BASE_URL + 'events/switch', {
+        $.post(BASE_URL + 'program-siar/switch', {
             id,
             value,
             _method: 'PATCH'
         }).done((res) => {
-            showSuccessToastr('sukses', value == '1' ? 'Events berhasil diaktifkan' : 'Events berhasil dinonaktifkan');
+            showSuccessToastr('sukses', value == '1' ? 'Program Siar berhasil diaktifkan' : 'Program Siar berhasil dinonaktifkan');
             table.ajax.reload();
         }).fail((res) => {
             let { status, responseJSON } = res;
@@ -267,8 +288,52 @@ $(() => {
     });
 
     // Images Clear
-    $('#modal-events').on('hidden.bs.modal', function () {
+    $('#modal-program-siar').on('hidden.bs.modal', function () {
         $('.images').val('');
         $('.images-preview').attr('src', '').hide();
+    });
+
+    // Get Program Siar
+    $('#jenis_program_id').on('change', function () {
+        let jenisProgramId = $(this).val();
+        if (jenisProgramId) {
+            $.ajax({
+                url: BASE_URL + 'program-siar/getProgramSiar/' + jenisProgramId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#program_id').empty();
+                    $('#program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+                    $.each(data, function(key, value) {
+                        $('#program_id').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#program_id').empty();
+            $('#program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+        }
+    });
+
+    // Get Program Siar Update
+    $('#update-jenis_program_id').on('change', function () {
+        let jenisProgramId = $(this).val();
+        if (jenisProgramId) {
+            $.ajax({
+                url: BASE_URL + 'program-siar/getProgramSiar/' + jenisProgramId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#update-program_id').empty();
+                    $('#update-program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+                    $.each(data, function(key, value) {
+                        $('#update-program_id').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#update-program_id').empty();
+            $('#update-program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+        }
     });
 })

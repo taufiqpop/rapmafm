@@ -62,6 +62,12 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapStrukturOrganisasiRoutes();
 
             $this->mapEventsRoutes();
+
+            $this->mapProgramSiarRoutes();
+
+            $this->mapRefProgramSiarRoutes();
+
+            $this->mapRefJenisProgramSiarRoutes();
         });
     }
 
@@ -141,5 +147,26 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('events')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/events.php'));
+    }
+
+    protected function mapProgramSiarRoutes()
+    {
+        Route::prefix('program-siar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/program-siar.php'));
+    }
+
+    protected function mapRefProgramSiarRoutes()
+    {
+        Route::prefix('ref-program-siar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/ref-program-siar.php'));
+    }
+
+    protected function mapRefJenisProgramSiarRoutes()
+    {
+        Route::prefix('ref-jenis-program-siar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/ref-jenis-program-siar.php'));
     }
 }
