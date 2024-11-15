@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>RAPMA FM | Register</title>
+    <title>AFEL | Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="RAPMA FM" name="description" />
+    <meta content="AFEL" name="description" />
     <meta content="alief" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/logo/afel_putih.png">
@@ -38,7 +38,7 @@
                                                 <br>
                                                 <i class="bx bxs-quote-alt-left text-primary h1 align-middle mr-3"></i>
                                                 <span class="text-primary">Assessment For Economics Learning
-                                                    (RAPMA FM)</span>
+                                                    (AFEL)</span>
                                                 <i class="bx bxs-quote-alt-right text-primary h1 align-middle ml-3"></i>
                                             </h4>
                                             <p class="font-size-16 mb-5 mt-2 text-center text-capitalize">Platform untuk

@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>RAPMA FM | Login</title>
+    <title>AFEL | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="RAPMA FM" name="description" />
+    <meta content="AFEL" name="description" />
     <meta content="alief" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/logo/afel_putih.png">
@@ -38,7 +38,7 @@
                                                     style="width: 300px; height: auto;">
                                                 <br>
                                                 <i class="bx bxs-quote-alt-left text-primary h1 align-middle mr-3"></i>
-                                                <span class="text-primary">RAPMA FM</span>
+                                                <span class="text-primary">AFEL</span>
                                                 <i class="bx bxs-quote-alt-right text-primary h1 align-middle ml-3"></i>
                                             </h4>
                                             <p class="font-size-16 mb-5 mt-2 text-center text-capitalize">Platform untuk
@@ -63,7 +63,7 @@
                             <div class="my-auto">
                                 <div>
                                     <h5 class="text-primary">Welcome Back !</h5>
-                                    <p class="text-muted">Sign in to continue to RAPMA FM</p>
+                                    <p class="text-muted">Sign in to continue to AFEL</p>
                                 </div>
 
                                 <div class="mt-4">
