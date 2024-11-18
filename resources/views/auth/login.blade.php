@@ -8,7 +8,7 @@
     <meta content="RAPMA FM" name="description" />
     <meta content="alief" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/logo/afel_putih.png">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- Bootstrap Css -->
     <link href="{{ config('app.theme') }}assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
@@ -34,17 +34,13 @@
                                         <div class="text-center"
                                             style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                             <h4 class="mb-2">
-                                                <img src="assets/images/logo/afel_hitam.png" class="img-fluid mb-4"
+                                                <img src="assets/images/logo/RapmaFM.png" class="img-fluid mb-4"
                                                     style="width: 300px; height: auto;">
                                                 <br>
                                                 <i class="bx bxs-quote-alt-left text-primary h1 align-middle mr-3"></i>
                                                 <span class="text-primary">RAPMA FM</span>
                                                 <i class="bx bxs-quote-alt-right text-primary h1 align-middle ml-3"></i>
                                             </h4>
-                                            <p class="font-size-16 mb-5 mt-2 text-center text-capitalize">Platform untuk
-                                                membantu guru ekonomi dalam melakukan penilaian pembelajaran <br>dengan
-                                                dukungan perangkat penilaian yang <br>Sistematis, Produktif,
-                                                Profesional.</p>
                                         </div>
                                     </div>
                                 </div>

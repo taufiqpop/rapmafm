@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
-                                    <img src="{{ config('app.theme') }}assets/images/profile-img.png" alt=""
+                                    <img src="{{ config('app.theme') }}assets/images/RapmaFM.png" alt=""
                                         class="img-fluid">
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
                                 <a href="{{ route('rapmafm') }}" target="_blank">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{ config('app.theme') }}assets/images/logo/afel_hitam.png"
-                                                alt="" class="rounded-circle" height="34">
+                                            <img src="{{ config('app.theme') }}assets/images/logo/RapmaFM_Header.png"
+                                                alt="" class="rounded-circle" height="75">
                                         </span>
                                     </div>
                                 </a>

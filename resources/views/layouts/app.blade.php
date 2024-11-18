@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Favicons --}}
-    <link rel="shortcut icon" href="{{ config('app.theme') }}assets/images/logo/afel_putih.png">
+    <link rel="shortcut icon" href="{{ config('app.theme') }}assets/images/favicon.ico">
 
     @include('layouts.component._style')
     @stack('styles')
@@ -27,12 +27,12 @@
                     <div class="navbar-brand-box">
                         <a href="/" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="{{ config('app.theme') }}assets/images/logo/afel_putih.png" alt=""
-                                    height="22">
+                                <img src="{{ config('app.theme') }}assets/images/logo/RapmaFM.png" alt=""
+                                    height="15">
                             </span>
                             <span class="logo-lg">
-                                <img src="{{ config('app.theme') }}assets/images/logo/afel_putih.png" alt=""
-                                    height="55">
+                                <img src="{{ config('app.theme') }}assets/images/logo/RapmaFM.png" alt=""
+                                    height="50">
                             </span>
                         </a>
                     </div>
