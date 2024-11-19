@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,17 +6,12 @@
     <title>RAPMA FM | Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="RAPMA FM" name="description" />
-    <meta content="alief" name="author" />
-    <!-- App favicon -->
+    <meta content="Taufiq Pop" name="author" />
+
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-    <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
     <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
 </head>
 
 <div>
@@ -35,10 +30,6 @@
                                             <h4 class="mb-2">
                                                 <img src="assets/images/logo/RapmaFM.png" class="img-fluid mb-4"
                                                     style="width: 300px; height: auto;">
-                                                <br>
-                                                <i class="bx bxs-quote-alt-left text-primary h1 align-middle mr-3"></i>
-                                                <span class="text-primary">RAPMA FM</span>
-                                                <i class="bx bxs-quote-alt-right text-primary h1 align-middle ml-3"></i>
                                             </h4>
                                         </div>
                                     </div>
@@ -48,8 +39,8 @@
                     </div>
                 </div>
             </div>
-            <!-- end col -->
 
+            <!-- Form Register -->
             <div class="col-xl-4">
                 <div class="auth-full-page-content p-md-5 p-4">
                     <div class="w-100">
@@ -65,17 +56,16 @@
                                         <div class="alert alert-danger">{{ session('message') }}</div>
                                     @endif
                                     <form class="form-horizontal" action="{{ route('register') }}" autocomplete="off"
-                                        method="post">
+                                        method="POST">
                                         @csrf
 
+                                        {{-- Nama Lengkap --}}
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="role_id" name="role_id"
-                                                value=2 hidden>
-                                            <label for="name">Nama</label>
+                                            <label for="name">Nama Lengkap</label>
                                             <input type="text"
                                                 class="form-control @error('name') is-invalid @enderror" id="name"
-                                                name="name" value="{{ old('name') }}" placeholder="Masukkan Nama"
-                                                autofocus>
+                                                name="name" value="{{ old('name') }}"
+                                                placeholder="Masukkan Nama Lengkap" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -83,6 +73,7 @@
                                             @enderror
                                         </div>
 
+                                        {{-- Username --}}
                                         <div class="form-group">
                                             <label for="username">Username</label>
                                             <input type="text"
@@ -96,6 +87,7 @@
                                             @enderror
                                         </div>
 
+                                        {{-- Email --}}
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email"
@@ -108,6 +100,8 @@
                                                 </span>
                                             @enderror
                                         </div>
+
+                                        {{-- Password --}}
                                         <div class="form-group">
                                             <label for="password">Kata Sandi <span
                                                     style="color: red;font-size: smaller;font-family: 'serif';">
@@ -124,14 +118,12 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <label><span
-                                                    style="color: red;font-size: smaller;font-family: 'serif';">*minimal
-                                                    8 karakter dan mengandung huruf dan angka</span></label>
                                             @error('password')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
+                                        {{-- Confirm Passwords --}}
                                         <div class="form-group">
                                             <label for="password_confirmation">Konfirmasi Kata Sandi <span
                                                     style="color: red;font-size: smaller;font-family: 'serif';">
@@ -148,20 +140,21 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <label><span
-                                                    style="color: red;font-size: smaller;font-family: 'serif';">*Harus
-                                                    sama dengan Password</span></label>
                                             @error('password_confirmation')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        {{-- Button Register --}}
                                         <div class="mt-3">
                                             <button class="btn btn-primary btn-block waves-effect waves-light"
                                                 type="submit">Register</button>
                                         </div>
+
+                                        {{-- Button Cancel --}}
                                         <div class="mt-2">
                                             <a href="{{ route('login') }}"
-                                                class="btn btn-danger btn-block waves-effect waves-light">Batal</a>
+                                                class="btn btn-danger btn-block waves-effect waves-light">Cancel</a>
                                         </div>
                                     </form>
                                 </div>
@@ -169,20 +162,16 @@
                         </div>
                     </div>
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container-fluid -->
     </div>
 
-    {{-- js untuk show password --}}
     <script>
+        // Show Password Toggle
         document.getElementById('showPasswordToggle').addEventListener('click', function() {
-            var passwordField = document.getElementById('password');
-            var fieldType = passwordField.getAttribute('type');
+            let passwordField = document.getElementById('password');
+            let fieldType = passwordField.getAttribute('type');
 
-            // Toggle password visibility
             if (fieldType === 'password') {
                 passwordField.setAttribute('type', 'text');
             } else {
@@ -190,11 +179,11 @@
             }
         });
 
+        // Show Password Confirm Toggle
         document.getElementById('showPasswordConfirmToggle').addEventListener('click', function() {
-            var passwordField = document.getElementById('password_confirmation');
-            var fieldType = passwordField.getAttribute('type');
+            let passwordField = document.getElementById('password_confirmation');
+            let fieldType = passwordField.getAttribute('type');
 
-            // Toggle password visibility
             if (fieldType === 'password') {
                 passwordField.setAttribute('type', 'text');
             } else {
