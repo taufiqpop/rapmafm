@@ -33,7 +33,7 @@
                                     <th>Order</th>
                                     <th>Status</th>
                                     <th>Artwork</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

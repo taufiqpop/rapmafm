@@ -54,6 +54,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-struktur-organisasi-update').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data telah berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-struktur-organisasi-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -74,6 +81,9 @@ $(() => {
 
         clearErrorMessage();
         $('#form-struktur-organisasi-update')[0].reset();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
 
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
@@ -105,6 +115,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-struktur-organisasi').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data telah berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-struktur-organisasi').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -122,6 +139,10 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-struktur-organisasi')[0].reset();
         clearErrorMessage();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
+
         $('#modal-struktur-organisasi').modal('show');
     });
 
@@ -142,8 +163,11 @@ $(() => {
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2, 3],
             className: 'text-left align-top'
+        }, {
+            targets: [4, 5, 6],
+            className: 'text-center align-top'
         }, {
             targets: [-1],
             visible: false,
@@ -167,6 +191,15 @@ $(() => {
                     <label class="custom-control-label" for="aktif-${row.id}">${data == '1' ? 'Aktif' : 'Nonaktif'}</label>
                 </div>
                 `;
+            }
+        }, {
+            data: 'path',
+            render: function(data, type, row) {
+                if (data) {
+                    return `<img src="${data}" alt="Image" style="width: 100px; height: auto;">`;
+                } else {
+                    return 'No Image';
+                }
             }
         }, {
             data: 'id',
@@ -245,7 +278,7 @@ $(() => {
     });
 
     // Images Clear
-    $('#modal-events').on('hidden.bs.modal', function () {
+    $('#modal-struktur-organisasi').on('hidden.bs.modal', function () {
         $('.images').val('');
         $('.images-preview').attr('src', '').hide();
     });

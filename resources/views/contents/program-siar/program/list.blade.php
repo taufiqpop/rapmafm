@@ -31,7 +31,7 @@
                                     <th>Jenis Program</th>
                                     <th>Nama Program</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

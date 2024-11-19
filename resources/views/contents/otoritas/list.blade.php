@@ -36,7 +36,7 @@
                                 <tr>
                                     <th style="width: 5%;">#</th>
                                     <th>Nama Otoritas</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

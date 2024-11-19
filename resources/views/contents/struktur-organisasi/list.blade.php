@@ -31,8 +31,9 @@
                                     <th>Pangkat</th>
                                     <th>Tahun</th>
                                     <th>Order</th>
+                                    <th>Artwork</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

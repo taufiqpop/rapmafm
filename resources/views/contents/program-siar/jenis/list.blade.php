@@ -30,7 +30,7 @@
                                     <th style="width: 5%;">No</th>
                                     <th>Jenis Program</th>
                                     <th>Key</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

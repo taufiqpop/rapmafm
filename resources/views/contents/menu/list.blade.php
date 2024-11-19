@@ -29,7 +29,7 @@
                                     <th>Induk Menu</th>
                                     <th>Ikon</th>
                                     <th>Tautan</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>

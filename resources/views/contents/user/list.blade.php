@@ -28,7 +28,7 @@
                                     <th>Username</th>
                                     <th>Nama Lengkap</th>
                                     <th>Status Keaktifan</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     <th></th>
                                 </tr>
                             </thead>
