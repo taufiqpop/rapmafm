@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 19/11/2024 02:03:06
+ Date: 20/11/2024 01:33:24
 */
 
 SET NAMES utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE `events`  (
 -- ----------------------------
 -- Records of events
 -- ----------------------------
-INSERT INTO `events` VALUES (1, 'RAPMADAY', 'RAPMADAY #7', 2021, '1710311715_add3ca2b885fce9fe237.png', '/storage/uploads/events/2021/RAPMADAY/RAPMADAY%20%237/sFAJ40bhNEvzZxgumTqr1rS2jx7p9K0WVMTO9v7K.png', 'https://www.youtube.com/', 1, 1, '2024-11-19 01:56:38', '2024-11-19 01:56:38', NULL);
+INSERT INTO `events` VALUES (1, 'RAPMADAY', 'RAPMADAY #7', 2021, '1710311715_add3ca2b885fce9fe237.png', '/storage/uploads/events/2021/RAPMADAY/RAPMADAY%20%237/sFAJ40bhNEvzZxgumTqr1rS2jx7p9K0WVMTO9v7K.png', 'https://www.youtube.com/', 1, 1, '2024-11-19 01:56:38', '2024-11-19 11:15:58', NULL);
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -1292,7 +1292,7 @@ CREATE TABLE `pesan`  (
 -- ----------------------------
 -- Records of pesan
 -- ----------------------------
-INSERT INTO `pesan` VALUES (1, 'Pop', 'pop@gmail.com', 'Test', 'Test', '2024-11-19 01:55:20', '2024-11-19 01:55:20', NULL);
+INSERT INTO `pesan` VALUES (1, 'Pop', 'pop@gmail.com', 'Test', 'Test', '2024-11-19 01:55:20', '2024-11-19 11:12:50', NULL);
 
 -- ----------------------------
 -- Table structure for program_siar
@@ -1317,7 +1317,7 @@ CREATE TABLE `program_siar`  (
 -- ----------------------------
 -- Records of program_siar
 -- ----------------------------
-INSERT INTO `program_siar` VALUES (1, 1, 1, 2021, '1710312120_135e5ffee5029c18d101.png', '/storage/uploads/programs/2021/Regular%20Program/BASOSAPI/h9vp1MzPnEOKBQpDvSgpEEb8NM2ju0zPATu0ibje.png', 'https://open.spotify.com/episode/0H0UTyvK4su14jJVDcfk2X', 1, 1, '2024-11-19 02:02:02', '2024-11-19 02:02:02', NULL);
+INSERT INTO `program_siar` VALUES (1, 1, 1, 2021, '1710312120_135e5ffee5029c18d101.png', '/storage/uploads/programs/2021/Regular%20Program/BASOSAPI/h9vp1MzPnEOKBQpDvSgpEEb8NM2ju0zPATu0ibje.png', 'https://open.spotify.com/episode/0H0UTyvK4su14jJVDcfk2X', 1, 1, '2024-11-19 02:02:02', '2024-11-19 11:20:36', NULL);
 
 -- ----------------------------
 -- Table structure for ref_jenis_program_siar
@@ -1338,7 +1338,7 @@ CREATE TABLE `ref_jenis_program_siar`  (
 -- ----------------------------
 INSERT INTO `ref_jenis_program_siar` VALUES (1, 'Regular Program', 'regular', '2024-11-15 19:57:11', '2024-11-15 19:57:11', NULL);
 INSERT INTO `ref_jenis_program_siar` VALUES (2, 'Special Program', 'special', '2024-11-15 19:58:28', '2024-11-15 19:58:28', NULL);
-INSERT INTO `ref_jenis_program_siar` VALUES (3, 'Podcast', 'podcast', '2024-11-15 19:58:37', '2024-11-15 19:58:55', NULL);
+INSERT INTO `ref_jenis_program_siar` VALUES (3, 'Podcast', 'podcast', '2024-11-15 19:58:37', '2024-11-19 11:22:17', NULL);
 
 -- ----------------------------
 -- Table structure for ref_program_siar
@@ -1376,7 +1376,7 @@ INSERT INTO `ref_program_siar` VALUES (15, 2, 'SPORTACULAR', 1, '2024-11-19 01:5
 INSERT INTO `ref_program_siar` VALUES (16, 2, 'SUDUT KAMPUS', 1, '2024-11-19 01:59:58', '2024-11-19 01:59:58', NULL);
 INSERT INTO `ref_program_siar` VALUES (17, 2, 'NO SATNIGHT', 1, '2024-11-19 02:00:15', '2024-11-19 02:00:15', NULL);
 INSERT INTO `ref_program_siar` VALUES (18, 2, 'CLASSIC NIGHT', 1, '2024-11-19 02:00:24', '2024-11-19 02:00:24', NULL);
-INSERT INTO `ref_program_siar` VALUES (19, 3, 'RAPMATALKS', 1, '2024-11-19 02:01:06', '2024-11-19 02:01:06', NULL);
+INSERT INTO `ref_program_siar` VALUES (19, 3, 'RAPMATALKS', 1, '2024-11-19 02:01:06', '2024-11-19 11:23:56', NULL);
 
 -- ----------------------------
 -- Table structure for roles
@@ -1438,12 +1438,12 @@ CREATE TABLE `struktur_organisasi`  (
 -- ----------------------------
 -- Records of struktur_organisasi
 -- ----------------------------
-INSERT INTO `struktur_organisasi` VALUES (1, 'GMPA', 'Pengurus', 2021, 1, '1710307248_d2b71ff9ea4058e7c6e5.png', '/storage/uploads/struktur-organisasi/2021/GMPA/wNMXLJbfvVy3NU7sZHM5P7Z8ljc7MtOWx79uELsD.png', 1, '2024-11-19 01:52:19', '2024-11-19 01:52:19', NULL);
-INSERT INTO `struktur_organisasi` VALUES (2, 'Umum', 'Pengurus', 2021, 2, '1710303526_d4505a7756c75dc9d1ff.png', '/storage/uploads/struktur-organisasi/2021/Umum/Q8Mfge6bUtyfyu35eQjrU8v3DqRAenFWtiqiWttx.png', 1, '2024-11-19 01:52:43', '2024-11-19 01:52:43', NULL);
+INSERT INTO `struktur_organisasi` VALUES (1, 'GMPA', 'Pengurus', 2021, 1, '1710307248_d2b71ff9ea4058e7c6e5.png', '/storage/uploads/struktur-organisasi/2021/GMPA/wNMXLJbfvVy3NU7sZHM5P7Z8ljc7MtOWx79uELsD.png', 1, '2024-11-19 01:52:19', '2024-11-19 11:07:33', NULL);
+INSERT INTO `struktur_organisasi` VALUES (2, 'Umum', 'Pengurus', 2021, 2, '1710303526_d4505a7756c75dc9d1ff.png', '/storage/uploads/struktur-organisasi/2021/Umum/Q8Mfge6bUtyfyu35eQjrU8v3DqRAenFWtiqiWttx.png', 1, '2024-11-19 01:52:43', '2024-11-19 11:07:34', NULL);
 INSERT INTO `struktur_organisasi` VALUES (3, 'Kepenyiaran', 'Pengurus', 2021, 3, '1710304363_8d0637ccd093227f0cb7.png', '/storage/uploads/struktur-organisasi/2021/Kepenyiaran/AxHW2omfPtyq5gxP9e662cxH5QPlKaKuO9tsq9Fm.png', 1, '2024-11-19 01:53:00', '2024-11-19 01:53:00', NULL);
 INSERT INTO `struktur_organisasi` VALUES (4, 'Marketing', 'Pengurus', 2021, 4, '1710304409_4455e94f59b8b3327de8.png', '/storage/uploads/struktur-organisasi/2021/Marketing/d6kGWmlcHGPwdhwCAhoa474RyempNAwBtsAjisCJ.png', 1, '2024-11-19 01:53:15', '2024-11-19 01:53:15', NULL);
 INSERT INTO `struktur_organisasi` VALUES (5, 'Personalia', 'Pengurus', 2021, 5, '1710304423_4331aebb0df6c1f75044.png', '/storage/uploads/struktur-organisasi/2021/Personalia/CvI9jPqyD3bwxrPlTs7bWKPbaYTEWVf6ba1qqdh5.png', 1, '2024-11-19 01:53:27', '2024-11-19 01:53:27', NULL);
-INSERT INTO `struktur_organisasi` VALUES (6, 'Crew', 'Crew', 2021, 0, '1710387359_093bceeceb273dde81b2.png', '/storage/uploads/struktur-organisasi/2021/Crew/oRjN2QxIfK6aW2xyV920lmbv91RRM7RwuoFmW7Bu.png', 1, '2024-11-19 01:53:42', '2024-11-19 01:53:56', NULL);
+INSERT INTO `struktur_organisasi` VALUES (6, 'Crew', 'Crew', 2021, 0, '1710387359_093bceeceb273dde81b2.png', '/storage/uploads/struktur-organisasi/2021/Crew/oRjN2QxIfK6aW2xyV920lmbv91RRM7RwuoFmW7Bu.png', 1, '2024-11-19 01:53:42', '2024-11-19 11:07:37', NULL);
 
 -- ----------------------------
 -- Table structure for user_roles
@@ -1518,7 +1518,8 @@ CREATE TABLE `users`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `real_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `is_active` int NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1530,33 +1531,33 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Taufiq Pop', 'taufiqpop999@gmail.com', 'taufiqpop', '$2y$10$OcLCAiOhFQfi3Z5Hv/K2zu4CBB4CyTREyimWLxbBeNAmiYa4X2AE6', NULL, 1, '2024-07-03 00:16:10', '2024-11-10 18:38:34', NULL);
-INSERT INTO `users` VALUES (2, 'Reza Lutfian Ardi', NULL, 'rezalutfian', '$2y$10$.jcgcyAXa9/DNj.odc7s8uO7le7dbzrrMvWJut8Faq0hT5CWKJHEm', NULL, 1, '2024-07-03 00:16:11', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (3, 'Lala Dwi Alfiyah', NULL, 'lalapo19', '$2y$10$4qkhdZ3wdBIwhV7EA0w/4.rdi2yUzf5XhLy3R28xA744rbum/F/NW', NULL, 1, '2024-07-03 00:16:12', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (4, 'Agnes Dyva Zuhratul Aulia', NULL, 'agnesdyva', '$2y$10$6HWNYnM2.OWe1cK/08Z1PetnbkuuGsbVlnPplL9oQt.cruuD4ksVm', NULL, 1, '2024-07-03 00:16:13', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (5, 'Sidam Lighfal Amien', NULL, 'lighfal', '$2y$10$WT0C3i0lF.r/H71PPgGdsOrpgd/8tdfReACnua9EWBFEnUHTQiGlC', NULL, 1, '2024-07-03 00:16:14', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (6, 'Brilliant Adhi Putra Sampurno', NULL, 'brilly', '$2y$10$EshNlISUq/eN9rAj5tzCuuHIbGaqiqYpUz8xtXDfG5g0kTsh1kiMm', NULL, 1, '2024-07-03 00:16:15', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (7, 'Muhammad Hanif Al-Hafizh', NULL, 'hanif', '$2y$10$GixaIT0HmrA5WCT/JWPbneg8vf6EInkwikie7kkmHT1Dpx6Y02j8S', NULL, 1, '2024-07-03 00:16:16', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (8, 'Azzahrah Nur Salsabiilla', NULL, 'zahra', '$2y$10$XlNsLbhMg5vsKuzkUjfN5OC1C5CgA6PrfCpUEYOlrP/8BH.tYyV2q', NULL, 1, '2024-07-03 00:16:17', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (9, 'Giri Fahrezy Istighfarullah', NULL, 'giri', '$2y$10$fT/zqizBAO3BUFuqqRTAW.Z2K1VRPMvB2AxH0iJtsO9u0QAGNLd9O', NULL, 1, '2024-07-03 00:16:18', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (10, 'Ira Nur Fajriani', NULL, 'ira', '$2y$10$lFQ7gzBf1wj1CGgLSWFMOOS9Uy0t5waXlxoC4cqOfLeYBTecOhYna', NULL, 1, '2024-07-03 00:16:19', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (11, 'Pramudya Imam Prasetyo', NULL, 'pramudya', '$2y$10$.WMSp6XJ6sADE6dwVEGFKOJmzzBc.ua6rNuJjakPDKpcedTt8G7IG', NULL, 1, '2024-07-03 00:16:20', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (12, 'Aditya Yoga Pratama', NULL, 'aditya', '$2y$10$uwr.q1vx0KY1OFlkZTaB3ua/p9uc.9n0ClgGnRd7DE6sLxFKIZ9HK', NULL, 1, '2024-07-03 00:16:21', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (13, 'Muhammad Alexandria Huzain Arifin', NULL, 'alexandria', '$2y$10$q8/bAgjydPvwjF7QngXZuO1Zkfdu5lEF47kJTrx63DXfor/6Tjyni', NULL, 1, '2024-07-03 00:16:22', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (14, 'Daffa Zufar Fakhriansyah', NULL, 'dazuf', '$2y$10$SXlQ7v7gIAeVAlBubGJeW.04iiLKyDjLYhyUF01FV1gMUUJzIMbla', NULL, 1, '2024-07-03 00:16:23', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (15, 'Ainun Nafi Nurul Fadhilah', NULL, 'ainunafi', '$2y$10$HCsYemL8SwQsP0W9q88TXOCkDSWf8MLYa9lmUcW66me2ObK5A/46e', NULL, 1, '2024-07-03 00:16:24', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (16, 'Safina Fatmawati', NULL, 'safinaff', '$2y$10$Ha.SfLFdBfgrdy37SQLDbO/6a9xGemiMq/q/bHTV1lCy04P8vFjTS', NULL, 1, '2024-07-03 00:16:25', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (17, 'Maulidya Rania Insyira', NULL, 'uli', '$2y$10$egHvL/.UIbFiYqXm8xmEzurk8OIToQU6WyQn8tRfLKMkVWK6wcY.G', NULL, 1, '2024-07-03 00:16:26', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (18, 'Maulidia Kartika Putri', NULL, 'maudy', '$2y$10$Htvsoam4xu5pw3LnFH9g.uRF4FHTGahI8Bz5EWA2jehq4RiG52ELa', NULL, 1, '2024-07-03 00:16:27', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (19, 'Satya Aqsal Zardiansyah', NULL, 'aqsal', '$2y$10$Wkl90rGfMKEa68QSDT55guYTZIp2xlkfgq0THCqig7t9Is.adfXe2', NULL, 1, '2024-07-03 00:16:28', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (20, 'Vania Nuradhani Bisono', NULL, 'vania', '$2y$10$SMC5x0tYsLrlhhNO42LbgeP0f83AGUnKWIbuQEozOd4tCdXedCiWy', NULL, 1, '2024-07-03 00:16:29', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (21, 'Fajrul Falah Sholihin', NULL, 'falah', '$2y$10$OAZj9KTKLILeUe432eot5e7xtMD8AU3/O8kR4YPdroJe33EHfyXDK', NULL, 1, '2024-07-03 00:16:30', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (22, 'Aini Lathyfah', NULL, 'aini', '$2y$10$sUV8gONL11EY7RdrWGIxdOtbaE5IO/rqnfSnfg8LYm23FkiSLuAOi', NULL, 1, '2024-07-03 00:16:31', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (23, 'Wikan Fitrandi Wibisono', NULL, 'wikan', '$2y$10$yHTlO7A2YM5ndd7Uj74X0uLexxBNG6tb52UzxXrOM/S/7qbinbjTm', NULL, 1, '2024-07-03 00:16:32', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (24, 'Thifal Nurkhansa', NULL, 'thifal', '$2y$10$F1B/viPDJ17ULWFd8go33.W0GAF2JScEE1CR9ffgqlBuRC38Rb5e6', NULL, 1, '2024-07-03 00:16:33', '2024-11-10 17:58:48', NULL);
-INSERT INTO `users` VALUES (25, 'Dimas Adi Susanto', NULL, 'dimas', '$2y$10$ge3JNFM22YQJs2P4yQItVeMVXmtdt.u2xdkdn8XIbA0z726iIhyvW', NULL, 1, '2024-11-10 18:12:35', '2024-11-10 18:12:42', NULL);
-INSERT INTO `users` VALUES (26, 'Salma Widya Azhari', NULL, 'salma', '$2y$10$3yzKW9T.jFt/w/hKe6Jh0.pgmbWJZtgUpPd2JuZqA4K7Y1cbgoEiG', NULL, 1, '2024-11-10 18:15:39', '2024-11-10 18:15:39', NULL);
-INSERT INTO `users` VALUES (27, 'Crew Rapma FM', NULL, 'crewrapma', '$2y$10$DrSuG0GIhcMqhO5a4AhcBe4IRmNzaguxdJNgei1UTzLVUDTd/4fBK', NULL, 1, '2024-11-10 18:27:53', '2024-11-10 18:28:39', NULL);
-INSERT INTO `users` VALUES (28, 'Alumni Rapma FM', NULL, 'alumnirapma', '$2y$10$cMpK11sekvaf4xxsHd6fj.pnDzepsTP6mo9AmxsZCU5LAblSgJI9C', NULL, 1, '2024-11-10 18:28:16', '2024-11-10 18:28:16', NULL);
+INSERT INTO `users` VALUES (1, 'Taufiq Pop', 'taufiqpop999@gmail.com', 'taufiqpop', '$2y$10$pHiphGOUPQ01c00LiRjCP.wS70lwk3E3BYknewV0heMZv0PCQSYZ.', 'hutaowangy', NULL, 1, '2024-07-03 00:16:10', '2024-11-20 00:43:10', NULL);
+INSERT INTO `users` VALUES (2, 'Reza Lutfian Ardi', NULL, 'rezalutfian', '$2y$10$7rPMtj572MKFp6RyAW/.muGN9AcNee1xCzVrJuivCSWKEjTAZMk1y', 'taufiqpop', NULL, 1, '2024-07-03 00:16:11', '2024-11-20 01:08:26', NULL);
+INSERT INTO `users` VALUES (3, 'Lala Dwi Alfiyah', NULL, 'lalapo19', '$2y$10$upl4zie4xQPwGp1Hr1uZ1eI4oKMc0eoUJBU6glFMltMA5MvikIGlK', 'taufiqpop', NULL, 1, '2024-07-03 00:16:12', '2024-11-20 01:08:29', NULL);
+INSERT INTO `users` VALUES (4, 'Agnes Dyva Zuhratul Aulia', NULL, 'agnesdyva', '$2y$10$aKibjR6JiaA44J5mb0dtuOp8bb9Fu9M8sfJwkeirr8KdSBqYn.DUi', 'taufiqpop', NULL, 1, '2024-07-03 00:16:13', '2024-11-20 01:08:33', NULL);
+INSERT INTO `users` VALUES (5, 'Sidam Lighfal Amien', NULL, 'lighfal', '$2y$10$Pe7mfpH3gZQQzHqDT/Rr9.olTtiOF8eczgIMTgd.gmjKlTDIMdxca', 'taufiqpop', NULL, 1, '2024-07-03 00:16:14', '2024-11-20 01:08:11', NULL);
+INSERT INTO `users` VALUES (6, 'Brilliant Adhi Putra Sampurno', NULL, 'brilly', '$2y$10$bpWyPMLMkWKoSvqtknypyOHLZ6B5FmMoBAPVmtNSqM11yNImqI4Nu', 'taufiqpop', NULL, 1, '2024-07-03 00:16:15', '2024-11-20 01:08:08', NULL);
+INSERT INTO `users` VALUES (7, 'Muhammad Hanif Al-Hafizh', NULL, 'hanif', '$2y$10$tVzT4Tx5ErNJxxDzl22vyuPqU1Rd60AOb/YkNdAUOyCtH2dlMKvF6', 'taufiqpop', NULL, 1, '2024-07-03 00:16:16', '2024-11-20 01:08:04', NULL);
+INSERT INTO `users` VALUES (8, 'Azzahrah Nur Salsabiilla', NULL, 'zahra', '$2y$10$pKrBPRbLg59XJNyP/atxnuzFdMYN6pUzNIcIqVzZEU0jIVuLAokyy', 'taufiqpop', NULL, 1, '2024-07-03 00:16:17', '2024-11-20 01:08:02', NULL);
+INSERT INTO `users` VALUES (9, 'Giri Fahrezy Istighfarullah', NULL, 'giri', '$2y$10$G6AxT8ArVWvgAYnTljWtU.un3W/UGnn2.js/W//v3JsWHZ4o938si', 'taufiqpop', NULL, 1, '2024-07-03 00:16:18', '2024-11-20 01:07:58', NULL);
+INSERT INTO `users` VALUES (10, 'Ira Nur Fajriani', NULL, 'ira', '$2y$10$t4joytGgF65r0tBmo9f3J.Ig.71vCrOuNxS0KDArxgqb2whYYatcq', 'taufiqpop', NULL, 1, '2024-07-03 00:16:19', '2024-11-20 01:07:55', NULL);
+INSERT INTO `users` VALUES (11, 'Pramudya Imam Prasetyo', NULL, 'pramudya', '$2y$10$CMtoDh643VQwDi6inxMXLuYmCF.rb5tz05t1UGD6AB17vtUIeJyAG', 'taufiqpop', NULL, 1, '2024-07-03 00:16:20', '2024-11-20 01:07:52', NULL);
+INSERT INTO `users` VALUES (12, 'Aditya Yoga Pratama', NULL, 'aditya', '$2y$10$8WCcTUXO.GULqmPjXito7.gFjvxlWhYv0OFTHsYtUflgEMO/TGiMC', 'taufiqpop', NULL, 1, '2024-07-03 00:16:21', '2024-11-20 01:08:19', NULL);
+INSERT INTO `users` VALUES (13, 'Muhammad Alexandria Huzain Arifin', NULL, 'alexandria', '$2y$10$FMNpUCS1tR5QSUZLiCoWWODRIWcVa4aJ0dAZhtTWLhtNalaADPLEG', 'taufiqpop', NULL, 1, '2024-07-03 00:16:22', '2024-11-20 01:07:43', NULL);
+INSERT INTO `users` VALUES (14, 'Daffa Zufar Fakhriansyah', NULL, 'dazuf', '$2y$10$U..hPPfaBkqO5IMlEIC3.uMyUI7Pvmvuy0RGsk4jmdOV0ZwYy1vFO', 'taufiqpop', NULL, 1, '2024-07-03 00:16:23', '2024-11-20 01:07:39', NULL);
+INSERT INTO `users` VALUES (15, 'Ainun Nafi Nurul Fadhilah', NULL, 'ainunafi', '$2y$10$eUF/prOzHccKguHq41Sok.BnNgHeCp6czaXtwJcysaO7GAe53IpKi', 'taufiqpop', NULL, 1, '2024-07-03 00:16:24', '2024-11-20 01:07:36', NULL);
+INSERT INTO `users` VALUES (16, 'Safina Fatmawati', NULL, 'safinaff', '$2y$10$VEMjSJAvvKVDNI2stPxDAuE/Sjm4KA6H5CBQOazG0zJtb4qgSIWGu', 'taufiqpop', NULL, 1, '2024-07-03 00:16:25', '2024-11-20 01:07:33', NULL);
+INSERT INTO `users` VALUES (17, 'Maulidya Rania Insyira', NULL, 'uli', '$2y$10$WokXkMMc2UK8sB3j6m4yYukyJtZ0ol3.f0AtBrgwHp9xHj7sNggLi', 'taufiqpop', NULL, 1, '2024-07-03 00:16:26', '2024-11-20 01:07:27', NULL);
+INSERT INTO `users` VALUES (18, 'Maulidia Kartika Putri', NULL, 'maudy', '$2y$10$pB7eihLOF58ZuLtPsepK2eQr98tm43TQBG0uv3JzDcN5ERjmF9.Pe', 'taufiqpop', NULL, 1, '2024-07-03 00:16:27', '2024-11-20 01:07:22', NULL);
+INSERT INTO `users` VALUES (19, 'Satya Aqsal Zardiansyah', NULL, 'aqsal', '$2y$10$B6jsypwzQoR/8YW3flIACuP1CJgj0aUXxZEMCkdYLZENBFMtFBYqe', 'taufiqpop', NULL, 1, '2024-07-03 00:16:28', '2024-11-20 01:07:12', NULL);
+INSERT INTO `users` VALUES (20, 'Vania Nuradhani Bisono', NULL, 'vania', '$2y$10$LL1I528R.KHdmlu8NR7NdO8RDeiEFTkC52AvZQqU0kyfyIy7iDUxe', 'taufiqpop', NULL, 1, '2024-07-03 00:16:29', '2024-11-20 01:07:11', NULL);
+INSERT INTO `users` VALUES (21, 'Fajrul Falah Sholihin', NULL, 'falah', '$2y$10$8ZpKR4YD3z3lTVMyDdpzneysOXC77C2EaNsJ6674PV7jPYwHX.SAe', 'taufiqpop', NULL, 1, '2024-07-03 00:16:30', '2024-11-20 01:07:09', NULL);
+INSERT INTO `users` VALUES (22, 'Aini Lathyfah', NULL, 'aini', '$2y$10$Rf9cYh0TaLck/MICLFY5HeCWzQwkmCh7ofSBUBvQGUJwicImmT3C.', 'taufiqpop', NULL, 1, '2024-07-03 00:16:31', '2024-11-20 01:07:07', NULL);
+INSERT INTO `users` VALUES (23, 'Wikan Fitrandi Wibisono', NULL, 'wikan', '$2y$10$btd60Iuavvge4l.9iiXGCOKmz2Kjvz2gpx.rAuYwvYsh3XKPEfor2', 'taufiqpop', NULL, 1, '2024-07-03 00:16:32', '2024-11-20 01:07:06', NULL);
+INSERT INTO `users` VALUES (24, 'Thifal Nurkhansa', NULL, 'thifal', '$2y$10$NbzN9xojchyYeUT7uW7T.OqFIwut7B.6rGl5XC0N6IZIzCWaA9j2y', 'taufiqpop', NULL, 1, '2024-07-03 00:16:33', '2024-11-20 01:07:04', NULL);
+INSERT INTO `users` VALUES (25, 'Dimas Adi Susanto', NULL, 'dimas', '$2y$10$ZTi.tMnsdkhUdlZYV37E1uLoRk1PBHSjtfgpHJAcoZTLWGt38cgrW', 'taufiqpop', NULL, 1, '2024-11-10 18:12:35', '2024-11-20 01:07:03', NULL);
+INSERT INTO `users` VALUES (26, 'Salma Widya Azhari', NULL, 'salma', '$2y$10$PIYwBbzIFqNxrG8uHe4x5.cpSRi1WdOkY6GlxxcxX/2T1eh6v6DBS', 'taufiqpop', NULL, 1, '2024-11-10 18:15:39', '2024-11-20 01:07:02', NULL);
+INSERT INTO `users` VALUES (27, 'Crew Rapma FM', NULL, 'crewrapma', '$2y$10$L9IprWEGG0NLDXmK6kW0me0flCBbjvIPW2ugaVyGklRYnIYs8tJd6', 'taufiqpop', NULL, 1, '2024-11-10 18:27:53', '2024-11-20 01:07:23', NULL);
+INSERT INTO `users` VALUES (28, 'Alumni Rapma FM', NULL, 'alumnirapma', '$2y$10$cXZifcFTwWUTWhrWy8Ds4uqZCW5U4AIAReRlDjK337M0ClSm44zcC', 'taufiqpop', NULL, 1, '2024-11-10 18:28:16', '2024-11-20 01:06:52', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
