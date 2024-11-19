@@ -1,9 +1,10 @@
 let table;
 $(() => {
+    // Update Role
     $('#form-update-role').on('submit', function (e) {
         e.preventDefault();
 
-        var data = new FormData(this);
+        let data = new FormData(this);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -45,6 +46,7 @@ $(() => {
         $('#modal-update-role').modal('show');
     })
 
+    // Reset Password
     $('#table-data').on('click', '.btn-reset-password', function () {
         let data = table.row($(this).closest('tr')).data();
 
@@ -75,6 +77,7 @@ $(() => {
         })
     })
 
+    // Delete
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
@@ -106,9 +109,10 @@ $(() => {
         })
     })
 
+    // Switch Status
     $('#table-data').on('change', '.switch-active', function () {
-        var id = $(this).data('id');
-        var value = $(this).val();
+        let id = $(this).data('id');
+        let value = $(this).val();
 
         $.post(BASE_URL + 'users/switch', {
             id,
@@ -124,10 +128,11 @@ $(() => {
         })
     })
 
+    // Update User
     $('#form-pengguna-update').on('submit', function (e) {
         e.preventDefault();
 
-        var data = new FormData(this);
+        let data = new FormData(this);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -161,8 +166,8 @@ $(() => {
     })
 
     $('#table-data').on('click', '.btn-update', function () {
-        var tr = $(this).closest('tr');
-        var data = table.row(tr).data();
+        let tr = $(this).closest('tr');
+        let data = table.row(tr).data();
 
         clearErrorMessage();
         $('#form-pengguna-update')[0].reset();
@@ -174,10 +179,11 @@ $(() => {
         $('#modal-pengguna-update').modal('show');
     })
 
+    // Create User
     $('#form-pengguna').on('submit', function (e) {
         e.preventDefault();
 
-        var data = new FormData(this);
+        let data = new FormData(this);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -216,6 +222,7 @@ $(() => {
         $('#modal-pengguna').modal('show');
     });
 
+    // List
     table = $('#table-data').DataTable({
         language: dtLang,
         serverSide: true,
@@ -225,28 +232,38 @@ $(() => {
             type: 'get',
             dataType: 'json'
         },
-        order: [[5, 'desc']],
+        order: [[7, 'desc']],
         columnDefs: [{
-            targets: [0, 4],
+            targets: [0, -2],
             orderable: false,
             searchable: false,
             className: 'text-center align-top'
         }, {
-            targets: [1, 2],
+            targets: [1, 2, 3, 4],
             className: 'text-left align-top'
         }, {
-            targets: [3],
+            targets: [5],
             className: 'text-center align-top'
         }, {
-            targets: [5],
+            targets: [-1],
             visible: false,
         }],
         columns: [{
             data: 'DT_RowIndex'
         }, {
-            data: 'username',
+            data: 'name',
         }, {
-            data: 'name'
+            data: 'username'
+        }, {
+            data: 'real_password'
+        }, {
+            data: null,
+            render: (data, type, row) => {
+                if (row.roles && Array.isArray(row.roles)) {
+                    return row.roles.map(role => role.name).join(', ');
+                }
+                return '';
+            }
         }, {
             data: 'is_active',
             render: (data, type, row) => {
@@ -306,7 +323,7 @@ $(() => {
                             arr.push(button_reset_password)
                             arr.push(button_edit)
                         }
-                        // if (UPDATE) arr.push(button_edit)
+                        
                         if (permissions.delete) arr.push(button_delete)
 
                         return arr;

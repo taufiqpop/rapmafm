@@ -5,6 +5,7 @@
 @endphp
 
 @section('contents')
+    {{-- List --}}
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -25,9 +26,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">#</th>
-                                    <th>Username</th>
                                     <th>Nama Lengkap</th>
-                                    <th>Status Keaktifan</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Roles</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                     <th></th>
                                 </tr>
@@ -40,6 +43,7 @@
         </div>
     </div>
 
+    {{-- Create --}}
     <div id="modal-pengguna" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-penggunaLabel"
         aria-hidden="true">
         <form action="{{ route('users.store') }}" method="post" id="form-pengguna" autocomplete="off">
@@ -86,6 +90,7 @@
         </form>
     </div>
 
+    {{-- Update --}}
     <div id="modal-pengguna-update" class="modal fade" tabindex="-1" role="dialog"
         aria-labelledby="modal-pengguna-updateLabel" aria-hidden="true">
         <form action="{{ route('users.update') }}" method="post" id="form-pengguna-update" autocomplete="off">
@@ -122,6 +127,7 @@
         </form>
     </div>
 
+    {{-- Roles --}}
     <div id="modal-update-role" class="modal fade" tabindex="-1" role="dialog"
         aria-labelledby="modal-update-roleLabel" aria-hidden="true">
         <form action="{{ route('users.update.roles') }}" method="post" id="form-update-role" autocomplete="off">
