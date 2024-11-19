@@ -1,24 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
-    <title>Login | Skote - Responsive Bootstrap 4 Admin Dashboard</title>
+    <title>Login | Check Access</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ config('app.theme') }}assets/images/favicon.ico">
+    <meta content="Rapma FM" name="description" />
+    <meta content="Taufiq Pop" name="author" />
 
-    <!-- Bootstrap Css -->
+    <link rel="shortcut icon" href="{{ config('app.theme') }}assets/images/favicon.ico">
+    <link href="{{ config('app.theme') }}assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ config('app.theme') }}assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link href="{{ config('app.theme') }}assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
         type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ config('app.theme') }}assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ config('app.theme') }}assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
 </head>
 
 <body>
@@ -78,17 +72,14 @@
                                     @else
                                         <div class="alert alert-danger" role="alert">
                                             Anda belum memiliki hak akses untuk masuk kedalam sistem. Hubungi admin
-                                            untuk
-                                            informasi lebih lanjut!
+                                            untuk informasi lebih lanjut!
                                         </div>
                                     @endif
                                 </form>
                             </div>
-
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-
                         <div>
                             <p>Bukan Anda? <a href="{{ route('logout') }}" class="font-weight-medium text-primary"
                                     onclick="event.preventDefault();
@@ -105,14 +96,14 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- JavaScript -->
     <script src="{{ config('app.theme') }}assets/libs/jquery/jquery.min.js"></script>
     <script src="{{ config('app.theme') }}assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ config('app.theme') }}assets/libs/metismenu/metisMenu.min.js"></script>
     <script src="{{ config('app.theme') }}assets/libs/simplebar/simplebar.min.js"></script>
     <script src="{{ config('app.theme') }}assets/libs/node-waves/waves.min.js"></script>
 
-    <!-- App js -->
+    <!-- App JS -->
     <script src="{{ config('app.theme') }}assets/js/app.js"></script>
     <script src="{{ asset('js/page/auth/chooseRole.js') }}"></script>
 </body>

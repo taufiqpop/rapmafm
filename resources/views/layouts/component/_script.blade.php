@@ -3,7 +3,6 @@
         value="{{ $value ? 1 : 0 }}">
 @endforeach
 
-<!-- JAVASCRIPT -->
 <script src="{{ config('app.theme') }}assets/libs/jquery/jquery.min.js?q={{ Str::random(5) }}"></script>
 <script src="{{ config('app.theme') }}assets/libs/bootstrap/js/bootstrap.bundle.min.js?q={{ Str::random(5) }}"></script>
 <script src="{{ config('app.theme') }}assets/libs/metismenu/metisMenu.min.js?q={{ Str::random(5) }}"></script>
@@ -19,13 +18,11 @@
 <script src="{{ asset('js/page/change-profile/form.js') }}?q={{ Str::random(5) }}"></script>
 
 @if (in_array('datatable', $plugins))
-    <!-- Required datatable js -->
     <script src="{{ config('app.theme') }}assets/libs/datatables.net/js/jquery.dataTables.min.js?q={{ Str::random(5) }}">
     </script>
     <script
         src="{{ config('app.theme') }}assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js?q={{ Str::random(5) }}">
     </script>
-    <!-- Buttons examples -->
     <script
         src="{{ config('app.theme') }}assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js?q={{ Str::random(5) }}">
     </script>
@@ -45,7 +42,6 @@
         src="{{ config('app.theme') }}assets/libs/datatables.net-buttons/js/buttons.colVis.min.js?q={{ Str::random(5) }}">
     </script>
 
-    <!-- Responsive examples -->
     <script
         src="{{ config('app.theme') }}assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js?q={{ Str::random(5) }}">
     </script>
@@ -62,7 +58,6 @@
 @endif
 
 @if (in_array('form_wizard', $plugins))
-    <!-- twitter-bootstrap-wizard js -->
     <script
         src="{{ config('app.theme') }}assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js?q={{ Str::random(5) }}">
     </script>
@@ -72,17 +67,14 @@
 @endif
 
 @if (in_array('swal', $plugins))
-    <!-- Sweet Alerts js -->
     <script src="{{ config('app.theme') }}assets/libs/sweetalert2/sweetalert2.min.js?q={{ Str::random(5) }}"></script>
 @endif
 
 @if (in_array('apex_chart', $plugins))
-    <!-- apexcharts -->
     <script src="{{ config('app.theme') }}assets/libs/apexcharts/apexcharts.min.js?q={{ Str::random(5) }}"></script>
 @endif
 
 @if (in_array('lightbox', $plugins))
-    <!-- Magnific Popup-->
     <script src="{{ config('app.theme') }}assets/libs/magnific-popup/jquery.magnific-popup.min.js?q={{ Str::random(5) }}">
     </script>
 @endif
@@ -92,7 +84,6 @@
 @endif
 
 @if (in_array('tui_chart', $plugins))
-    <!-- tui charts plugins -->
     <script src="{{ config('app.theme') }}assets/libs/tui-chart/tui-chart-all.min.js?q={{ Str::random(5) }}"></script>
 @endif
 
@@ -109,7 +100,6 @@
 @endif
 
 @if (in_array('chart_js', $plugins))
-    <!-- Chart JS -->
     <script src="{{ config('app.theme') }}assets/libs/chart.js/Chart.bundle.min.js?q={{ Str::random(5) }}"></script>
     <script src="{{ config('app.theme') }}assets/js/pages/chartjs.init.js?q={{ Str::random(5) }}"></script>
 @endif

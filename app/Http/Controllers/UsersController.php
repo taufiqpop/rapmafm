@@ -27,7 +27,7 @@ class UsersController extends Controller
 
     public function data(Request $request)
     {
-        $list = User::select(DB::raw('id, name, username, is_active, created_at'))->with('roles');
+        $list = User::select(DB::raw('*'))->with('roles');
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -45,11 +45,14 @@ class UsersController extends Controller
         ]);
 
         try {
-            $user = User::create([
+            $data = [
                 'name' => $request->name,
                 'username' => $request->username,
-                'password' => Hash::make($request->password)
-            ]);
+                'password' => Hash::make($request->password),
+                'real_password' => $request->password
+            ];
+
+            User::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -67,7 +70,6 @@ class UsersController extends Controller
 
         try {
             $user = User::find($request->id);
-
             $user->name = $request->name;
             $user->username = $request->username;
 
@@ -88,7 +90,6 @@ class UsersController extends Controller
     {
         try {
             $user = User::find($request->id);
-
             $user->is_active = $request->value;
 
             if ($user->isDirty()) {
@@ -108,8 +109,8 @@ class UsersController extends Controller
     {
         try {
             $user = User::find($request->id);
-
-            $user->password = Hash::make('hutaowangy');
+            $user->password = Hash::make('taufiqpop');
+            $user->real_password = 'taufiqpop';
 
             if ($user->isDirty()) {
                 $user->save();
@@ -133,8 +134,8 @@ class UsersController extends Controller
 
         try {
             $user = User::find(Auth::id());
-
             $user->password = Hash::make($request->password);
+            $user->real_password = $request->password;
 
             if ($user->isDirty()) {
                 $user->save();
@@ -153,7 +154,6 @@ class UsersController extends Controller
     {
         try {
             $user = User::find($request->id);
-
             $user->delete();
 
             if ($user->trashed()) {
@@ -172,7 +172,6 @@ class UsersController extends Controller
             $role_id = $request->role_id;
 
             $user = User::with('roles')->find($user_id);
-
             $roles = Role::select('id')->where('is_active', 1)->get();
 
             $user->roles()->sync($role_id);

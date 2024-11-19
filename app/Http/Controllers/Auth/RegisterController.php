@@ -13,25 +13,17 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    //use RegistersUsers;
-    /**
-     * Display the registration form based on role_id.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Form Register
     public function showRegistrationForm(Request $request)
     {
-        $role_id = $request->query('role_id', 2);
-        return view('auth.register', compact('role_id'));
+        $data = [
+            'title' => 'Register'
+        ];
+
+        return view('auth.register', $data);
     }
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Register
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -44,62 +36,33 @@ class RegisterController extends Controller
         });
     }
 
-    /**
-     * Validate the incoming request for registration.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+    // Create
     protected function create(array $data)
     {
-        $user = User::create([
+        $data = [
             'name' => $data['name'],
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
-        ]);
+            'real_password' => $data['password'],
+        ];
+
+        $user = User::create($data);
 
         $defaultRoleId = null;
         $user->roles()->attach($defaultRoleId);
-        return $user;
-    }
 
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        // Aksi setelah user terdaftar
+        return $user;
     }
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    // Validator
     protected function validator(array $data)
     {
         $messages = [
@@ -119,11 +82,4 @@ class RegisterController extends Controller
 
         return Validator::make($data, $rules, $messages);
     }
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    //   
 }
