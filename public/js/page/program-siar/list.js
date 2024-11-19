@@ -59,6 +59,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-program-siar-update').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -79,6 +86,9 @@ $(() => {
 
         clearErrorMessage();
         $('#form-program-siar-update')[0].reset();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
 
         $.each(data, (key, value) => {
             $('#update-' + key).val(value).trigger('change');
@@ -126,6 +136,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-program-siar').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -143,6 +160,10 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-program-siar')[0].reset();
         clearErrorMessage();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
+
         $('#modal-program-siar').modal('show');
     });
 
@@ -163,8 +184,11 @@ $(() => {
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2, 3],
             className: 'text-left align-top'
+        }, {
+            targets: [4, 5, 6],
+            className: 'text-center align-top'
         }, {
             targets: [-1],
             visible: false,

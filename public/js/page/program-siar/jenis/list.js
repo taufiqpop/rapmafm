@@ -54,6 +54,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-ref-jenis-program-siar-update').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-ref-jenis-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -105,6 +112,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-ref-jenis-program-siar').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-ref-jenis-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);

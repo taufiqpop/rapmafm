@@ -59,6 +59,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-ref-program-siar-update').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-ref-program-siar-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -110,6 +117,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-ref-program-siar').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-ref-program-siar').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -149,6 +163,9 @@ $(() => {
         }, {
             targets: [1, 2],
             className: 'text-left align-top'
+        }, {
+            targets: [3],
+            className: 'text-center align-top'
         }, {
             targets: [-1],
             visible: false,
