@@ -54,6 +54,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-pesan-update').modal('hide');
+                
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data telah berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-pesan-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -105,6 +112,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-pesan').modal('hide');
+                
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data telah berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-pesan').find('.modal-dialog').LoadingOverlay('hide', true);
