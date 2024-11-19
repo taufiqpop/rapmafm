@@ -57,7 +57,7 @@ $(() => {
 
                 Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Data telah berhasil disimpan.',
+                    text: 'Data berhasil disimpan.',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
@@ -118,7 +118,7 @@ $(() => {
 
                 Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Data telah berhasil disimpan.',
+                    text: 'Data berhasil disimpan.',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });

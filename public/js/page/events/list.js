@@ -54,6 +54,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-events-update').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-events-update').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -74,6 +81,9 @@ $(() => {
 
         clearErrorMessage();
         $('#form-events-update')[0].reset();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
 
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
@@ -105,6 +115,13 @@ $(() => {
                 clearErrorMessage();
                 table.ajax.reload();
                 $('#modal-events').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: ({ status, responseJSON }) => {
                 $('#modal-events').find('.modal-dialog').LoadingOverlay('hide', true);
@@ -122,6 +139,10 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-events')[0].reset();
         clearErrorMessage();
+
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
+
         $('#modal-events').modal('show');
     });
 
@@ -142,8 +163,11 @@ $(() => {
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2, 3],
             className: 'text-left align-top'
+        }, {
+            targets: [4, 5, 6],
+            className: 'text-center align-top'
         }, {
             targets: [-1],
             visible: false,
