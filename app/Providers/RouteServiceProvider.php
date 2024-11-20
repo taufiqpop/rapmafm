@@ -59,6 +59,8 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->mapPesanRoutes();
 
+            $this->mapSettingsRoutes();
+
             $this->mapStrukturOrganisasiRoutes();
 
             $this->mapEventsRoutes();
@@ -133,6 +135,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('pesan')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/pesan.php'));
+    }
+
+    protected function mapSettingsRoutes()
+    {
+        Route::prefix('settings')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/settings.php'));
     }
 
     protected function mapStrukturOrganisasiRoutes()
