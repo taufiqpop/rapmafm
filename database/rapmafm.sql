@@ -11,11 +11,34 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 20/11/2024 01:33:24
+ Date: 21/11/2024 00:33:14
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for achievements
+-- ----------------------------
+DROP TABLE IF EXISTS `achievements`;
+CREATE TABLE `achievements`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `tahun` int NULL DEFAULT NULL,
+  `filename` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `order` int NULL DEFAULT NULL,
+  `is_active` tinyint NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of achievements
+-- ----------------------------
+INSERT INTO `achievements` VALUES (1, NULL, NULL, NULL, NULL, NULL, 1, '2024-11-20 23:46:21', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for actions
@@ -94,7 +117,7 @@ CREATE TABLE `menu_roles`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1106 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_roles
@@ -1199,6 +1222,11 @@ INSERT INTO `menu_roles` VALUES (1097, 12, 3, 2, 0, '2024-11-19 01:34:22', '2024
 INSERT INTO `menu_roles` VALUES (1098, 12, 3, 3, 0, '2024-11-19 01:34:22', '2024-11-19 01:34:22');
 INSERT INTO `menu_roles` VALUES (1099, 12, 3, 4, 0, '2024-11-19 01:34:22', '2024-11-19 01:34:22');
 INSERT INTO `menu_roles` VALUES (1100, 12, 3, 5, 0, '2024-11-19 01:34:22', '2024-11-19 01:34:22');
+INSERT INTO `menu_roles` VALUES (1101, 13, 18, 1, 1, '2024-11-20 22:42:22', '2024-11-20 22:42:22');
+INSERT INTO `menu_roles` VALUES (1102, 13, 18, 2, 1, '2024-11-20 22:42:22', '2024-11-20 22:55:57');
+INSERT INTO `menu_roles` VALUES (1103, 13, 18, 3, 1, '2024-11-20 22:42:22', '2024-11-20 22:42:22');
+INSERT INTO `menu_roles` VALUES (1104, 13, 18, 4, 1, '2024-11-20 22:42:22', '2024-11-20 22:55:57');
+INSERT INTO `menu_roles` VALUES (1105, 13, 18, 5, 1, '2024-11-20 22:42:22', '2024-11-20 22:55:57');
 
 -- ----------------------------
 -- Table structure for menus
@@ -1217,7 +1245,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -1227,13 +1255,14 @@ INSERT INTO `menus` VALUES (2, NULL, 'Pengguna', 'pengguna', 2, 'users', 'bx bx-
 INSERT INTO `menus` VALUES (3, NULL, 'Manajemen Menu', 'manajemen_menu', 3, 'manajemen-menu', 'bx bx-food-menu', 1, '2024-07-03 00:16:10', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (4, NULL, 'Otoritas', 'otoritas', 4, 'otoritas', 'bx bx-check-shield', 1, '2024-07-03 00:16:10', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (5, NULL, 'Struktur Organisasi', 'struktur_organisasi', 5, 'struktur-organisasi', 'bx bx-group', 1, '2024-11-10 18:52:25', '2024-11-19 01:08:07', NULL);
-INSERT INTO `menus` VALUES (6, NULL, 'Top Chart', 'top_chart', 6, 'top-chart', 'bx bx-music', 1, '2024-11-10 18:54:45', '2024-11-19 01:08:07', NULL);
+INSERT INTO `menus` VALUES (6, NULL, 'Top Charts', 'top_charts', 6, 'top-charts', 'bx bx-music', 1, '2024-11-10 18:54:45', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (7, NULL, 'Achievements', 'achievements', 7, 'achievements', 'bx bx-trophy', 1, '2024-11-10 18:55:23', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (8, NULL, 'Rapma News', 'rapma_news', 8, 'rapma-news', 'bx bx-news', 1, '2024-11-10 18:55:44', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (9, NULL, 'Pesan', 'pesan', 98, 'pesan', 'bx bx-envelope', 1, '2024-11-10 18:56:00', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (10, NULL, 'Settings', 'settings', 99, 'settings', 'bx bx-cog', 1, '2024-11-10 18:57:44', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (11, NULL, 'Events', 'events', 11, 'events', 'bx bx-calendar-event', 1, '2024-11-15 08:33:53', '2024-11-19 01:08:07', NULL);
 INSERT INTO `menus` VALUES (12, NULL, 'Program Siar', 'program_siar', 12, 'program-siar', 'bx bx-headphone', 1, '2024-11-15 18:18:45', '2024-11-19 01:08:07', NULL);
+INSERT INTO `menus` VALUES (13, NULL, 'Penyiar', 'penyiar', 13, 'penyiar', 'bx bxs-microphone', 1, '2024-11-20 22:41:59', '2024-11-20 22:41:59', NULL);
 
 -- ----------------------------
 -- Table structure for migrations
@@ -1318,6 +1347,29 @@ CREATE TABLE `program_siar`  (
 -- Records of program_siar
 -- ----------------------------
 INSERT INTO `program_siar` VALUES (1, 1, 1, 2021, '1710312120_135e5ffee5029c18d101.png', '/storage/uploads/programs/2021/Regular%20Program/BASOSAPI/h9vp1MzPnEOKBQpDvSgpEEb8NM2ju0zPATu0ibje.png', 'https://open.spotify.com/episode/0H0UTyvK4su14jJVDcfk2X', 1, 1, '2024-11-19 02:02:02', '2024-11-19 11:20:36', NULL);
+
+-- ----------------------------
+-- Table structure for rapma_news
+-- ----------------------------
+DROP TABLE IF EXISTS `rapma_news`;
+CREATE TABLE `rapma_news`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `filename` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `order` int NULL DEFAULT NULL,
+  `is_active` tinyint NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of rapma_news
+-- ----------------------------
+INSERT INTO `rapma_news` VALUES (1, NULL, NULL, NULL, NULL, NULL, 1, '2024-11-20 23:46:21', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ref_jenis_program_siar
@@ -1417,6 +1469,48 @@ INSERT INTO `roles` VALUES (18, 'Crew', 'crew', 1, '2024-11-10 18:27:01', '2024-
 INSERT INTO `roles` VALUES (19, 'Alumni', 'alumni', 1, '2024-11-10 18:27:05', '2024-11-10 18:27:05', NULL);
 
 -- ----------------------------
+-- Table structure for settings
+-- ----------------------------
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE `settings`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `slogan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `frekuensi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `streaming` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `about` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `link_about` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `youtube` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `spotify` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `whatsapp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `blogger` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `tiktok` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `gmail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `ymail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `no_medpart` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `nama_medpart` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `no_mtalent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `nama_mtalent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `jenis_program_id` int NULL DEFAULT NULL,
+  `program_id` int NULL DEFAULT NULL,
+  `penyiar1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `penyiar2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of settings
+-- ----------------------------
+INSERT INTO `settings` VALUES (1, 'Rapma FM', 'The First Edutainment Channel In Solo', '107.5', 'https://c2.siar.us/radio/8270/stream', 'RAPMA FM sebagai Radio komunitas kampus dan satu-satunya media elektronik yang dimiliki oleh Universitas Muhammadiyah Surakarta mempunyai peranan sebagai media informasi, hiburan, dan dakwah dengan istilah yang dipakai untuk aplikasi siar yaitu smart, fun, and pure dengan slogan “The First Edutainment Channel In Solo”. RAPMA FM sendiri sebagai salah satu UKM memberikan kontribusi untuk Universitas Muhammadiyah Surakarta dan telah diberikan kepercayaan untuk mempublikasikan dan menginformasikan tentang segala hal mengenai seputaran dunia kampus dan hasil-hasil kampus Universitas Muhammadiyah Surakarta kepada mahasiswa, masyarakat luar ataupun khalayak ramai.', 'http://rapmafm.ukm.ums.ac.id/p/about-us.html', 'rapmafmums', 'umsrapmafm', 'rapmafm', '@RapmafmUMS', '3Gy8RYWni0Tsr0eF6zxfUB', '+6285640316175', 'http://rapmafm.ukm.ums.ac.id', '@rapmafm', 'umsrapmafm@gmail.com', 'radio.rapmafm@yahoo.co.id', '88228923126', 'Mela', '85155332202', 'Dzaky', 'Sayap Kanan Perpustakaan Lantai Dasar, Kampus II Universitas Muhammadiyah Surakarta, Jalan Ahmad Yani Tromol Pos I Pabelan, Kartasura, Sukoharjo, Jawa Tengah, Indonesia, 57162.', 1, 4, 'Pop', 'Lala', '2024-11-20 17:38:25', '2024-11-20 17:38:27', NULL);
+
+-- ----------------------------
 -- Table structure for struktur_organisasi
 -- ----------------------------
 DROP TABLE IF EXISTS `struktur_organisasi`;
@@ -1444,6 +1538,25 @@ INSERT INTO `struktur_organisasi` VALUES (3, 'Kepenyiaran', 'Pengurus', 2021, 3,
 INSERT INTO `struktur_organisasi` VALUES (4, 'Marketing', 'Pengurus', 2021, 4, '1710304409_4455e94f59b8b3327de8.png', '/storage/uploads/struktur-organisasi/2021/Marketing/d6kGWmlcHGPwdhwCAhoa474RyempNAwBtsAjisCJ.png', 1, '2024-11-19 01:53:15', '2024-11-19 01:53:15', NULL);
 INSERT INTO `struktur_organisasi` VALUES (5, 'Personalia', 'Pengurus', 2021, 5, '1710304423_4331aebb0df6c1f75044.png', '/storage/uploads/struktur-organisasi/2021/Personalia/CvI9jPqyD3bwxrPlTs7bWKPbaYTEWVf6ba1qqdh5.png', 1, '2024-11-19 01:53:27', '2024-11-19 01:53:27', NULL);
 INSERT INTO `struktur_organisasi` VALUES (6, 'Crew', 'Crew', 2021, 0, '1710387359_093bceeceb273dde81b2.png', '/storage/uploads/struktur-organisasi/2021/Crew/oRjN2QxIfK6aW2xyV920lmbv91RRM7RwuoFmW7Bu.png', 1, '2024-11-19 01:53:42', '2024-11-19 11:07:37', NULL);
+
+-- ----------------------------
+-- Table structure for top_charts
+-- ----------------------------
+DROP TABLE IF EXISTS `top_charts`;
+CREATE TABLE `top_charts`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `versi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of top_charts
+-- ----------------------------
+INSERT INTO `top_charts` VALUES (1, NULL, 'Indonesia', '2024-11-20 23:46:16', '2024-11-20 23:52:50', NULL);
 
 -- ----------------------------
 -- Table structure for user_roles
