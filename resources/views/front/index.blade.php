@@ -2,9 +2,8 @@
 @section('page-content')
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container">
-
             <!-- Nama Website -->
-            <h1>{{ $settings->owner }}</h1>
+            <h1>{{ $settings->owsner }}</h1>
         </div>
 
         <!-- Slogan -->
@@ -52,21 +51,21 @@
 
                     <!-- Sosmed Button -->
                     <div class="social-links mt-3 text-center" data-aos="fade-up">
-                        <a href="{{ $settings->twitter }}" target="_blank" title="Twitter">
+                        <a href="https://x.com/{{ $settings->twitter }}" target="_blank" title="Twitter">
                             <i class="bx bxl-twitter"></i></a>
-                        <a href="{{ $settings->facebook }}" target="_blank" title="Facebook">
+                        <a href="https://www.facebook.com/{{ $settings->facebook }}" target="_blank" title="Facebook">
                             <i class="bx bxl-facebook"></i></a>
-                        <a href="{{ $settings->instagram }}" target="_blank" title="Instagram">
+                        <a href="https://www.instagram.com/{{ $settings->instagram }}" target="_blank" title="Instagram">
                             <i class="bx bxl-instagram"></i></a>
-                        <a href="{{ $settings->youtube }}" target="_blank" title="Youtube">
+                        <a href="https://www.youtube.com/{{ $settings->youtube }}" target="_blank" title="Youtube">
                             <i class="bx bxl-youtube"></i></a>
-                        <a href="{{ $settings->spotify }}" target="_blank" title="Spotify">
+                        <a href="https://open.spotify.com/show/{{ $settings->spotify }}" target="_blank" title="Spotify">
                             <i class="bx bxl-spotify"></i></a>
-                        <a href="{{ $settings->whatsapp }}" target="_blank" title="Whatsapp">
+                        <a href="https://wa.me/{{ $settings->whatsapp }}" target="_blank" title="Whatsapp">
                             <i class="bx bxl-whatsapp"></i></a>
-                        <a href="{{ $settings->blog }}" target="_blank" title="Blog">
+                        <a href="{{ $settings->blogger }}" target="_blank" title="Blog">
                             <i class="bx bxl-blogger"></i></a>
-                        <a href="{{ $settings->tiktok }}" target="_blank" title="TikTok">
+                        <a href="https://www.tiktok.com/{{ $settings->tiktok }}" target="_blank" title="TikTok">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="17px" height="17px" preserveAspectRatio="xMidYMid meet" viewBox="-1 1 24 24"
