@@ -89,7 +89,7 @@
             <div class="container">
                 <div class="section-title">
                     <h2 class="text-center">About</h2>
-                    <p class="text-justify" style="text-indent: 40px;">{{ $settings->about }}</p>
+                    <p style="text-indent: 40px; text-align: justify">{{ $settings->about }}</p>
                     <br>
                     <center>
                         <a href="{{ $settings->link_about }}" target="_blank" class="btn btn-success">Read More..</a>
@@ -98,7 +98,7 @@
             </div>
         </section>
 
-        {{-- <!-- Structure of Organization -->
+        <!-- Structure of Organization -->
         <section id="structure" class="portfolio-details-slider">
             <div class="container">
                 <div class="section-title">
@@ -107,20 +107,22 @@
                 <div class="row">
                     <div id="carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <?php foreach ($structure as $struktur) : ?>
-                            <?php $data = json_decode($struktur['value']); ?>
-                            <li data-target="#carousel" data-slide-to="<?= $struktur['id'] - 1 ?>"
-                                class="<?= $data->status ?>"></li>
-                            <?php endforeach; ?>
+                            @foreach ($structure as $struktur)
+                                @if ($struktur->pangkat == 'Pengurus')
+                                    <li data-target="#carousel" data-slide-to="{{ $struktur->order - 1 }}"
+                                        class="{{ $struktur->order == 1 ? 'active' : '' }}"></li>
+                                @endif
+                            @endforeach
                         </ol>
                         <div class="carousel-inner">
-                            <?php foreach ($structure as $struktur) : ?>
-                            <?php $data = json_decode($struktur['value']); ?>
-                            <div class="carousel-item <?= $data->status ?>">
-                                <img src="<?= base_url() ?>img/structure/<?= $data->images ?>" class="img-fluid"
-                                    alt="<?= $data->divisi ?>" data-aos="fade-up" width="100%">
-                            </div>
-                            <?php endforeach; ?>
+                            @foreach ($structure as $struktur)
+                                @if ($struktur->pangkat == 'Pengurus')
+                                    <div class="carousel-item {{ $struktur->order == 1 ? 'active' : '' }}">
+                                        <img src="{{ asset($struktur->path) }}" class="img-fluid"
+                                            alt="{{ $struktur->divisi }}" data-aos="fade-up" width="100%">
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
 
                         <!-- Previous -->
@@ -140,11 +142,12 @@
                 <!-- Crew -->
                 <div class="row mt-3">
                     <div class="col section-bottom-button" data-aos="fade-up">
-                        <?php foreach ($member as $members) : ?>
-                        <?php $data = json_decode($members['value']); ?>
-                        <img src="<?= base_url() ?>img/structure/<?= $data->images ?>" class="img-fluid"
-                            alt="<?= $data->divisi ?>">
-                        <?php endforeach; ?>
+                        @foreach ($structure as $struktur)
+                            @if ($struktur->pangkat == 'Crew')
+                                <img src="{{ asset($struktur->path) }}" class="img-fluid"
+                                    alt="{{ $struktur->divisi }}">
+                            @endif
+                        @endforeach
                     </div>
 
                 </div>
@@ -170,28 +173,27 @@
                 </div>
 
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-                    <?php foreach ($program as $siaran) : ?>
-                    <?php $data = json_decode($siaran['value']); ?>
-                    <div class="col-lg-4 col-md-6 portfolio-item <?= $data->filter ?>">
-                        <div class="portfolio-wrap">
-                            <img src="<?= base_url() ?>img/program/<?= $data->images ?>" class="img-fluid"
-                                alt="<?= $data->program ?>">
-                            <div class="portfolio-links">
-                                <a href="<?= base_url() ?>img/program/<?= $data->images ?>"
-                                    data-gallery="portfolioGallery" class="portfolio-lightbox"><i class="bx bx-zoom-in"
-                                        title="Zoom In"></i></a>
-                                <a href="<?= $data->link ?>" target="_blank"><i class="bx bxl-spotify"
-                                        title="Open Spotify"></i></a>
+                    @foreach ($program as $siar)
+                        <div
+                            class="col-lg-4 col-md-6 portfolio-item filter-{{ $siar->program_siar->jenis_program->key }}">
+                            <div class="portfolio-wrap">
+                                <img src="{{ asset($siar->path) }}" class="img-fluid"
+                                    alt="{{ $siar->program_siar->nama }}">
+                                <div class="portfolio-links">
+                                    <a href="{{ asset($siar->path) }}" data-gallery="portfolioGallery"
+                                        class="portfolio-lightbox"><i class="bx bx-zoom-in" title="Zoom In"></i></a>
+                                    <a href="{{ $siar->link }}" target="_blank"><i class="bx bxl-spotify"
+                                            title="Open Spotify"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                    @endforeach
                 </div>
             </div>
         </section>
 
         <!-- Top Chart -->
-        <section id="chart" class="section-bg">
+        {{--  <section id="chart" class="section-bg">
             <div class="container">
                 <div class="section-title">
                     <h2 class="text-center">Rapma Top 15</h2>
@@ -207,7 +209,7 @@
                     </div>
                     <?php endforeach; ?>
                 </div>
-        </section>
+        </section> --}}
 
         <!-- Events -->
         <section id="events">
@@ -216,31 +218,30 @@
                     <div class="section-title">
                         <h2 class="text-center">Events</h2>
                     </div>
-                    <?php foreach ($events as $event) : ?>
-                    <?php $data = json_decode($event['value']); ?>
-                    <div class="col-6 col-md-6" data-aos="fade-up">
-                        <div class="card-body">
-                            <center>
-                                <h2 class="card-title"><b><?= $data->nama ?></b></h2>
-                            </center>
-                            <center class="eventrapma">
-                                <img class="card-img-top" src="<?= base_url() ?>img/events/<?= $data->images ?>"
-                                    style="width:100%">
-                            </center>
+                    @foreach ($events as $event)
+                        <div class="col-6 col-md-6" data-aos="fade-up">
                             <div class="card-body">
                                 <center>
-                                    <a href="<?= $data->link ?>" target="_blank" class="btn btn-success">See Event</a>
+                                    <h2 class="card-title"><b>{{ $event->nama_event }}</b></h2>
                                 </center>
+                                <center class="eventrapma">
+                                    <img class="card-img-top" src="{{ asset($event->path) }}" style="width:100%">
+                                </center>
+                                <div class="card-body">
+                                    <center>
+                                        <a href="{{ $event->link }}" target="_blank" class="btn btn-success">See
+                                            Event</a>
+                                    </center>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                    @endforeach
                 </div>
             </div>
         </section>
 
         <!-- Achievements -->
-        <section id="achievements" class="section-bg">
+        {{-- <section id="achievements" class="section-bg">
             <div class="container">
                 <div class="row g-2 g-lg-4">
                     <div class="section-title">
@@ -341,7 +342,7 @@
 
                     <!-- Forms -->
                     <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="#" method="post" class="php-email-form">
+                        <form action="{{ route('pesan.store') }}" method="post" class="php-email-form">
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name">Your Name</label>
@@ -372,3 +373,7 @@
         </section>
     </main>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/page/front/index.js?q=' . Str::random(5)) }}"></script>
+@endpush
