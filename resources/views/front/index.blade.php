@@ -1,4 +1,10 @@
 @extends('front.templates.index')
+
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@endpush
+
 @section('page-content')
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container">
@@ -22,8 +28,8 @@
                             <span>
                                 <marquee behavior="scroll" direction="left" scrolldelay="50" truespeed>
                                     <h5>
-                                        {{ $settings->program_siar }} || {{ $settings->penyiar1 }}
-                                        {{ $settings->penyiar2 !== '-' ? 'X ' . $settings->penyiar2 : '' }}
+                                        {{ $settings->program_siar->nama }} || {{ $settings->penyiar1 }}
+                                        {{ $settings->penyiar2 !== '' ? 'X ' . $settings->penyiar2 : '' }}
                                     </h5>
                                 </marquee>
                             </span>
@@ -191,24 +197,23 @@
             </div>
         </section>
 
-        <!-- Top Chart -->
-        {{--  <section id="chart" class="section-bg">
+        <!-- Top Charts -->
+        <section id="chart" class="section-bg">
             <div class="container">
                 <div class="section-title">
                     <h2 class="text-center">Rapma Top 15</h2>
                 </div>
                 <div class="row" data-aos="fade-in">
-                    <?php foreach ($topchart as $top15) : ?>
-                    <?php $data = json_decode($top15['value']); ?>
-                    <div class="col-lg-6 d-flex align-items-stretch mb-4">
-                        <div class="row">
-                            <h2 class="text-center" style="color: #008C52;">Top 15 Versi <?= $data->versi ?></h2>
-                            <iframe src="<?= $data->link ?>" width="100%" height="500px"></iframe>
+                    @foreach ($topcharts as $topchart)
+                        <div class="col-lg-6 d-flex align-items-stretch mb-4">
+                            <div class="row">
+                                <h2 class="text-center" style="color: #008C52;">Top 15 Versi {{ $topchart->versi }}</h2>
+                                <iframe src="{{ $topchart->link }}" width="100%" height="500px"></iframe>
+                            </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                    @endforeach
                 </div>
-        </section> --}}
+        </section>
 
         <!-- Events -->
         <section id="events">
@@ -240,30 +245,29 @@
         </section>
 
         <!-- Achievements -->
-        {{-- <section id="achievements" class="section-bg">
+        <section id="achievements" class="section-bg">
             <div class="container">
                 <div class="row g-2 g-lg-4">
                     <div class="section-title">
                         <h2 class="text-center">Achievements</h2>
                     </div>
-                    <?php foreach ($achievements as $achievement) : ?>
-                    <?php $data = json_decode($achievement['value']); ?>
-                    <div class="col-12 col-lg-4" data-aos="fade-up">
-                        <div class="card">
-                            <center>
-                                <h5 class="card-title p-2"><?= $data->judul ?> <br>(<?= $achievement['tahun'] ?>)</h5>
-                                <div class="achievementrapma">
-                                    <img class="card-img-top px-3"
-                                        src="<?= base_url() ?>img/achievements/<?= $data->images ?>">
-                                </div>
-                                <div class="card-body">
-                                    <a href="https://www.instagram.com/p/BwyOA9ehluQ/?utm_source=ig_web_copy_link"
-                                        target="_blank" class="btn btn-success">See Details</a>
-                                </div>
-                            </center>
+                    @foreach ($achievements as $achievement)
+                        <div class="col-12 col-lg-4" data-aos="fade-up">
+                            <div class="card">
+                                <center>
+                                    <h5 class="card-title p-2">{{ $achievement->judul }} <br>({{ $achievement->tahun }})
+                                    </h5>
+                                    <div class="achievementrapma">
+                                        <img class="card-img-top px-3" src="{{ asset($achievement->path) }}">
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="{{ $achievement->link }}" target="_blank" class="btn btn-success">See
+                                            Details</a>
+                                    </div>
+                                </center>
+                            </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -275,28 +279,25 @@
                     <div class="section-title">
                         <h2 class="text-center">Rapma News</h2>
                     </div>
-                    <?php foreach ($beritaweb as $index => $berita) : ?>
-                    <?php $data = json_decode($berita['value']); ?>
-                    <div class="col-12 col-lg-4" data-aos="fade-up">
-                        <div class="card" style="min-height: 700px;">
-                            <div class="rapmanews">
-                                <img class="card-img-top img-fluid p-2 mh-300"
-                                    src="<?= base_url() ?>img/beritaweb/<?= $data->images ?>">
-                            </div>
-                            <small style="color:slategray;" class="text-center">(<?= $data->hari ?>,
-                                <?= $data->tanggal ?>)</small>
-                            <div class="card-body text-center">
-                                <a href="<?= $data->link ?>" target="_blank">
-                                    <h5 class="card-title" style="color: black;"><?= $data->judul ?></h5>
-                                </a>
-                                <p class="card-text text-justify pt-1"><?= $data->deskripsi ?></p>
+                    @foreach ($rapmanews as $news)
+                        <div class="col-12 col-lg-4" data-aos="fade-up">
+                            <div class="card" style="min-height: 700px;">
+                                <div class="rapmanews">
+                                    <img class="card-img-top img-fluid p-2 mh-300" src="{{ asset($news->path) }}">
+                                </div>
+                                <small style="color:slategray;" class="text-center">{{ $news->updated_at }}</small>
+                                <div class="card-body text-center">
+                                    <a href="{{ $news->link }}" target="_blank">
+                                        <h5 class="card-title" style="color: black;">{{ $news->judul }}</h5>
+                                    </a>
+                                    <p class="card-text text-justify pt-1">{{ $news->deskripsi }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                    @endforeach
                 </div>
             </div>
-        </section> --}}
+        </section>
 
         <!-- Contact -->
         <section id="contact" class="contact">
@@ -341,11 +342,13 @@
 
                     <!-- Forms -->
                     <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="{{ route('pesan.store') }}" method="post" class="php-email-form">
+                        <form action="{{ route('message.send') }}" method="POST" class="php-email-form"
+                            id="form-pesan" autocomplete="off">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" name="name" class="form-control rounded-3" required>
+                                    <label for="nama">Your Name</label>
+                                    <input type="text" name="nama" class="form-control rounded-3" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="email">Email</label>
@@ -353,11 +356,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="name">Subject</label>
+                                <label for="subject">Subject</label>
                                 <input type="text" class="form-control rounded-3" name="subject" required>
                             </div>
                             <div class="form-group">
-                                <label for="name">Message</label>
+                                <label for="message">Message</label>
                                 <textarea class="form-control rounded-3" name="message" rows="10" required></textarea>
                             </div>
                             <div class="my-3">
@@ -374,5 +377,57 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/front/index.js?q=' . Str::random(5)) }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // $(() => {
+        $('#form-pesan').on('submit', function(e) {
+            e.preventDefault();
+
+            let data = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: data,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                beforeSend: () => {
+                    console.log("Sending message...");
+                    clearErrorMessage();
+                    Swal.fire({
+                        title: 'Mengirim...',
+                        html: '<div class="spinner-border text-primary" role="status"></div>',
+                        allowOutsideClick: false,
+                        showConfirmButton: false
+                    });
+                },
+                success: (res) => {
+                    console.log(res);
+                    if (res.status) {
+                        Swal.close();
+                        $('#form-pesan')[0].reset();
+                        clearErrorMessage();
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: res.message || 'Pesan Anda telah dikirim.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        Swal.close();
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: res.message || 'Terjadi kesalahan.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        });
+        // });
+    </script>
 @endpush

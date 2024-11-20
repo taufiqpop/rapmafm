@@ -11,4 +11,9 @@ class Settings extends Model
 
     protected $table = 'settings';
     protected $guarded = ['id'];
+
+    public function program_siar()
+    {
+        return $this->belongsTo(RefProgramSiar::class, 'program_id', 'id');
+    }
 }

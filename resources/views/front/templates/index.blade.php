@@ -61,8 +61,6 @@
                             <span>Structure</span></a></li>
                     <li><a href="{{ url('#program') }}" class="nav-link scrollto"><i class="bx bx-microphone"></i>
                             <span>Program</span></a></li>
-                    <li><a href="{{ url('#minigames') }}" class="nav-link scrollto"><i class="bx bx-joystick"></i>
-                            <span>Mini Games</span></a></li>
                     <li><a href="{{ url('#chart') }}" class="nav-link scrollto"><i class="bx bx-music"></i>
                             <span>Top Chart</span></a></li>
                     <li><a href="{{ url('#events') }}" class="nav-link scrollto"><i class="bx bx-calendar-event"></i>

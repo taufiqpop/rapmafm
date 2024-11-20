@@ -1,7 +1,7 @@
 <link href="{{ config('app.theme') }}assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
 <link href="{{ config('app.theme') }}assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ config('app.theme') }}assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{ config('app.theme') }}assets/libs/toastr/build/toastr.min.css">
+<link href="{{ config('app.theme') }}assets/libs/toastr/build/toastr.min.css" rel="stylesheet" type="text/css" />
 
 @if (in_array('datatable', @$plugins))
     <link href="{{ config('app.theme') }}assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"

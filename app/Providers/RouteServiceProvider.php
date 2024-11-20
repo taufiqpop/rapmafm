@@ -61,6 +61,8 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->mapSettingsRoutes();
 
+            $this->mapPenyiarRoutes();
+
             $this->mapStrukturOrganisasiRoutes();
 
             $this->mapEventsRoutes();
@@ -70,6 +72,12 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapRefProgramSiarRoutes();
 
             $this->mapRefJenisProgramSiarRoutes();
+
+            $this->mapTopChartsRoutes();
+
+            $this->mapAchievementsRoutes();
+
+            $this->mapRapmaNewsRoutes();
         });
     }
 
@@ -144,6 +152,13 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/panel/settings.php'));
     }
 
+    protected function mapPenyiarRoutes()
+    {
+        Route::prefix('penyiar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/penyiar.php'));
+    }
+
     protected function mapStrukturOrganisasiRoutes()
     {
         Route::prefix('struktur-organisasi')
@@ -177,5 +192,26 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('ref-jenis-program-siar')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/ref-jenis-program-siar.php'));
+    }
+
+    protected function mapTopChartsRoutes()
+    {
+        Route::prefix('top-charts')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/top-charts.php'));
+    }
+
+    protected function mapAchievementsRoutes()
+    {
+        Route::prefix('achievements')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/achievements.php'));
+    }
+
+    protected function mapRapmaNewsRoutes()
+    {
+        Route::prefix('rapma-news')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/rapma-news.php'));
     }
 }

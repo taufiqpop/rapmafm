@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 Route::get('/', [FrontController::class, 'index'])->name('rapmafm');
+Route::post('/send', [FrontController::class, 'send'])->name('message.send');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 Auth::routes();

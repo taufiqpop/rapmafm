@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesan;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,7 +37,7 @@ class PesanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string',
-            'email' => 'required|string|email|unique:pesan,email',
+            'email' => 'required|string',
             'subject' => 'required|string',
             'message' => 'required|string',
         ]);
@@ -64,7 +63,7 @@ class PesanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string',
-            'email' => ['required', Rule::unique('pesan', 'email')->ignore($request->id)],
+            'email' => 'required|string',
             'subject' => 'required|string',
             'message' => 'required|string',
         ]);
