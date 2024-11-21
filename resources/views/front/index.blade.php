@@ -1,15 +1,18 @@
 @extends('front.templates.index')
 
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-item {
+            transition: transform 0.5s ease;
+        }
+    </style>
 @endpush
 
 @section('page-content')
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container">
             <!-- Nama Website -->
-            <h1>{{ $settings->owsner }}</h1>
+            <h1>{{ $settings->owner }}</h1>
         </div>
 
         <!-- Slogan -->
@@ -41,15 +44,10 @@
                         <div style="color: green;" data-aos="fade-in">
                             <span>
                                 <strong>
-                                    @php
-                                        // Time Zone
-                                        date_default_timezone_set('Asia/Jakarta');
-                                        $today = new DateTime();
-                                        echo $today->format('l, d F Y');
-                                    @endphp
+                                    {{ \Carbon\Carbon::now('Asia/Jakarta')->locale('id')->translatedFormat('l, d F Y') }}
                                     <br>
                                     (<span id="jam"></span>
-                                    {{ $today->format('A') }})
+                                    {{ \Carbon\Carbon::now('Asia/Jakarta')->format('A') }})
                                 </strong>
                             </span>
                         </div>
@@ -285,7 +283,9 @@
                                 <div class="rapmanews">
                                     <img class="card-img-top img-fluid p-2 mh-300" src="{{ asset($news->path) }}">
                                 </div>
-                                <small style="color:slategray;" class="text-center">{{ $news->updated_at }}</small>
+                                <small style="color:slategray;" class="text-center">
+                                    {{ \Carbon\Carbon::parse($news->tanggal)->locale('id')->translatedFormat('d F Y (H:i)') }}
+                                </small>
                                 <div class="card-body text-center">
                                     <a href="{{ $news->link }}" target="_blank">
                                         <h5 class="card-title" style="color: black;">{{ $news->judul }}</h5>
@@ -377,11 +377,7 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        // $(() => {
         $('#form-pesan').on('submit', function(e) {
             e.preventDefault();
 
@@ -428,6 +424,5 @@
                 }
             });
         });
-        // });
     </script>
 @endpush

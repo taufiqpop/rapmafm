@@ -36,6 +36,9 @@
 
     {{-- Main CSS --}}
     <link href="{{ asset('assets/vendor/css/style.css') }}" rel="stylesheet">
+
+    {{-- My CSS --}}
+    <link href="{{ asset('assets/vendor/css/my-style.css') }}" rel="stylesheet">
 </head>
 
 <body>

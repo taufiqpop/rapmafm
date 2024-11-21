@@ -25,7 +25,7 @@
                 <div class="d-flex">
                     <!-- LOGO -->
                     <div class="navbar-brand-box">
-                        <a href="/" class="logo logo-light">
+                        <a href="/" class="logo logo-light" target="_blank">
                             <span class="logo-sm">
                                 <img src="{{ config('app.theme') }}assets/images/logo/RapmaFM.png" alt=""
                                     height="15">
