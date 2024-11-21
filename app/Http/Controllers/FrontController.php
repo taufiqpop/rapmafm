@@ -19,10 +19,10 @@ class FrontController extends Controller
         $settings = Settings::with(['program_siar'])->first();
         $structure = StrukturOrganisasi::where('is_active', 1)->get();
         $program = ProgramSiar::where('is_active', 1)->with(['program_siar.jenis_program'])->get();
-        $events = Events::where('is_active', 1)->orderBy('order', 'asc')->get();
+        $events = Events::where('is_active', 1)->orderBy('order', 'desc')->get();
         $topcharts = TopCharts::all();
-        $achievements = Achievements::where('is_active', 1)->get();
-        $rapmanews = RapmaNews::where('is_active', 1)->get();
+        $achievements = Achievements::where('is_active', 1)->orderBy('order', 'desc')->get();
+        $rapmanews = RapmaNews::where('is_active', 1)->orderBy('tanggal', 'desc')->limit(6)->get();
 
         $data = [
             'title' => 'Rapma FM',
