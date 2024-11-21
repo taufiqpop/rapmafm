@@ -211,7 +211,7 @@ $(() => {
                 return `${row.fakultas}<br>${row.prodi}`
             }
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_instagram = $('<a>', {
                     style: 'color: white',

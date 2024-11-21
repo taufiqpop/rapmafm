@@ -22,14 +22,21 @@ class ArusKasController extends Controller
 
     public function data(Request $request)
     {
-        $list = ArusKas::select(DB::raw('*'));
+        $saldo = 0;
+        $list = ArusKas::select(DB::raw('*'))->orderBy('tanggal', 'asc');
 
         return DataTables::of($list)
             ->addIndexColumn()
+            ->addColumn('saldo', function ($row) use (&$saldo) {
+                $pemasukan = $row->pemasukan ?? 0;
+                $pengeluaran = $row->pengeluaran ?? 0;
+                $saldo += ($pemasukan - $pengeluaran);
+                return $saldo;
+            })
             ->addColumn('encrypted_id', function ($row) {
                 return Crypt::encryptString($row->id);
             })
-            ->make();
+            ->make(true);
     }
 
     // Store
