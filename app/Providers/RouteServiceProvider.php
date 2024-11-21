@@ -90,6 +90,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapArusKasRoutes();
 
             $this->mapDanaUniversitasRoutes();
+
+            $this->mapSuratRoutes();
         });
     }
 
@@ -267,5 +269,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('dana-universitas')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/dana-universitas.php'));
+    }
+
+    protected function mapSuratRoutes()
+    {
+        Route::prefix('surat')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/surat.php'));
     }
 }
