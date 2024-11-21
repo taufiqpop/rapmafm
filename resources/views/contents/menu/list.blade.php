@@ -24,7 +24,7 @@
                         <table class="table table-striped" id="table-data" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th style="width: 5%;">#</th>
+                                    <th style="width: 5%;">No</th>
                                     <th>Nama Menu</th>
                                     <th>Induk Menu</th>
                                     <th>Ikon</th>
