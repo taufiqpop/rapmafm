@@ -36,18 +36,20 @@ class InventarisasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'email' => 'required|string',
-            'subject' => 'required|string',
-            'message' => 'required|string',
+            'barang' => 'required|string',
+            'kode' => 'required|string',
+            'nomor' => 'required|string',
+            'tahun' => 'required|string',
+            'kondisi' => 'required|string',
         ]);
 
         try {
             $data = [
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'subject' => $request->subject,
-                'message' => $request->message,
+                'barang' => $request->barang,
+                'kode' => $request->kode,
+                'nomor' => $request->nomor,
+                'kondisi' => $request->kondisi,
+                'tahun' => $request->tahun,
             ];
 
             Inventarisasi::create($data);
@@ -62,18 +64,20 @@ class InventarisasiController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'email' => 'required|string',
-            'subject' => 'required|string',
-            'message' => 'required|string',
+            'barang' => 'required|string',
+            'kode' => 'required|string',
+            'nomor' => 'required|string',
+            'tahun' => 'required|string',
+            'kondisi' => 'required|string',
         ]);
 
         try {
             $inventarisasi = Inventarisasi::find($request->id);
-            $inventarisasi->nama = $request->nama;
-            $inventarisasi->email = $request->email;
-            $inventarisasi->subject = $request->subject;
-            $inventarisasi->message = $request->message;
+            $inventarisasi->barang = $request->barang;
+            $inventarisasi->kode = $request->kode;
+            $inventarisasi->nomor = $request->nomor;
+            $inventarisasi->kondisi = $request->kondisi;
+            $inventarisasi->tahun = $request->tahun;
 
             if ($inventarisasi->isDirty()) {
                 $inventarisasi->save();
