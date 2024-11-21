@@ -124,7 +124,7 @@
                             </div>
 
                             {{-- Fakultas --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="fakultas">Fakultas</label>
                                     <input type="text" name="fakultas" id="fakultas" class="form-control"
@@ -134,7 +134,7 @@
                             </div>
 
                             {{-- Program Studi --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="prodi">Program Studi</label>
                                     <input type="text" name="prodi" id="prodi" class="form-control"
@@ -144,7 +144,7 @@
                             </div>
 
                             {{-- Tahun Kepengurusan --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="tahun_kepengurusan">Tahun Kepengurusan</label>
                                     <input type="number" name="tahun_kepengurusan" id="tahun_kepengurusan"
@@ -254,7 +254,7 @@
                             </div>
 
                             {{-- Fakultas --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-fakultas">Fakultas</label>
                                     <input type="text" name="fakultas" id="update-fakultas" class="form-control"
@@ -264,7 +264,7 @@
                             </div>
 
                             {{-- Program Studi --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-prodi">Program Studi</label>
                                     <input type="text" name="prodi" id="update-prodi" class="form-control"
@@ -274,7 +274,7 @@
                             </div>
 
                             {{-- Tahun Kepengurusan --}}
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-tahun_kepengurusan">Tahun Kepengurusan</label>
                                     <input type="number" name="tahun_kepengurusan" id="update-tahun_kepengurusan"
