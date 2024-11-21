@@ -78,6 +78,12 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapAchievementsRoutes();
 
             $this->mapRapmaNewsRoutes();
+
+            $this->mapCrewRoutes();
+
+            $this->mapPengurusRoutes();
+
+            $this->mapAlumniRoutes();
         });
     }
 
@@ -213,5 +219,26 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('rapma-news')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/rapma-news.php'));
+    }
+
+    protected function mapCrewRoutes()
+    {
+        Route::prefix('crew')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/crew.php'));
+    }
+
+    protected function mapPengurusRoutes()
+    {
+        Route::prefix('pengurus')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/pengurus.php'));
+    }
+
+    protected function mapAlumniRoutes()
+    {
+        Route::prefix('alumni')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/alumni.php'));
     }
 }
