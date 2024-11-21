@@ -284,4 +284,9 @@ $(() => {
             showErrorToastr('oops', responseJSON.message);
         })
     })
+
+    // Export Excel
+    $('.btn-export').on('click', function() {
+        window.location.href = BASE_URL + 'alumni/exportExcel';
+    });
 })

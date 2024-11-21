@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AlumniController extends Controller
 {
@@ -144,5 +146,52 @@ class AlumniController extends Controller
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
         }
+    }
+
+    // Export Excel
+    public function exportExcel()
+    {
+        $alumni = Alumni::orderBy('tahun_kepengurusan', 'asc')->orderBy('fullname', 'asc')->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama Lengkap');
+        $sheet->setCellValue('C1', 'Nama Panggilan');
+        $sheet->setCellValue('D1', 'Jenis Kelamin');
+        $sheet->setCellValue('E1', 'Divisi');
+        $sheet->setCellValue('F1', 'Sub Divisi');
+        $sheet->setCellValue('G1', 'Tahun Kepengurusan');
+        $sheet->setCellValue('H1', 'No HP');
+        $sheet->setCellValue('I1', 'Fakultas');
+        $sheet->setCellValue('J1', 'Program Studi');
+        $sheet->setCellValue('K1', 'Instagram');
+
+        $row = 2;
+        foreach ($alumni as $data) {
+            $sheet->setCellValue('A' . $row, $data->id);
+            $sheet->setCellValue('B' . $row, $data->fullname);
+            $sheet->setCellValue('C' . $row, $data->nickname);
+            $sheet->setCellValue('D' . $row, $data->gender == 'L' ? 'Laki-Laki' : 'Perempuan');
+            $sheet->setCellValue('E' . $row, $data->divisi);
+            $sheet->setCellValue('F' . $row, $data->sub_divisi);
+            $sheet->setCellValue('G' . $row, $data->tahun_kepengurusan);
+            $sheet->setCellValue('H' . $row, $data->no_hp ?? '');
+            $sheet->setCellValue('I' . $row, $data->fakultas);
+            $sheet->setCellValue('J' . $row, $data->prodi);
+            $sheet->setCellValue('K' . $row, $data->instagram);
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+        $filename = 'data-alumni-rapmafm.xlsx';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"{$filename}\"");
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit;
     }
 }

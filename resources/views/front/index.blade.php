@@ -26,18 +26,20 @@
                 <div class="profile">
 
                     <!-- Penyiar -->
-                    <center>
-                        <div class="my-3" style="color: yellow;">
-                            <span>
-                                <marquee behavior="scroll" direction="left" scrolldelay="50" truespeed>
-                                    <h5>
-                                        {{ $settings->program_siar->nama }} || {{ $settings->penyiar1 }}
-                                        {{ $settings->penyiar2 !== '' ? 'X ' . $settings->penyiar2 : '' }}
-                                    </h5>
-                                </marquee>
-                            </span>
-                        </div>
-                    </center>
+                    @if ($settings->penyiar1 !== '')
+                        <center>
+                            <div class="my-3" style="color: yellow;">
+                                <span>
+                                    <marquee behavior="scroll" direction="left" scrolldelay="50" truespeed>
+                                        <h5>
+                                            {{ $settings->program_siar->nama }} || {{ $settings->penyiar1 }}
+                                            {{ $settings->penyiar2 !== '' ? 'X ' . $settings->penyiar2 : '' }}
+                                        </h5>
+                                    </marquee>
+                                </span>
+                            </div>
+                        </center>
+                    @endif
 
                     <!-- Clock -->
                     <center>

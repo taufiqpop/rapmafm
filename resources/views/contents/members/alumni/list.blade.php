@@ -10,17 +10,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('alumni', 2))
-                        <div class="row mb-2">
-                            <div class="col-sm-12">
-                                <div class="text-sm-right">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-export">
+                                    <i class="bx bx-file"></i> Export Excel
+                                </button>
+                                @if (rbacCheck('alumni', 2))
                                     <button type="button"
-                                        class="btn btn-success btn-rounded waves-effect waves-light btn-tambah"><i
-                                            class="bx bx-plus-circle mr-1"></i> Tambah</button>
-                                </div>
+                                        class="btn btn-success btn-rounded waves-effect waves-light btn-tambah">
+                                        <i class="bx bx-plus-circle mr-1"></i> Tambah
+                                    </button>
+                                @endif
                             </div>
                         </div>
-                    @endif
+                    </div>
+
                     {{-- Table --}}
                     <div class="table-responsive" data-pattern="priority-columns">
                         <table class="table table-striped" id="table-data" style="width: 100%;">
