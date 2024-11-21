@@ -225,6 +225,7 @@ $(() => {
                     href: `https://www.instagram.com/${row.instagram}`,
                     target: '_blank'
                 });
+                
                 const button_twitter = $('<a>', {
                     style: 'color: white',
                     class: 'btn btn-info btn-twitter',

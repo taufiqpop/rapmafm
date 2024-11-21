@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengurus;
+use App\Models\Alumni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
-class PengurusController extends Controller
+class AlumniController extends Controller
 {
     // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Pengurus'
+            'title' => 'Alumni'
         ];
 
-        return view('contents.members.pengurus.list', $data);
+        return view('contents.members.alumni.list', $data);
     }
 
     public function data(Request $request)
     {
-        $list = Pengurus::select(DB::raw('*'));
+        $list = Alumni::select(DB::raw('*'));
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -41,12 +41,11 @@ class PengurusController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'required|string',
+            'no_hp' => 'nullable|string',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'semester' => 'required|string',
+            'tahun_kepengurusan' => 'required|string',
             'instagram' => 'required|string',
-            'twitter' => 'required|string',
         ]);
 
         try {
@@ -59,12 +58,11 @@ class PengurusController extends Controller
                 'no_hp' => $request->no_hp,
                 'fakultas' => $request->fakultas,
                 'prodi' => $request->prodi,
-                'semester' => $request->semester,
+                'tahun_kepengurusan' => $request->tahun_kepengurusan,
                 'instagram' => $request->instagram,
-                'twitter' => $request->twitter,
             ];
 
-            Pengurus::create($data);
+            Alumni::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -81,33 +79,31 @@ class PengurusController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'required|string',
+            'no_hp' => 'nullable|string',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'semester' => 'required|string',
+            'tahun_kepengurusan' => 'required|string',
             'instagram' => 'required|string',
-            'twitter' => 'required|string',
         ]);
 
         try {
-            $pengurus = Pengurus::find($request->id);
-            $pengurus->fullname = $request->fullname;
-            $pengurus->nickname = $request->nickname;
-            $pengurus->gender = $request->gender;
-            $pengurus->divisi = $request->divisi;
-            $pengurus->sub_divisi = $request->sub_divisi;
-            $pengurus->no_hp = $request->no_hp;
-            $pengurus->fakultas = $request->fakultas;
-            $pengurus->prodi = $request->prodi;
-            $pengurus->semester = $request->semester;
-            $pengurus->instagram = $request->instagram;
-            $pengurus->twitter = $request->twitter;
+            $alumni = Alumni::find($request->id);
+            $alumni->fullname = $request->fullname;
+            $alumni->nickname = $request->nickname;
+            $alumni->gender = $request->gender;
+            $alumni->divisi = $request->divisi;
+            $alumni->sub_divisi = $request->sub_divisi;
+            $alumni->no_hp = $request->no_hp;
+            $alumni->fakultas = $request->fakultas;
+            $alumni->prodi = $request->prodi;
+            $alumni->tahun_kepengurusan = $request->tahun_kepengurusan;
+            $alumni->instagram = $request->instagram;
 
-            if ($pengurus->isDirty()) {
-                $pengurus->save();
+            if ($alumni->isDirty()) {
+                $alumni->save();
             }
 
-            if ($pengurus->wasChanged()) {
+            if ($alumni->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -119,10 +115,10 @@ class PengurusController extends Controller
     public function delete(Request $request)
     {
         try {
-            $pengurus = Pengurus::find($request->id);
-            $pengurus->delete();
+            $alumni = Alumni::find($request->id);
+            $alumni->delete();
 
-            if ($pengurus->trashed()) {
+            if ($alumni->trashed()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -135,14 +131,14 @@ class PengurusController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $pengurus = Pengurus::find($request->id);
-            $pengurus->is_active = $request->value;
+            $alumni = Alumni::find($request->id);
+            $alumni->is_active = $request->value;
 
-            if ($pengurus->isDirty()) {
-                $pengurus->save();
+            if ($alumni->isDirty()) {
+                $alumni->save();
             }
 
-            if ($pengurus->wasChanged()) {
+            if ($alumni->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {

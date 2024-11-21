@@ -8,7 +8,7 @@ $(() => {
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus crew "<b>${fullname}</b>"!`,
+            html: `Anda akan menghapus alumni "<b>${fullname}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -17,11 +17,11 @@ $(() => {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post(BASE_URL + 'crew/delete', {
+                $.post(BASE_URL + 'alumni/delete', {
                     id,
                     _method: 'DELETE'
                 }).done((res) => {
-                    showSuccessToastr('Sukses', 'Crew berhasil dihapus');
+                    showSuccessToastr('Sukses', 'Alumni berhasil dihapus');
                     table.ajax.reload();
                 }).fail((res) => {
                     let { status, responseJSON } = res;
@@ -32,7 +32,7 @@ $(() => {
     })
 
     // Update
-    $('#form-crew-update').on('submit', function (e) {
+    $('#form-alumni-update').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -46,14 +46,14 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-crew-update').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-alumni-update').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-crew-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-alumni-update').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-crew-update').modal('hide');
+                $('#modal-alumni-update').modal('hide');
 
                 Swal.fire({
                     title: 'Berhasil!',
@@ -63,7 +63,7 @@ $(() => {
                 });
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-crew-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-alumni-update').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -80,7 +80,7 @@ $(() => {
         let data = table.row(tr).data();
 
         clearErrorMessage();
-        $('#form-crew-update')[0].reset();
+        $('#form-alumni-update')[0].reset();
 
         $('.images-preview').attr('src', '').hide();
         $('.images').val('');
@@ -89,11 +89,11 @@ $(() => {
             $('#update-' + key).val(value);
         })
 
-        $('#modal-crew-update').modal('show');
+        $('#modal-alumni-update').modal('show');
     })
 
     // Create
-    $('#form-crew').on('submit', function (e) {
+    $('#form-alumni').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -107,14 +107,14 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-crew').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-alumni').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-crew').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-alumni').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-crew').modal('hide');
+                $('#modal-alumni').modal('hide');
 
                 Swal.fire({
                     title: 'Berhasil!',
@@ -124,7 +124,7 @@ $(() => {
                 });
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-crew').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-alumni').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -137,13 +137,13 @@ $(() => {
     })
 
     $('.btn-tambah').on('click', function () {
-        $('#form-crew')[0].reset();
+        $('#form-alumni')[0].reset();
         clearErrorMessage();
 
         $('.images-preview').attr('src', '').hide();
         $('.images').val('');
 
-        $('#modal-crew').modal('show');
+        $('#modal-alumni').modal('show');
     });
 
     // List
@@ -152,21 +152,21 @@ $(() => {
         serverSide: true,
         language: dtLang,
         ajax: {
-            url: BASE_URL + 'crew/data',
+            url: BASE_URL + 'alumni/data',
             type: 'get',
             dataType: 'json'
         },
-        order: [[9, 'desc']],
+        order: [[8, 'desc']],
         columnDefs: [{
             targets: [0, -2],
             searchable: false,
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 6],
+            targets: [1, 2, 3],
             className: 'text-left align-top'
         }, {
-            targets: [3, 4, 5, 7],
+            targets: [4, 5],
             className: 'text-center align-top'
         }, {
             targets: [-1],
@@ -179,7 +179,12 @@ $(() => {
         }, {
             data: 'nickname',
         }, {
-            data: 'tahun_masuk',
+            data: 'sub_divisi',
+            render: (data, type, row) => {
+                return `${row.divisi}<br>${row.sub_divisi}`
+            }
+        }, {
+            data: 'tahun_kepengurusan',
         }, {
             data: 'gender',
             render: (data, type, row) => {
@@ -193,20 +198,17 @@ $(() => {
             }
         }, {
             data: 'no_hp',
+            render: (data, type, row) => {
+                if (data) {
+                    return data
+                } else {
+                    '-'
+                }
+            }
         }, {
             data: 'prodi',
             render: (data, type, row) => {
-                return `${row.fakultas}<br>${row.prodi}<br>Semester ${row.semester}`
-            }
-        }, {
-            data: 'is_active',
-            render: (data, type, row) => {
-                return `
-                <div class="custom-control custom-switch mb-3" dir="ltr">
-                    <input type="checkbox" class="custom-control-input switch-active" id="aktif-${row.id}" data-id="${row.id}" ${data == '1' ? 'checked' : ''} value="${data == '1' ? 0 : 1}">
-                    <label class="custom-control-label" for="aktif-${row.id}">${data == '1' ? 'Aktif' : 'Nonaktif'}</label>
-                </div>
-                `;
+                return `${row.fakultas}<br>${row.prodi}`
             }
         }, {
             data: 'id',
@@ -220,18 +222,6 @@ $(() => {
                     'data-placement': 'top',
                     'data-toggle': 'tooltip',
                     href: `https://www.instagram.com/${row.instagram}`,
-                    target: '_blank'
-                });
-                
-                const button_twitter = $('<a>', {
-                    style: 'color: white',
-                    class: 'btn btn-info btn-twitter',
-                    html: '<i class="bx bxl-twitter"></i>',
-                    'data-id': data,
-                    title: 'Link Twitter',
-                    'data-placement': 'top',
-                    'data-toggle': 'tooltip',
-                    href: `https://x.com/${row.twitter}`,
                     target: '_blank'
                 });
 
@@ -259,7 +249,6 @@ $(() => {
                         let arr = [];
 
                         arr.push(button_instagram)
-                        arr.push(button_twitter)
 
                         if (permissions.update) {
                             arr.push(button_edit)
@@ -283,12 +272,12 @@ $(() => {
         let id = $(this).data('id');
         let value = $(this).val();
 
-        $.post(BASE_URL + 'crew/switch', {
+        $.post(BASE_URL + 'alumni/switch', {
             id,
             value,
             _method: 'PATCH'
         }).done((res) => {
-            showSuccessToastr('sukses', value == '1' ? 'Crew berhasil diaktifkan' : 'Crew berhasil dinonaktifkan');
+            showSuccessToastr('sukses', value == '1' ? 'Alumni berhasil diaktifkan' : 'Alumni berhasil dinonaktifkan');
             table.ajax.reload();
         }).fail((res) => {
             let { status, responseJSON } = res;
