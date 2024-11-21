@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Events;
+use App\Models\RapmaNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
-class EventsController extends Controller
+class RapmaNewsController extends Controller
 {
     // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Events'
+            'title' => 'Rapma News'
         ];
 
-        return view('contents.events.list', $data);
+        return view('contents.rapma-news.list', $data);
     }
 
     public function data(Request $request)
     {
-        $list = Events::select(DB::raw('*'));
+        $list = RapmaNews::select(DB::raw('*'));
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -37,27 +37,26 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_event' => 'required|string',
-            'nama_event' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'judul' => 'required|string',
+            'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
             'link' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
             $data = [
-                'jenis_event' => $request->jenis_event,
-                'nama_event' => $request->nama_event,
-                'tahun' => $request->tahun,
-                'order' => $request->order,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'tanggal' => $request->tanggal,
                 'link' => $request->link,
             ];
 
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event);
+                $year = date('Y', strtotime($request->tanggal));
+                $path = $file->store('public/uploads/rapma-news/' . $year);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
@@ -66,7 +65,7 @@ class EventsController extends Controller
                 $data['path'] = $encodedPath;
             }
 
-            Events::create($data);
+            RapmaNews::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -78,25 +77,23 @@ class EventsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'jenis_event' => 'required|string',
-            'nama_event' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'judul' => 'required|string',
+            'deskripsi' => 'required|string',
+            'tanggal' => 'required|string',
             'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         try {
-            $events = Events::find($request->id);
-            $events->jenis_event = $request->jenis_event;
-            $events->nama_event = $request->nama_event;
-            $events->tahun = $request->tahun;
-            $events->order = $request->order;
-            $events->link = $request->link;
+            $rapma_news = RapmaNews::find($request->id);
+            $rapma_news->judul = $request->judul;
+            $rapma_news->deskripsi = $request->deskripsi;
+            $rapma_news->tanggal = $request->tanggal;
+            $rapma_news->link = $request->link;
 
             if ($request->hasFile('image')) {
-                if ($events->path) {
-                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+                if ($rapma_news->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $rapma_news->path);
 
                     if (file_exists(public_path($decodedPath))) {
                         unlink(public_path($decodedPath));
@@ -105,20 +102,21 @@ class EventsController extends Controller
 
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event);
+                $year = date('Y', strtotime($request->tanggal));
+                $path = $file->store('public/uploads/rapma-news/' . $year);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
 
-                $events->filename = $originalName;
-                $events->path = $encodedPath;
+                $rapma_news->filename = $originalName;
+                $rapma_news->path = $encodedPath;
             }
 
-            if ($events->isDirty()) {
-                $events->save();
+            if ($rapma_news->isDirty()) {
+                $rapma_news->save();
             }
 
-            if ($events->wasChanged()) {
+            if ($rapma_news->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -130,20 +128,20 @@ class EventsController extends Controller
     public function delete(Request $request)
     {
         try {
-            $events = Events::find($request->id);
+            $rapma_news = RapmaNews::find($request->id);
 
-            if ($events) {
-                if ($events->path) {
-                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+            if ($rapma_news) {
+                if ($rapma_news->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $rapma_news->path);
 
                     if (file_exists(public_path($decodedPath))) {
                         unlink(public_path($decodedPath));
                     }
                 }
 
-                $events->delete();
+                $rapma_news->delete();
 
-                if ($events->trashed()) {
+                if ($rapma_news->trashed()) {
                     return response()->json(['status' => true], 200);
                 }
             } else {
@@ -158,14 +156,14 @@ class EventsController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $events = Events::find($request->id);
-            $events->is_active = $request->value;
+            $rapma_news = RapmaNews::find($request->id);
+            $rapma_news->is_active = $request->value;
 
-            if ($events->isDirty()) {
-                $events->save();
+            if ($rapma_news->isDirty()) {
+                $rapma_news->save();
             }
 
-            if ($events->wasChanged()) {
+            if ($rapma_news->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {

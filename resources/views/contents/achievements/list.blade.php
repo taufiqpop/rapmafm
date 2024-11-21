@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('events', 2))
+                    @if (rbacCheck('achievements', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-right">
@@ -27,8 +27,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">No</th>
-                                    <th>Jenis Event</th>
-                                    <th>Nama Event</th>
+                                    <th>Judul</th>
                                     <th>Tahun</th>
                                     <th>Order</th>
                                     <th>Status</th>
@@ -46,13 +45,13 @@
     </div>
 
     {{-- Create --}}
-    <div id="modal-events" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-eventsLabel"
+    <div id="modal-achievements" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-achievementsLabel"
         aria-hidden="true">
-        <form action="{{ route('events.store') }}" method="post" id="form-events" autocomplete="off">
+        <form action="{{ route('achievements.store') }}" method="post" id="form-achievements" autocomplete="off">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-eventsLabel">Form Events</h5>
+                        <h5 class="modal-title mt-0" id="modal-achievementsLabel">Form Achievements</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -60,27 +59,13 @@
                     <div class="modal-body">
                         <div class="row">
 
-                            {{-- Jenis Event --}}
+                            {{-- Judul --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="jenis_event">Jenis Event</label>
-                                    <select name="jenis_event" id="jenis_event" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Jenis Event</option>
-                                        <option value="RAPMADAY">RAPMADAY</option>
-                                        <option value="RAPMAFEST">RAPMAFEST</option>
-                                        <option value="OPEN RECRUITMENT">OPEN RECRUITMENT</option>
-                                    </select>
-                                    <div id="error-jenis_event"></div>
-                                </div>
-                            </div>
-
-                            {{-- Nama Event --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="nama_event">Nama Event</label>
-                                    <input type="text" name="nama_event" id="nama_event" class="form-control"
-                                        placeholder="Masukkan Nama Event" required>
-                                    <div id="error-nama_event"></div>
+                                    <label for="judul">Judul</label>
+                                    <input type="text" name="judul" id="judul" class="form-control"
+                                        placeholder="Masukkan Judul" required>
+                                    <div id="error-judul"></div>
                                 </div>
                             </div>
 
@@ -141,15 +126,15 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-events-update" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-events-updateLabel" aria-hidden="true">
-        <form action="{{ route('events.update') }}" method="post" id="form-events-update" autocomplete="off">
+    <div id="modal-achievements-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-achievements-updateLabel" aria-hidden="true">
+        <form action="{{ route('achievements.update') }}" method="post" id="form-achievements-update" autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-events-updateLabel">Form Events
+                        <h5 class="modal-title mt-0" id="modal-achievements-updateLabel">Form Achievements
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -157,27 +142,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            {{-- Jenis Event --}}
+                            {{-- Judul --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-jenis_event">Jenis Event</label>
-                                    <select name="jenis_event" id="update-jenis_event" class="form-control" required>
-                                        <option value="" selected disabled>Pilih Jenis Event</option>
-                                        <option value="RAPMADAY">RAPMADAY</option>
-                                        <option value="RAPMAFEST">RAPMAFEST</option>
-                                        <option value="OPEN RECRUITMENT">OPEN RECRUITMENT</option>
-                                    </select>
-                                    <div id="error-update-jenis_event"></div>
-                                </div>
-                            </div>
-
-                            {{-- Nama Event --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="update-nama_event">Nama Event</label>
-                                    <input type="text" name="nama_event" id="update-nama_event" class="form-control"
-                                        placeholder="Masukkan Nama Event" required>
-                                    <div id="error-update-nama_event"></div>
+                                    <label for="update-judul">Judul</label>
+                                    <input type="text" name="judul" id="update-judul" class="form-control"
+                                        placeholder="Masukkan Judul" required>
+                                    <div id="error-update-judul"></div>
                                 </div>
                             </div>
 
@@ -240,5 +211,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/events/list.js?q=' . Str::random(5)) }}"></script>
+    <script src="{{ asset('js/page/achievements/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

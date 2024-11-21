@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Events;
+use App\Models\Achievements;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
-class EventsController extends Controller
+class AchievementsController extends Controller
 {
     // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Events'
+            'title' => 'Achievements'
         ];
 
-        return view('contents.events.list', $data);
+        return view('contents.achievements.list', $data);
     }
 
     public function data(Request $request)
     {
-        $list = Events::select(DB::raw('*'));
+        $list = Achievements::select(DB::raw('*'));
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -37,8 +37,7 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_event' => 'required|string',
-            'nama_event' => 'required|string',
+            'judul' => 'required|string',
             'tahun' => 'required|string',
             'order' => 'required|string',
             'link' => 'required|string',
@@ -47,8 +46,7 @@ class EventsController extends Controller
 
         try {
             $data = [
-                'jenis_event' => $request->jenis_event,
-                'nama_event' => $request->nama_event,
+                'judul' => $request->judul,
                 'tahun' => $request->tahun,
                 'order' => $request->order,
                 'link' => $request->link,
@@ -57,7 +55,7 @@ class EventsController extends Controller
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event);
+                $path = $file->store('public/uploads/achievements/' . $request->tahun);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
@@ -66,7 +64,7 @@ class EventsController extends Controller
                 $data['path'] = $encodedPath;
             }
 
-            Events::create($data);
+            Achievements::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -78,8 +76,7 @@ class EventsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'jenis_event' => 'required|string',
-            'nama_event' => 'required|string',
+            'judul' => 'required|string',
             'tahun' => 'required|string',
             'order' => 'required|string',
             'link' => 'required|string',
@@ -87,16 +84,15 @@ class EventsController extends Controller
         ]);
 
         try {
-            $events = Events::find($request->id);
-            $events->jenis_event = $request->jenis_event;
-            $events->nama_event = $request->nama_event;
-            $events->tahun = $request->tahun;
-            $events->order = $request->order;
-            $events->link = $request->link;
+            $achievements = Achievements::find($request->id);
+            $achievements->judul = $request->judul;
+            $achievements->tahun = $request->tahun;
+            $achievements->order = $request->order;
+            $achievements->link = $request->link;
 
             if ($request->hasFile('image')) {
-                if ($events->path) {
-                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+                if ($achievements->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $achievements->path);
 
                     if (file_exists(public_path($decodedPath))) {
                         unlink(public_path($decodedPath));
@@ -105,20 +101,20 @@ class EventsController extends Controller
 
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/events/' . $request->tahun . '/' . $request->jenis_event);
+                $path = $file->store('public/uploads/achievements/' . $request->tahun);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
 
-                $events->filename = $originalName;
-                $events->path = $encodedPath;
+                $achievements->filename = $originalName;
+                $achievements->path = $encodedPath;
             }
 
-            if ($events->isDirty()) {
-                $events->save();
+            if ($achievements->isDirty()) {
+                $achievements->save();
             }
 
-            if ($events->wasChanged()) {
+            if ($achievements->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -130,20 +126,20 @@ class EventsController extends Controller
     public function delete(Request $request)
     {
         try {
-            $events = Events::find($request->id);
+            $achievements = Achievements::find($request->id);
 
-            if ($events) {
-                if ($events->path) {
-                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $events->path);
+            if ($achievements) {
+                if ($achievements->path) {
+                    $decodedPath = str_replace(['%20', '%23'], [' ', '#'], $achievements->path);
 
                     if (file_exists(public_path($decodedPath))) {
                         unlink(public_path($decodedPath));
                     }
                 }
 
-                $events->delete();
+                $achievements->delete();
 
-                if ($events->trashed()) {
+                if ($achievements->trashed()) {
                     return response()->json(['status' => true], 200);
                 }
             } else {
@@ -158,14 +154,14 @@ class EventsController extends Controller
     public function switchStatus(Request $request)
     {
         try {
-            $events = Events::find($request->id);
-            $events->is_active = $request->value;
+            $achievements = Achievements::find($request->id);
+            $achievements->is_active = $request->value;
 
-            if ($events->isDirty()) {
-                $events->save();
+            if ($achievements->isDirty()) {
+                $achievements->save();
             }
 
-            if ($events->wasChanged()) {
+            if ($achievements->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {

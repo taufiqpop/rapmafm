@@ -55,7 +55,7 @@ class StrukturOrganisasiController extends Controller
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun . '/' . $request->divisi);
+                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
@@ -101,7 +101,7 @@ class StrukturOrganisasiController extends Controller
 
                 $file = $request->file('image');
                 $originalName = $file->getClientOriginalName();
-                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun . '/' . $request->divisi);
+                $path = $file->store('public/uploads/struktur-organisasi/' . $request->tahun);
 
                 $encodedPath = Storage::url($path);
                 $encodedPath = str_replace([' ', '#'], ['%20', '%23'], $encodedPath);
@@ -143,7 +143,7 @@ class StrukturOrganisasiController extends Controller
                     return response()->json(['status' => true], 200);
                 }
             } else {
-                return response()->json(['status' => false, 'msg' => 'Event not found'], 404);
+                return response()->json(['status' => false, 'msg' => 'Data not found'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
