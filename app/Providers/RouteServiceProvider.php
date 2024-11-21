@@ -84,6 +84,12 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapPengurusRoutes();
 
             $this->mapAlumniRoutes();
+
+            $this->mapInventarisasiRoutes();
+
+            $this->mapArusKasRoutes();
+
+            $this->mapDanaUniversitasRoutes();
         });
     }
 
@@ -240,5 +246,26 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('alumni')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/alumni.php'));
+    }
+
+    protected function mapInventarisasiRoutes()
+    {
+        Route::prefix('inventarisasi')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/inventarisasi.php'));
+    }
+
+    protected function mapArusKasRoutes()
+    {
+        Route::prefix('arus-kas')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/arus-kas.php'));
+    }
+
+    protected function mapDanaUniversitasRoutes()
+    {
+        Route::prefix('dana-universitas')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/dana-universitas.php'));
     }
 }
