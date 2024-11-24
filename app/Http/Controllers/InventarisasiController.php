@@ -38,8 +38,8 @@ class InventarisasiController extends Controller
         $request->validate([
             'barang' => 'required|string',
             'kode' => 'required|string',
-            'nomor' => 'required|string',
-            'tahun' => 'required|string',
+            'nomor' => 'required|integer',
+            'tahun' => 'required|integer',
             'kondisi' => 'required|string',
         ]);
 
@@ -66,8 +66,8 @@ class InventarisasiController extends Controller
         $request->validate([
             'barang' => 'required|string',
             'kode' => 'required|string',
-            'nomor' => 'required|string',
-            'tahun' => 'required|string',
+            'nomor' => 'required|integer',
+            'tahun' => 'required|integer',
             'kondisi' => 'required|string',
         ]);
 

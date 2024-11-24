@@ -51,10 +51,10 @@ class ProgramSiarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_program_id' => 'required|string',
-            'program_id' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'jenis_program_id' => 'required|integer',
+            'program_id' => 'required|integer',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -95,10 +95,10 @@ class ProgramSiarController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'jenis_program_id' => 'required|string',
-            'program_id' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'jenis_program_id' => 'required|integer',
+            'program_id' => 'required|integer',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

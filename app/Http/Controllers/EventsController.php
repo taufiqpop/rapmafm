@@ -39,8 +39,8 @@ class EventsController extends Controller
         $request->validate([
             'jenis_event' => 'required|string',
             'nama_event' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -80,8 +80,8 @@ class EventsController extends Controller
         $request->validate([
             'jenis_event' => 'required|string',
             'nama_event' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

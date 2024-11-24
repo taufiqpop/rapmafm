@@ -43,10 +43,10 @@ class AlumniController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'nullable|string',
+            'no_hp' => 'nullable|integer',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'tahun_kepengurusan' => 'required|string',
+            'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
         ]);
 
@@ -81,10 +81,10 @@ class AlumniController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'nullable|string',
+            'no_hp' => 'nullable|integer',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'tahun_kepengurusan' => 'required|string',
+            'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
         ]);
 

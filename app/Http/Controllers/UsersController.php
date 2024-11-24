@@ -13,13 +13,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
 {
-    // List Users
+    // List
     public function index(Request $request)
     {
         $roles = Role::all();
 
         $data = [
-            'title' => 'Pengguna',
+            'title' => 'Users',
             'roles' => $roles,
         ];
 
@@ -35,7 +35,7 @@ class UsersController extends Controller
             ->make(true);
     }
 
-    // Store User
+    // Create
     public function store(Request $request)
     {
         $request->validate([
@@ -61,7 +61,7 @@ class UsersController extends Controller
         }
     }
 
-    // Update User
+    // Update
     public function update(Request $request)
     {
         $request->validate([
@@ -86,7 +86,7 @@ class UsersController extends Controller
         }
     }
 
-    // Switch Status User
+    // Switch Status
     public function switchStatus(Request $request)
     {
         try {
@@ -150,7 +150,7 @@ class UsersController extends Controller
         }
     }
 
-    // Delete User
+    // Delete
     public function delete(Request $request)
     {
         try {

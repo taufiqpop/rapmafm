@@ -37,12 +37,12 @@ class PeminjamanController extends Controller
     {
         $request->validate([
             'barang' => 'required|string',
-            'jumlah' => 'required|string',
+            'jumlah' => 'required|integer',
             'nama_peminjam' => 'required|string',
             'asal_peminjam' => 'required|string',
-            'tgl_pinjam' => 'required|string',
-            'tgl_kembali' => 'nullable|string',
-            'fee' => 'nullable|string',
+            'tgl_pinjam' => 'required|date',
+            'tgl_kembali' => 'nullable|date',
+            'fee' => 'nullable|integer',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -71,12 +71,12 @@ class PeminjamanController extends Controller
     {
         $request->validate([
             'barang' => 'required|string',
-            'jumlah' => 'required|string',
+            'jumlah' => 'required|integer',
             'nama_peminjam' => 'required|string',
             'asal_peminjam' => 'required|string',
-            'tgl_pinjam' => 'required|string',
-            'tgl_kembali' => 'nullable|string',
-            'fee' => 'nullable|string',
+            'tgl_pinjam' => 'required|date',
+            'tgl_kembali' => 'nullable|date',
+            'fee' => 'nullable|integer',
             'keterangan' => 'nullable|string',
         ]);
 

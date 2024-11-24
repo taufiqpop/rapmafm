@@ -79,7 +79,7 @@ class RapmaNewsController extends Controller
         $request->validate([
             'judul' => 'required|string',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|string',
+            'tanggal' => 'required|date',
             'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

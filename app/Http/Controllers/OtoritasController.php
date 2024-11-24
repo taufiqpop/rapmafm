@@ -14,7 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OtoritasController extends Controller
 {
-    // List Otoritas
+    // List
     public function index(Request $request)
     {
         $data = [
@@ -34,7 +34,7 @@ class OtoritasController extends Controller
             ->make();
     }
 
-    // Store Otoritas
+    // Store
     public function store(Request $request)
     {
         $request->validate([
@@ -54,7 +54,7 @@ class OtoritasController extends Controller
         }
     }
 
-    // Update Otoritas
+    // Update
     public function update(Request $request)
     {
         $request->validate([
@@ -79,7 +79,7 @@ class OtoritasController extends Controller
         }
     }
 
-    // Delete Otoritas
+    // Delete
     public function delete(Request $request)
     {
         try {

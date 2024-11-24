@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MenusController extends Controller
 {
+    // List
     public function index(Request $request)
     {
         $data = [
@@ -44,6 +45,7 @@ class MenusController extends Controller
         return response()->json(['data' => $list]);
     }
 
+    // Create
     public function store(Request $request)
     {
         $request->validate([
@@ -95,6 +97,7 @@ class MenusController extends Controller
         }
     }
 
+    // Update
     public function update(Request $request)
     {
         $request->validate([
@@ -148,6 +151,7 @@ class MenusController extends Controller
         }
     }
 
+    // Delete
     public function delete(Request $request)
     {
         $menu_id = $request->id;

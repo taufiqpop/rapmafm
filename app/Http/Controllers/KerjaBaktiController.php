@@ -2,62 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ArusKas;
+use App\Models\KerjaBakti;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
-class ArusKasController extends Controller
+class KerjaBaktiController extends Controller
 {
     // List
     public function index(Request $request)
     {
         $data = [
-            'title' => 'Arus Kas'
+            'title' => 'Kerja Bakti'
         ];
 
-        return view('contents.arus-kas.list', $data);
+        return view('contents.kerja-bakti.list', $data);
     }
 
     public function data(Request $request)
     {
-        $saldo = 0;
-        $list = ArusKas::select(DB::raw('*'))->orderBy('tanggal', 'asc');
+        $list = KerjaBakti::select(DB::raw('*'));
 
         return DataTables::of($list)
             ->addIndexColumn()
-            ->addColumn('saldo', function ($row) use (&$saldo) {
-                $pemasukan = $row->pemasukan ?? 0;
-                $pengeluaran = $row->pengeluaran ?? 0;
-                $saldo += ($pemasukan - $pengeluaran);
-                return $saldo;
-            })
             ->addColumn('encrypted_id', function ($row) {
                 return Crypt::encryptString($row->id);
             })
-            ->make(true);
+            ->make();
     }
 
     // Store
     public function store(Request $request)
     {
         $request->validate([
+            'tujuan' => 'required|string',
             'tanggal' => 'required|date',
-            'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|integer',
-            'pengeluaran' => 'nullable|integer',
+            'jumlah_crew' => 'nullable|integer',
+            'jumlah_pengurus' => 'nullable|integer',
+            'kendala' => 'nullable|string',
+            'status' => 'required|string',
         ]);
 
         try {
             $data = [
+                'tujuan' => $request->tujuan,
                 'tanggal' => $request->tanggal,
-                'keterangan' => $request->keterangan,
-                'pemasukan' => $request->pemasukan,
-                'pengeluaran' => $request->pengeluaran,
+                'jumlah_crew' => $request->jumlah_crew,
+                'jumlah_pengurus' => $request->jumlah_pengurus,
+                'kendala' => $request->kendala,
+                'status' => $request->status,
             ];
 
-            ArusKas::create($data);
+            KerjaBakti::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -69,24 +66,28 @@ class ArusKasController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'tujuan' => 'required|string',
             'tanggal' => 'required|date',
-            'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|integer',
-            'pengeluaran' => 'nullable|integer',
+            'jumlah_crew' => 'nullable|integer',
+            'jumlah_pengurus' => 'nullable|integer',
+            'kendala' => 'nullable|string',
+            'status' => 'required|string',
         ]);
 
         try {
-            $arus_kas = ArusKas::find($request->id);
-            $arus_kas->tanggal = $request->tanggal;
-            $arus_kas->keterangan = $request->keterangan;
-            $arus_kas->pemasukan = $request->pemasukan;
-            $arus_kas->pengeluaran = $request->pengeluaran;
+            $kerja_bakti = KerjaBakti::find($request->id);
+            $kerja_bakti->tujuan = $request->tujuan;
+            $kerja_bakti->tanggal = $request->tanggal;
+            $kerja_bakti->jumlah_crew = $request->jumlah_crew;
+            $kerja_bakti->jumlah_pengurus = $request->jumlah_pengurus;
+            $kerja_bakti->kendala = $request->kendala;
+            $kerja_bakti->status = $request->status;
 
-            if ($arus_kas->isDirty()) {
-                $arus_kas->save();
+            if ($kerja_bakti->isDirty()) {
+                $kerja_bakti->save();
             }
 
-            if ($arus_kas->wasChanged()) {
+            if ($kerja_bakti->wasChanged()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {
@@ -98,10 +99,10 @@ class ArusKasController extends Controller
     public function delete(Request $request)
     {
         try {
-            $arus_kas = ArusKas::find($request->id);
-            $arus_kas->delete();
+            $kerja_bakti = KerjaBakti::find($request->id);
+            $kerja_bakti->delete();
 
-            if ($arus_kas->trashed()) {
+            if ($kerja_bakti->trashed()) {
                 return response()->json(['status' => true], 200);
             }
         } catch (\Exception $e) {

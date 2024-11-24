@@ -40,7 +40,7 @@ class RefProgramSiarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_program_id' => 'required|string',
+            'jenis_program_id' => 'required|integer',
             'nama' => 'required|string',
         ]);
 
@@ -62,7 +62,7 @@ class RefProgramSiarController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'jenis_program_id' => 'required|string',
+            'jenis_program_id' => 'required|integer',
             'nama' => 'required|string',
         ]);
 

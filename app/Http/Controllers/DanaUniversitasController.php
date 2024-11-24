@@ -14,7 +14,7 @@ class DanaUniversitasController extends Controller
     public function index(Request $request)
     {
         $data = [
-            'title' => 'DanaUniversitas'
+            'title' => 'Dana Universitas'
         ];
 
         return view('contents.dana-universitas.list', $data);
@@ -42,10 +42,10 @@ class DanaUniversitasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|string',
+            'tanggal' => 'required|date',
             'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|string',
-            'pengeluaran' => 'nullable|string',
+            'pemasukan' => 'nullable|integer',
+            'pengeluaran' => 'nullable|integer',
         ]);
 
         try {
@@ -68,10 +68,10 @@ class DanaUniversitasController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|string',
+            'tanggal' => 'required|date',
             'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|string',
-            'pengeluaran' => 'nullable|string',
+            'pemasukan' => 'nullable|integer',
+            'pengeluaran' => 'nullable|integer',
         ]);
 
         try {

@@ -38,8 +38,8 @@ class AchievementsController extends Controller
     {
         $request->validate([
             'judul' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -77,8 +77,8 @@ class AchievementsController extends Controller
     {
         $request->validate([
             'judul' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'link' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
