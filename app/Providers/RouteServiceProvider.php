@@ -94,6 +94,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapJadwalSiarRoutes();
 
             $this->mapJadwalPiketRoutes();
+
+            $this->mapPeminjamanRoutes();
         });
     }
 
@@ -285,5 +287,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('jadwal-piket')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/jadwal-piket.php'));
+    }
+
+    protected function mapPeminjamanRoutes()
+    {
+        Route::prefix('peminjaman')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/peminjaman.php'));
     }
 }
