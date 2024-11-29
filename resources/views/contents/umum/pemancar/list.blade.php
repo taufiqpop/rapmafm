@@ -4,6 +4,10 @@
     $plugins = ['datatable', 'swal', 'leaflet'];
 @endphp
 
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+@endpush
+
 @section('contents')
     {{-- List --}}
     <div class="row">
@@ -28,6 +32,7 @@
                                 <tr>
                                     <th style="width: 5%;">No</th>
                                     <th>Tanggal</th>
+                                    <th>Coordinate Type</th>
                                     <th>Action</th>
                                     <th></th>
                                 </tr>
@@ -38,57 +43,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    {{-- Create --}}
-    <div id="modal-pemancar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-pemancarLabel"
-        aria-hidden="true">
-        <form action="{{ route('pemancar.store') }}" method="post" id="form-pemancar" autocomplete="off">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-pemancarLabel">Form Pemancar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            {{-- Tanggal --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="tanggal">Tanggal</label>
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control"
-                                        placeholder="Masukkan Tanggal" required>
-                                    <div id="error-tanggal"></div>
-                                </div>
-                            </div>
-
-                            {{-- Peta Koordinat --}}
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="create-map">Peta Koordinat</label>
-                                    <div id="create-map" style="height: 400px;"></div>
-                                </div>
-                            </div>
-
-                            {{-- Koordinat --}}
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <textarea name="coordinates" id="create-coordinates" class="form-control" placeholder="-" required readonly></textarea>
-                                    <div id="error-coordinates"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
-                    </div>
-                </div>
-            </div>
-        </form>
     </div>
 
     {{-- Update --}}
@@ -108,12 +62,23 @@
                     <div class="modal-body">
                         <div class="row">
                             {{-- Tanggal --}}
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-tanggal">Tanggal</label>
                                     <input type="date" name="tanggal" id="update-tanggal" class="form-control"
                                         placeholder="Masukkan Tanggal" required>
                                     <div id="error-update-tanggal"></div>
+                                </div>
+                            </div>
+
+                            {{-- Tipe Koordinat --}}
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="update-coordinate_type">Tipe Koordinat<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="coordinate_type" id="update-coordinate_type"
+                                        class="form-control" placeholder="Masukkan Tipe Koordinat" required readonly>
+                                    <div id="error-update-coordinate_type"></div>
                                 </div>
                             </div>
 
@@ -148,8 +113,71 @@
             </div>
         </form>
     </div>
+
+    {{-- Create --}}
+    <div id="modal-pemancar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-pemancarLabel"
+        aria-hidden="true">
+        <form action="{{ route('pemancar.store') }}" method="post" id="form-pemancar" autocomplete="off">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="modal-pemancarLabel">Form Pemancar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            {{-- Tanggal --}}
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="tanggal">Tanggal</label>
+                                    <input type="date" name="tanggal" id="tanggal" class="form-control"
+                                        placeholder="Masukkan Tanggal" required>
+                                    <div id="error-tanggal"></div>
+                                </div>
+                            </div>
+
+                            {{-- Tipe Koordinat --}}
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="coordinate_type">Tipe Koordinat<span class="text-danger">*</span></label>
+                                    <input type="text" name="coordinate_type" id="coordinate_type"
+                                        class="form-control" placeholder="Masukkan Tipe Koordinat" value="MultiPolygon"
+                                        required readonly>
+                                    <div id="error-coordinate_type"></div>
+                                </div>
+                            </div>
+
+                            {{-- Peta Koordinat --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="create-map">Peta Koordinat</label>
+                                    <div id="create-map" style="height: 400px;"></div>
+                                </div>
+                            </div>
+
+                            {{-- Koordinat --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <textarea name="coordinates" id="create-coordinates" class="form-control" placeholder="-" required readonly></textarea>
+                                    <div id="error-coordinates"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="{{ asset('js/page/umum/pemancar/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

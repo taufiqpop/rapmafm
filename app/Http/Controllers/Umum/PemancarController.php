@@ -37,18 +37,16 @@ class PemancarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'email' => 'required|string',
-            'subject' => 'required|string',
-            'message' => 'required|string',
+            'tanggal' => 'required|string',
+            'coordinates' => 'nullable|string',
+            'coordinate_type' => 'nullable|string',
         ]);
 
         try {
             $data = [
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'subject' => $request->subject,
-                'message' => $request->message,
+                'tanggal' => $request->tanggal,
+                'coordinates' => $request->coordinates,
+                'coordinate_type' => $request->coordinate_type,
             ];
 
             Pemancar::create($data);
@@ -63,18 +61,16 @@ class PemancarController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string',
-            'email' => 'required|string',
-            'subject' => 'required|string',
-            'message' => 'required|string',
+            'tanggal' => 'required|string',
+            'coordinates' => 'nullable|string',
+            'coordinate_type' => 'nullable|string',
         ]);
 
         try {
             $pemancar = Pemancar::find($request->id);
-            $pemancar->nama = $request->nama;
-            $pemancar->email = $request->email;
-            $pemancar->subject = $request->subject;
-            $pemancar->message = $request->message;
+            $pemancar->tanggal = $request->tanggal;
+            $pemancar->coordinates = $request->coordinates;
+            $pemancar->coordinate_type = $request->coordinate_type;
 
             if ($pemancar->isDirty()) {
                 $pemancar->save();
