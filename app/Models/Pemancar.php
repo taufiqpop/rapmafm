@@ -11,4 +11,9 @@ class Pemancar extends Model
 
     protected $table = 'pemancar';
     protected $guarded = ['id'];
+
+    public function daerah()
+    {
+        return $this->hasMany(PemancarKondisiSuara::class, 'pemancar_id');
+    }
 }

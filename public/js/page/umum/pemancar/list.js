@@ -84,6 +84,8 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-pemancar')[0].reset();
         clearErrorMessage();
+
+        $('#daerah-fields').empty();
         $('#modal-pemancar').modal('show');
     });
 
@@ -146,6 +148,34 @@ $(() => {
             $('#update-' + key).val(value);
         })
 
+        $('#daerah-fields-update').empty();
+
+        if (data.daerah && data.daerah.length) {
+            data.daerah.forEach(function(daerah) {
+                $('#daerah-fields-update').append(`
+                    <div class="row daerah-field" data-id=${daerah.id}>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Daerah</label>
+                                <input type="text" name="nama_daerah[]" class="form-control mb-2" placeholder="Daerah" value="${daerah.nama_daerah}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group d-flex align-items-center">
+                                <div style="flex: 1;">
+                                    <label>Kondisi Suara</label>
+                                    <input type="text" name="kondisi_suara[]" class="form-control mb-2" placeholder="Kondisi Suara" value="${daerah.kondisi_suara}" required>
+                                </div>
+                                <button type="button" class="btn btn-danger update-remove-daerah ml-2 mt-3" style="height: fit-content;">
+                                    <i class="bx bx-trash"></i> Hapus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
         $('#modal-pemancar-update').modal('show');
     })
 
@@ -163,7 +193,7 @@ $(() => {
             type: 'get',
             dataType: 'json'
         },
-        order: [[4, 'desc']],
+        order: [[5, 'desc']],
         columnDefs: [{
             targets: [0, -2],
             searchable: false,
@@ -185,6 +215,16 @@ $(() => {
             }
         }, {
             data: 'coordinate_type',
+        }, {
+            data: 'daerah',
+            render: (data, type, row) => {
+                let text = '';
+                $.each(data, function(index, item) {
+                    text += '- ' + item.nama_daerah + ' (' + item.kondisi_suara + ')<br>';
+                });
+    
+                return text;
+            }
         }, {
             data: 'encrypted_id',
             render: (data, type, row) => {
@@ -227,21 +267,114 @@ $(() => {
             data: 'created_at'
         }]
     })
-    
-    // Format Tanggal ID
-    function formatTanggalIndonesia(isoDate) {
-        const date = new Date(isoDate);
-    
-        const tanggal = date.toLocaleDateString('id-ID', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-    
-        return `${tanggal}`;
-    }
+
+    // Add Daerah
+    $('.add-daerah').on('click', function() {
+        $('#daerah-fields').append(`
+            <div class="row daerah-field">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Daerah</label>
+                        <input type="text" name="nama_daerah[]" class="form-control mb-2" placeholder="Daerah" required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group d-flex align-items-center">
+                        <div style="flex: 1;">
+                            <label>Kondisi Suara</label>
+                            <input type="text" name="kondisi_suara[]" class="form-control mb-2" placeholder="Kondisi Suara" required>
+                        </div>
+                        <button type="button" class="btn btn-danger remove-daerah ml-2 mt-3" style="height: fit-content;">
+                            <i class="bx bx-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+
+    // Remove Daerah
+    $(document).on('click', '.remove-daerah', function() {
+        $(this).closest('.daerah-field').remove();
+    });
+
+    // Add Daerah Update
+    $('#modal-pemancar-update').on('click', '.add-daerah', function() {
+        $('#daerah-fields-update').append(`
+            <div class="row daerah-field">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Daerah</label>
+                        <input type="text" name="nama_daerah[]" class="form-control mb-2" placeholder="Daerah" required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group d-flex align-items-center">
+                        <div style="flex: 1;">
+                            <label>Kondisi Suara</label>
+                            <input type="text" name="kondisi_suara[]" class="form-control mb-2" placeholder="Kondisi Suara" required>
+                        </div>
+                        <button type="button" class="btn btn-danger remove-daerah ml-2 mt-3" style="height: fit-content;">
+                            <i class="bx bx-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+
+    // Remove Daerah Update
+    $(document).on('click', '.update-remove-daerah', function() {
+        const daerahField = $(this).closest('.daerah-field');
+        deleteDaerah(daerahField);
+    });
 })
+
+// Delete Daerah
+function deleteDaerah(daerahField) {
+    Swal.fire({
+        title: 'Anda yakin?',
+        text: "Data Daerah ini akan dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const daerahId = daerahField.data('id');
+            $.ajax({
+                url: BASE_URL + 'pemancar/deleteDaerah',
+                type: 'DELETE',
+                data: { id: daerahId },
+                success: function(response) {
+                    if (response.status) {
+                        daerahField.remove();
+                        Swal.fire('Dihapus!', 'Data Daerah berhasil dihapus.', 'success');
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire('Oops...', xhr.responseJSON.msg, 'error');
+                }
+            });
+        }
+    });
+}
+
+// Format Tanggal ID
+function formatTanggalIndonesia(isoDate) {
+    const date = new Date(isoDate);
+
+    const tanggal = date.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+
+    return `${tanggal}`;
+}
 
 // Get Array Depth
 function getArrayDepth(array) {

@@ -7,3 +7,4 @@ Route::get('/data', [PemancarController::class, 'data'])->name('pemancar.data')-
 Route::post('/store', [PemancarController::class, 'store'])->name('pemancar.store')->middleware('rbac:pemancar,2');
 Route::patch('/update', [PemancarController::class, 'update'])->name('pemancar.update')->middleware('rbac:pemancar,3');
 Route::delete('/delete', [PemancarController::class, 'delete'])->name('pemancar.delete')->middleware('rbac:pemancar,4');
+Route::delete('/deleteDaerah', [PemancarController::class, 'deleteDaerah'])->name('pemancar.deleteDaerah')->middleware('rbac:pemancar,4');

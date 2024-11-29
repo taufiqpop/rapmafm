@@ -33,6 +33,7 @@
                                     <th style="width: 5%;">No</th>
                                     <th>Tanggal</th>
                                     <th>Coordinate Type</th>
+                                    <th>Daerah</th>
                                     <th>Action</th>
                                     <th></th>
                                 </tr>
@@ -102,8 +103,23 @@
                                 <button type="button" class="btn btn-dark" onclick="clearCoordinates()"><i
                                         class="bx bx-trash-alt"></i> Clear Koordinat</button>
                             </div>
-
                         </div>
+
+                        <hr>
+                        <div class="row">
+                            {{-- Daerah --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="daerah-section">
+                                        <h6>Daerah</h6>
+                                        <button type="button" class="btn btn-sm btn-success add-daerah"><i
+                                                class="bx bx-plus"></i> Tambah Daerah</button>
+                                        <div id="daerah-fields-update" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>
@@ -164,8 +180,23 @@
                                     <div id="error-coordinates"></div>
                                 </div>
                             </div>
-
                         </div>
+
+                        <hr>
+                        <div class="row">
+                            {{-- Daerah --}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="daerah-section">
+                                        <h6>Daerah</h6>
+                                        <button type="button" class="btn btn-sm btn-success add-daerah"><i
+                                                class="bx bx-plus"></i> Tambah Daerah</button>
+                                        <div id="daerah-fields" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>

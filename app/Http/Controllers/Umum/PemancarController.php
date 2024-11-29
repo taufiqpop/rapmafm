@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Umum;
 
 use App\Models\Pemancar;
+use App\Models\PemancarKondisiSuara;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class PemancarController extends Controller
 
     public function data(Request $request)
     {
-        $list = Pemancar::select(DB::raw('*'));
+        $list = Pemancar::select(DB::raw('*'))->with(['daerah']);
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -40,6 +41,8 @@ class PemancarController extends Controller
             'tanggal' => 'required|string',
             'coordinates' => 'nullable|string',
             'coordinate_type' => 'nullable|string',
+            'nama_daerah' => 'nullable|array',
+            'kondisi_suara' => 'nullable|array',
         ]);
 
         try {
@@ -49,9 +52,24 @@ class PemancarController extends Controller
                 'coordinate_type' => $request->coordinate_type,
             ];
 
-            Pemancar::create($data);
+            $pemancar = Pemancar::create($data);
 
-            return response()->json(['status' => true], 200);
+            if ($request->has('nama_daerah') && is_array($request->nama_daerah)) {
+                $nama_daerah = $request->nama_daerah;
+                $kondisiSuara = $request->kondisi_suara ?? [];
+
+                foreach ($nama_daerah as $index => $daerah) {
+                    if (!empty($daerah) && isset($kondisiSuara[$index])) {
+                        PemancarKondisiSuara::create([
+                            'pemancar_id' => $pemancar->id,
+                            'nama_daerah' => $daerah,
+                            'kondisi_suara' => $kondisiSuara[$index]
+                        ]);
+                    }
+                }
+            }
+
+            return response()->json(['status' => true, 'id' => $pemancar->id], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
         }
@@ -64,6 +82,8 @@ class PemancarController extends Controller
             'tanggal' => 'required|string',
             'coordinates' => 'nullable|string',
             'coordinate_type' => 'nullable|string',
+            'nama_daerah' => 'nullable|array',
+            'kondisi_suara' => 'nullable|array',
         ]);
 
         try {
@@ -76,11 +96,26 @@ class PemancarController extends Controller
                 $pemancar->save();
             }
 
-            if ($pemancar->wasChanged()) {
-                return response()->json(['status' => true], 200);
+            if ($request->has('nama_daerah') && is_array($request->nama_daerah)) {
+                $nama_daerah = $request->nama_daerah;
+                $kondisiSuara = $request->kondisi_suara ?? [];
+
+                PemancarKondisiSuara::where('pemancar_id', $pemancar->id)->delete();
+
+                foreach ($nama_daerah as $index => $daerah) {
+                    if (!empty($daerah) && isset($kondisiSuara[$index])) {
+                        PemancarKondisiSuara::create([
+                            'pemancar_id' => $pemancar->id,
+                            'nama_daerah' => $daerah,
+                            'kondisi_suara' => $kondisiSuara[$index]
+                        ]);
+                    }
+                }
             }
+
+            return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
-            return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
+            return response()->json(['status' => false, 'msg' => 'terjadi'], 400);
         }
     }
 
@@ -94,6 +129,19 @@ class PemancarController extends Controller
             if ($pemancar->trashed()) {
                 return response()->json(['status' => true], 200);
             }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
+        }
+    }
+
+    // Delete Daerah
+    public function deleteDaerah(Request $request)
+    {
+        try {
+            $nama_daerah = PemancarKondisiSuara::findOrFail($request->id);
+            $nama_daerah->delete();
+
+            return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
         }
