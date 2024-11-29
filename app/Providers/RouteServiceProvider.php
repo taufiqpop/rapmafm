@@ -98,6 +98,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapPeminjamanRoutes();
 
             $this->mapKerjaBaktiRoutes();
+
+            $this->mapPemancarRoutes();
         });
     }
 
@@ -303,5 +305,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('kerja-bakti')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/kerja-bakti.php'));
+    }
+
+    protected function mapPemancarRoutes()
+    {
+        Route::prefix('pemancar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/pemancar.php'));
     }
 }
