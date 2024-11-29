@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alumni;
 use App\Models\Crew;
+use App\Models\Alumni;
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    // Index
     public function index(Request $request)
     {
         $crew = Crew::where('is_active', 1)->get();
@@ -25,6 +26,6 @@ class DashboardController extends Controller
             'alumniCount' => $alumni->count(),
         ];
 
-        return view('contents.dashboard.home', $data);
+        return view('contents.administrator.dashboard.home', $data);
     }
 }

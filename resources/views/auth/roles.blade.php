@@ -105,7 +105,7 @@
 
     <!-- App JS -->
     <script src="{{ config('app.theme') }}assets/js/app.js"></script>
-    <script src="{{ asset('js/page/auth/chooseRole.js') }}"></script>
+    <script src="{{ asset('js/page/administrator/auth/chooseRole.js') }}"></script>
 </body>
 
 </html>

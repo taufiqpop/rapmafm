@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
@@ -23,7 +23,7 @@ class UsersController extends Controller
             'roles' => $roles,
         ];
 
-        return view('contents.user.list', $data);
+        return view('contents.administrator.user.list', $data);
     }
 
     public function data(Request $request)

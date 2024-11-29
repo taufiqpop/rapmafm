@@ -7,9 +7,9 @@ use App\Models\Role;
 use App\Models\Menu;
 use App\Models\MenuRole;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class OtoritasController extends Controller
@@ -21,7 +21,7 @@ class OtoritasController extends Controller
             'title' => 'Otoritas'
         ];
 
-        return view('contents.otoritas.list', $data);
+        return view('contents.administrator.otoritas.list', $data);
     }
 
     public function data(Request $request)
@@ -84,7 +84,6 @@ class OtoritasController extends Controller
     {
         try {
             $role = Role::find($request->id);
-
             $role->delete();
 
             if ($role->trashed()) {
@@ -109,7 +108,7 @@ class OtoritasController extends Controller
             'role' => $role,
         ];
 
-        return view('contents.otoritas.permissions', $data);
+        return view('contents.administrator.otoritas.permissions', $data);
     }
 
     // Submit Permission

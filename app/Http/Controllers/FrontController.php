@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+    // Index
     public function index(Request $request)
     {
         $settings = Settings::with(['program_siar'])->first();

@@ -7,319 +7,209 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    // protected $namespace = 'App\Http\Controllers';
-
-    /**
-     * The path to the "home" route for your application.
-     *
-     * @var string
-     */
     public const HOME = '/';
     public const DASHBOARD = '/dashboard';
 
-    /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
-     */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
-    /**
-     * Define the routes for the application.
-     *
-     * @return void
-     */
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
 
         Route::middleware(['web', 'auth'])->group(function () {
-
+            // Administrator
             $this->mapDashboardRoutes();
-
             $this->mapUserRoutes();
-
             $this->mapMenuRoutes();
-
             $this->mapOtoritasRoutes();
 
-            $this->mapPesanRoutes();
-
-            $this->mapSettingsRoutes();
-
-            $this->mapPenyiarRoutes();
-
-            $this->mapStrukturOrganisasiRoutes();
-
-            $this->mapEventsRoutes();
-
-            $this->mapProgramSiarRoutes();
-
-            $this->mapRefProgramSiarRoutes();
-
-            $this->mapRefJenisProgramSiarRoutes();
-
-            $this->mapTopChartsRoutes();
-
-            $this->mapAchievementsRoutes();
-
-            $this->mapRapmaNewsRoutes();
-
-            $this->mapCrewRoutes();
-
-            $this->mapPengurusRoutes();
-
-            $this->mapAlumniRoutes();
-
-            $this->mapInventarisasiRoutes();
-
+            // GMPA
             $this->mapArusKasRoutes();
-
             $this->mapDanaUniversitasRoutes();
-
             $this->mapSuratRoutes();
 
+            // Umum
+            $this->mapPesanRoutes();
+            $this->mapSettingsRoutes();
+            $this->mapStrukturOrganisasiRoutes();
+            $this->mapAchievementsRoutes();
+            $this->mapInventarisasiRoutes();
+            $this->mapJadwalPiketRoutes();
+            $this->mapPeminjamanRoutes();
+            $this->mapKerjaBaktiRoutes();
+            $this->mapPemancarRoutes();
+
+            // Kepenyiaran
+            $this->mapPenyiarRoutes();
+            $this->mapProgramSiarRoutes();
+            $this->mapRefProgramSiarRoutes();
+            $this->mapRefJenisProgramSiarRoutes();
+            $this->mapTopChartsRoutes();
+            $this->mapRapmaNewsRoutes();
             $this->mapJadwalSiarRoutes();
 
-            $this->mapJadwalPiketRoutes();
+            // Marketing
+            $this->mapEventsRoutes();
 
-            $this->mapPeminjamanRoutes();
-
-            $this->mapKerjaBaktiRoutes();
-
-            $this->mapPemancarRoutes();
+            // Personalia
+            $this->mapCrewRoutes();
+            $this->mapPengurusRoutes();
+            $this->mapAlumniRoutes();
         });
     }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
+    // Administrator
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+        Route::middleware('web')->group(base_path('routes/web.php'));
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-            ->middleware('api')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+        Route::prefix('api')->middleware('api')->group(base_path('routes/api.php'));
     }
 
     protected function mapDashboardRoutes()
     {
-        Route::prefix('dashboard')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/dashboard.php'));
+        Route::prefix('dashboard')->group(base_path('routes/panel/dashboard.php'));
     }
 
     protected function mapUserRoutes()
     {
-        Route::prefix('users')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/users.php'));
+        Route::prefix('users')->group(base_path('routes/panel/users.php'));
     }
 
     protected function mapMenuRoutes()
     {
-        Route::prefix('manajemen-menu')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/menu.php'));
+        Route::prefix('manajemen-menu')->group(base_path('routes/panel/menu.php'));
     }
 
     protected function mapOtoritasRoutes()
     {
-        Route::prefix('otoritas')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/otoritas.php'));
+        Route::prefix('otoritas')->group(base_path('routes/panel/otoritas.php'));
     }
 
-    protected function mapPesanRoutes()
-    {
-        Route::prefix('pesan')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/pesan.php'));
-    }
-
-    protected function mapSettingsRoutes()
-    {
-        Route::prefix('settings')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/settings.php'));
-    }
-
-    protected function mapPenyiarRoutes()
-    {
-        Route::prefix('penyiar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/penyiar.php'));
-    }
-
-    protected function mapStrukturOrganisasiRoutes()
-    {
-        Route::prefix('struktur-organisasi')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/struktur-organisasi.php'));
-    }
-
-    protected function mapEventsRoutes()
-    {
-        Route::prefix('events')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/events.php'));
-    }
-
-    protected function mapProgramSiarRoutes()
-    {
-        Route::prefix('program-siar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/program-siar.php'));
-    }
-
-    protected function mapRefProgramSiarRoutes()
-    {
-        Route::prefix('ref-program-siar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/ref-program-siar.php'));
-    }
-
-    protected function mapRefJenisProgramSiarRoutes()
-    {
-        Route::prefix('ref-jenis-program-siar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/ref-jenis-program-siar.php'));
-    }
-
-    protected function mapTopChartsRoutes()
-    {
-        Route::prefix('top-charts')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/top-charts.php'));
-    }
-
-    protected function mapAchievementsRoutes()
-    {
-        Route::prefix('achievements')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/achievements.php'));
-    }
-
-    protected function mapRapmaNewsRoutes()
-    {
-        Route::prefix('rapma-news')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/rapma-news.php'));
-    }
-
-    protected function mapCrewRoutes()
-    {
-        Route::prefix('crew')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/crew.php'));
-    }
-
-    protected function mapPengurusRoutes()
-    {
-        Route::prefix('pengurus')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/pengurus.php'));
-    }
-
-    protected function mapAlumniRoutes()
-    {
-        Route::prefix('alumni')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/alumni.php'));
-    }
-
-    protected function mapInventarisasiRoutes()
-    {
-        Route::prefix('inventarisasi')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/inventarisasi.php'));
-    }
-
+    // GMPA
     protected function mapArusKasRoutes()
     {
-        Route::prefix('arus-kas')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/arus-kas.php'));
+        Route::prefix('arus-kas')->group(base_path('routes/panel/gmpa/arus-kas.php'));
     }
 
     protected function mapDanaUniversitasRoutes()
     {
-        Route::prefix('dana-universitas')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/dana-universitas.php'));
+        Route::prefix('dana-universitas')->group(base_path('routes/panel/gmpa/dana-universitas.php'));
     }
 
     protected function mapSuratRoutes()
     {
-        Route::prefix('surat')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/surat.php'));
+        Route::prefix('surat')->group(base_path('routes/panel/gmpa/surat.php'));
     }
 
-    protected function mapJadwalSiarRoutes()
+    // Umum
+    protected function mapPesanRoutes()
     {
-        Route::prefix('jadwal-siar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/jadwal-siar.php'));
+        Route::prefix('pesan')->group(base_path('routes/panel/umum/pesan.php'));
+    }
+
+    protected function mapSettingsRoutes()
+    {
+        Route::prefix('settings')->group(base_path('routes/panel/umum/settings.php'));
+    }
+
+    protected function mapStrukturOrganisasiRoutes()
+    {
+        Route::prefix('struktur-organisasi')->group(base_path('routes/panel/umum/struktur-organisasi.php'));
+    }
+
+    protected function mapAchievementsRoutes()
+    {
+        Route::prefix('achievements')->group(base_path('routes/panel/umum/achievements.php'));
+    }
+
+    protected function mapInventarisasiRoutes()
+    {
+        Route::prefix('inventarisasi')->group(base_path('routes/panel/umum/inventarisasi.php'));
     }
 
     protected function mapJadwalPiketRoutes()
     {
-        Route::prefix('jadwal-piket')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/jadwal-piket.php'));
+        Route::prefix('jadwal-piket')->group(base_path('routes/panel/umum/jadwal-piket.php'));
     }
 
     protected function mapPeminjamanRoutes()
     {
-        Route::prefix('peminjaman')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/peminjaman.php'));
+        Route::prefix('peminjaman')->group(base_path('routes/panel/umum/peminjaman.php'));
     }
 
     protected function mapKerjaBaktiRoutes()
     {
-        Route::prefix('kerja-bakti')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/kerja-bakti.php'));
+        Route::prefix('kerja-bakti')->group(base_path('routes/panel/umum/kerja-bakti.php'));
     }
 
     protected function mapPemancarRoutes()
     {
-        Route::prefix('pemancar')
-            // ->namespace($this->namespace)
-            ->group(base_path('routes/panel/pemancar.php'));
+        Route::prefix('pemancar')->group(base_path('routes/panel/umum/pemancar.php'));
+    }
+
+    // Kepenyiaran
+    protected function mapPenyiarRoutes()
+    {
+        Route::prefix('penyiar')->group(base_path('routes/panel/kepenyiaran/penyiar.php'));
+    }
+
+    protected function mapProgramSiarRoutes()
+    {
+        Route::prefix('program-siar')->group(base_path('routes/panel/kepenyiaran/program-siar.php'));
+    }
+
+    protected function mapRefProgramSiarRoutes()
+    {
+        Route::prefix('ref-program-siar')->group(base_path('routes/panel/kepenyiaran/ref-program-siar.php'));
+    }
+
+    protected function mapRefJenisProgramSiarRoutes()
+    {
+        Route::prefix('ref-jenis-program-siar')->group(base_path('routes/panel/kepenyiaran/ref-jenis-program-siar.php'));
+    }
+
+    protected function mapTopChartsRoutes()
+    {
+        Route::prefix('top-charts')->group(base_path('routes/panel/kepenyiaran/top-charts.php'));
+    }
+
+    protected function mapRapmaNewsRoutes()
+    {
+        Route::prefix('rapma-news')->group(base_path('routes/panel/kepenyiaran/rapma-news.php'));
+    }
+
+    protected function mapJadwalSiarRoutes()
+    {
+        Route::prefix('jadwal-siar')->group(base_path('routes/panel/kepenyiaran/jadwal-siar.php'));
+    }
+
+    // Marketing
+    protected function mapEventsRoutes()
+    {
+        Route::prefix('events')->group(base_path('routes/panel/marketing/events.php'));
+    }
+
+    // Personalia
+    protected function mapCrewRoutes()
+    {
+        Route::prefix('crew')->group(base_path('routes/panel/personalia/crew.php'));
+    }
+
+    protected function mapPengurusRoutes()
+    {
+        Route::prefix('pengurus')->group(base_path('routes/panel/personalia/pengurus.php'));
+    }
+
+    protected function mapAlumniRoutes()
+    {
+        Route::prefix('alumni')->group(base_path('routes/panel/personalia/alumni.php'));
     }
 }

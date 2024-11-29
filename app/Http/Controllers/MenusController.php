@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class MenusController extends Controller
@@ -17,7 +17,7 @@ class MenusController extends Controller
             'title' => 'Manajemen Menu'
         ];
 
-        return view('contents.menu.list', $data);
+        return view('contents.administrator.menu.list', $data);
     }
 
     public function data(Request $request)

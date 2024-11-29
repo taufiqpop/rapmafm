@@ -14,8 +14,8 @@
 <script src="{{ asset('js/main.js') }}?q={{ Str::random(5) }}"></script>
 <script src="{{ asset('js/app.js') }}?q={{ Str::random(5) }}"></script>
 <script src="{{ asset('js/menu.js') }}?q={{ Str::random(5) }}"></script>
-<script src="{{ asset('js/page/change-password/form.js') }}?q={{ Str::random(5) }}"></script>
-<script src="{{ asset('js/page/change-profile/form.js') }}?q={{ Str::random(5) }}"></script>
+<script src="{{ asset('js/page/administrator/change-password/form.js') }}?q={{ Str::random(5) }}"></script>
+<script src="{{ asset('js/page/administrator/change-profile/form.js') }}?q={{ Str::random(5) }}"></script>
 
 @if (in_array('datatable', $plugins))
     <script src="{{ config('app.theme') }}assets/libs/datatables.net/js/jquery.dataTables.min.js?q={{ Str::random(5) }}">
