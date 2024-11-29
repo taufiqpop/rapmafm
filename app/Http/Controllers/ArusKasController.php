@@ -14,7 +14,7 @@ class ArusKasController extends Controller
     public function index(Request $request)
     {
         $data = [
-            'title' => 'ArusKas'
+            'title' => 'Arus Kas'
         ];
 
         return view('contents.arus-kas.list', $data);
@@ -22,24 +22,31 @@ class ArusKasController extends Controller
 
     public function data(Request $request)
     {
-        $list = ArusKas::select(DB::raw('*'));
+        $saldo = 0;
+        $list = ArusKas::select(DB::raw('*'))->orderBy('tanggal', 'asc');
 
         return DataTables::of($list)
             ->addIndexColumn()
+            ->addColumn('saldo', function ($row) use (&$saldo) {
+                $pemasukan = $row->pemasukan ?? 0;
+                $pengeluaran = $row->pengeluaran ?? 0;
+                $saldo += ($pemasukan - $pengeluaran);
+                return $saldo;
+            })
             ->addColumn('encrypted_id', function ($row) {
                 return Crypt::encryptString($row->id);
             })
-            ->make();
+            ->make(true);
     }
 
     // Store
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|string',
+            'tanggal' => 'required|date',
             'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|string',
-            'pengeluaran' => 'nullable|string',
+            'pemasukan' => 'nullable|integer',
+            'pengeluaran' => 'nullable|integer',
         ]);
 
         try {
@@ -62,10 +69,10 @@ class ArusKasController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|string',
+            'tanggal' => 'required|date',
             'keterangan' => 'required|string',
-            'pemasukan' => 'nullable|string',
-            'pengeluaran' => 'nullable|string',
+            'pemasukan' => 'nullable|integer',
+            'pengeluaran' => 'nullable|integer',
         ]);
 
         try {

@@ -4,11 +4,11 @@ $(() => {
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
 
-        let { id, nama } = data;
+        let { id, barang } = data;
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus inventarisasi "<b>${nama}</b>"!`,
+            html: `Anda akan menghapus inventarisasi "<b>${barang}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -156,7 +156,7 @@ $(() => {
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2, 3],
             className: 'text-left align-top'
         }, {
             targets: [-1],
@@ -165,15 +165,17 @@ $(() => {
         columns: [{
             data: 'DT_RowIndex'
         }, {
-            data: 'nama',
+            data: 'barang',
         }, {
-            data: 'email',
+            data: 'kode',
+            render: (data, type, row) => {
+                const tahunShort = row.tahun.toString().slice(-2);
+                return `INV/RAPMA/${row.kode}/${row.nomor}/${tahunShort}`;
+            }
         }, {
-            data: 'subject',
+            data: 'kondisi',
         }, {
-            data: 'message',
-        }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',

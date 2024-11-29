@@ -139,7 +139,6 @@ $(() => {
     });
 
     // List
-    let saldoBerjalan = 0;
     table = $('#table-data').DataTable({
         processing: true,
         serverSide: true,
@@ -151,12 +150,12 @@ $(() => {
         },
         order: [[2, 'asc']],
         columnDefs: [{
-            targets: [0, -2],
+            targets: [0, -2, -3],
             searchable: false,
             orderable: false,
             className: 'text-center align-top',
         }, {
-            targets: [1, 2, 3, 4],
+            targets: [1, 2, 3, 4, 5],
             className: 'text-left align-top'
         }, {
             targets: [-1],
@@ -197,18 +196,12 @@ $(() => {
                 }
             }
         }, {
-            data: 'id',
-            render: (data, type, row) => {
-                let pemasukan = parseInt(row.pemasukan) || 0;
-                let pengeluaran = parseInt(row.pengeluaran) || 0;
-
-                saldoBerjalan += pemasukan - pengeluaran;
-        
-                return `Rp. ${saldoBerjalan.toLocaleString('id-ID')}`;
+            data: 'saldo',
+            render: function(data) {
+                return `Rp. ${parseInt(data).toLocaleString('id-ID')}`;
             },
-            className: 'text-right align-top'
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',

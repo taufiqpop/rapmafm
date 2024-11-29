@@ -27,10 +27,9 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">No</th>
-                                    <th>Nama Pengirim</th>
-                                    <th>Email Pengirim</th>
-                                    <th>Subject</th>
-                                    <th>Message</th>
+                                    <th>Nama Barang</th>
+                                    <th>Kode</th>
+                                    <th>Kondisi</th>
                                     <th>Action</th>
                                     <th></th>
                                 </tr>
@@ -47,7 +46,7 @@
     <div id="modal-inventarisasi" class="modal fade" tabindex="-1" role="dialog"
         aria-labelledby="modal-inventarisasiLabel" aria-hidden="true">
         <form action="{{ route('inventarisasi.store') }}" method="post" id="form-inventarisasi" autocomplete="off">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mt-0" id="modal-inventarisasiLabel">Form Inventarisasi</h5>
@@ -57,44 +56,56 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            {{-- Nama Pengirim --}}
-                            <div class="col-12">
+                            {{-- Nama Barang --}}
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="nama">Nama Pengirim</label>
-                                    <input type="text" name="nama" id="nama" class="form-control"
-                                        placeholder="Masukkan Nama Pengirim" required>
-                                    <div id="error-nama"></div>
+                                    <label for="barang">Nama Barang</label>
+                                    <input type="text" name="barang" id="barang" class="form-control"
+                                        placeholder="Masukkan Nama Barang" required>
+                                    <div id="error-barang"></div>
                                 </div>
                             </div>
 
-                            {{-- Email Pengirim --}}
-                            <div class="col-12">
+                            {{-- Kondisi --}}
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="email">Email Pengirim</label>
-                                    <input type="email" name="email" id="email" class="form-control"
-                                        placeholder="Masukkan Email Pengirim" required>
-                                    <div id="error-email"></div>
+                                    <label for="kondisi">Kondisi</label>
+                                    <input type="text" name="kondisi" id="kondisi" class="form-control"
+                                        placeholder="Masukkan Kondisi" required>
+                                    <div id="error-kondisi"></div>
                                 </div>
                             </div>
 
-                            {{-- Subject --}}
-                            <div class="col-12">
+                            {{-- Kode --}}
+                            <div class="col-4">
                                 <div class="form-group">
-                                    <label for="subject">Subject</label>
-                                    <input type="text" name="subject" id="subject" class="form-control"
-                                        placeholder="Masukkan Subject" required>
-                                    <div id="error-subject"></div>
+                                    <label for="kode">Kode</label>
+                                    <input type="text" name="kode" id="kode" class="form-control"
+                                        placeholder="Masukkan Kode" required>
+                                    <div id="error-kode"></div>
                                 </div>
                             </div>
 
-                            {{-- Message --}}
-                            <div class="col-12">
+                            {{-- Nomor --}}
+                            <div class="col-4">
                                 <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea name="message" id="message" class="form-control" placeholder="Masukkan Message" required></textarea>
-                                    <div id="error-message"></div>
+                                    <label for="nomor">Nomor</label>
+                                    <input type="number" name="nomor" id="nomor" class="form-control"
+                                        placeholder="Masukkan Nomor" required>
+                                    <div id="error-nomor"></div>
                                 </div>
                             </div>
+
+                            {{-- Tahun --}}
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="number" name="tahun" id="tahun" class="form-control"
+                                        placeholder="Masukkan Tahun" required>
+                                    <div id="error-tahun"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -112,7 +123,7 @@
         <form action="{{ route('inventarisasi.update') }}" method="post" id="form-inventarisasi-update" autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mt-0" id="modal-inventarisasi-updateLabel">Form Inventarisasi</h5>
@@ -122,44 +133,56 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            {{-- Nama Pengirim --}}
-                            <div class="col-12">
+                            {{-- Nama Barang --}}
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="update-nama">Nama Pengirim</label>
-                                    <input type="text" name="nama" id="update-nama" class="form-control"
-                                        placeholder="Masukkan Nama Pengirim" required>
-                                    <div id="error-update-nama"></div>
+                                    <label for="update-barang">Nama Barang</label>
+                                    <input type="text" name="barang" id="update-barang" class="form-control"
+                                        placeholder="Masukkan Nama Barang" required>
+                                    <div id="error-update-barang"></div>
                                 </div>
                             </div>
 
-                            {{-- Email Pengirim --}}
-                            <div class="col-12">
+                            {{-- Kondisi --}}
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="update-email">Email Pengirim</label>
-                                    <input type="email" name="email" id="update-email" class="form-control"
-                                        placeholder="Masukkan Email Pengirim" required>
-                                    <div id="error-update-email"></div>
+                                    <label for="update-kondisi">Kondisi</label>
+                                    <input type="text" name="kondisi" id="update-kondisi" class="form-control"
+                                        placeholder="Masukkan Kondisi" required>
+                                    <div id="error-update-kondisi"></div>
                                 </div>
                             </div>
 
-                            {{-- Subject --}}
-                            <div class="col-12">
+                            {{-- Kode --}}
+                            <div class="col-4">
                                 <div class="form-group">
-                                    <label for="update-subject">Subject</label>
-                                    <input type="text" name="subject" id="update-subject" class="form-control"
-                                        placeholder="Masukkan Subject" required>
-                                    <div id="error-update-subject"></div>
+                                    <label for="update-kode">Kode</label>
+                                    <input type="text" name="kode" id="update-kode" class="form-control"
+                                        placeholder="Masukkan Kode" required>
+                                    <div id="error-update-kode"></div>
                                 </div>
                             </div>
 
-                            {{-- Message --}}
-                            <div class="col-12">
+                            {{-- Nomor --}}
+                            <div class="col-4">
                                 <div class="form-group">
-                                    <label for="update-message">Message</label>
-                                    <textarea name="message" id="update-message" class="form-control" placeholder="Masukkan Message" required></textarea>
-                                    <div id="error-update-message"></div>
+                                    <label for="update-nomor">Nomor</label>
+                                    <input type="number" name="nomor" id="update-nomor" class="form-control"
+                                        placeholder="Masukkan Nomor" required>
+                                    <div id="error-update-nomor"></div>
                                 </div>
                             </div>
+
+                            {{-- Tahun --}}
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="update-tahun">Tahun</label>
+                                    <input type="number" name="tahun" id="update-tahun" class="form-control"
+                                        placeholder="Masukkan Tahun" required>
+                                    <div id="error-update-tahun"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">

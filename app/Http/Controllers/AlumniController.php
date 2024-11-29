@@ -43,10 +43,10 @@ class AlumniController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'nullable|string',
+            'no_hp' => 'nullable|integer',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'tahun_kepengurusan' => 'required|string',
+            'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
         ]);
 
@@ -81,10 +81,10 @@ class AlumniController extends Controller
             'gender' => 'required|string',
             'divisi' => 'required|string',
             'sub_divisi' => 'required|string',
-            'no_hp' => 'nullable|string',
+            'no_hp' => 'nullable|integer',
             'fakultas' => 'required|string',
             'prodi' => 'required|string',
-            'tahun_kepengurusan' => 'required|string',
+            'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
         ]);
 
@@ -168,9 +168,22 @@ class AlumniController extends Controller
         $sheet->setCellValue('J1', 'Program Studi');
         $sheet->setCellValue('K1', 'Instagram');
 
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ];
+        $sheet->getStyle('A1:K1')->applyFromArray($headerStyle);
+
+        $sheet->getRowDimension(1)->setRowHeight(20);
+
         $row = 2;
         foreach ($alumni as $data) {
-            $sheet->setCellValue('A' . $row, $data->id);
+            $sheet->setCellValue('A' . $row, $row - 1);
             $sheet->setCellValue('B' . $row, $data->fullname);
             $sheet->setCellValue('C' . $row, $data->nickname);
             $sheet->setCellValue('D' . $row, $data->gender == 'L' ? 'Laki-Laki' : 'Perempuan');
@@ -180,8 +193,38 @@ class AlumniController extends Controller
             $sheet->setCellValue('H' . $row, $data->no_hp ?? '');
             $sheet->setCellValue('I' . $row, $data->fakultas);
             $sheet->setCellValue('J' . $row, $data->prodi);
-            $sheet->setCellValue('K' . $row, $data->instagram);
+            $sheet->setCellValue('K' . $row, '@' . $data->instagram);
             $row++;
+        }
+
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+        $sheet->getStyle('A1:K' . ($row - 1))->applyFromArray($styleArray);
+
+        $contentStyle = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+            ],
+        ];
+        $sheet->getStyle('B2:F' . ($row - 1))->applyFromArray($contentStyle);
+        $sheet->getStyle('J2:K' . ($row - 1))->applyFromArray($contentStyle);
+
+        $numberStyle = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+        ];
+        $sheet->getStyle('A2:A' . ($row - 1))->applyFromArray($numberStyle);
+        $sheet->getStyle('G2:I' . ($row - 1))->applyFromArray($numberStyle);
+
+        foreach (range('A', 'K') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
         $writer = new Xlsx($spreadsheet);

@@ -223,7 +223,7 @@ $(() => {
                 }
             }
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_link = $('<a>', {
                     style: 'color: white',

@@ -167,7 +167,7 @@ $(() => {
         }, {
             data: 'versi',
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_link = $('<a>', {
                     class: 'btn btn-success btn-link',

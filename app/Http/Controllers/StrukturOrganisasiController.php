@@ -39,8 +39,8 @@ class StrukturOrganisasiController extends Controller
         $request->validate([
             'divisi' => 'required|string',
             'pangkat' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -78,8 +78,8 @@ class StrukturOrganisasiController extends Controller
         $request->validate([
             'divisi' => 'required|string',
             'pangkat' => 'required|string',
-            'tahun' => 'required|string',
-            'order' => 'required|string',
+            'tahun' => 'required|integer',
+            'order' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

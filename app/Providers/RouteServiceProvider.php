@@ -92,6 +92,16 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapDanaUniversitasRoutes();
 
             $this->mapSuratRoutes();
+
+            $this->mapJadwalSiarRoutes();
+
+            $this->mapJadwalPiketRoutes();
+
+            $this->mapPeminjamanRoutes();
+
+            $this->mapKerjaBaktiRoutes();
+
+            $this->mapPemancarRoutes();
         });
     }
 
@@ -276,5 +286,40 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('surat')
             // ->namespace($this->namespace)
             ->group(base_path('routes/panel/surat.php'));
+    }
+
+    protected function mapJadwalSiarRoutes()
+    {
+        Route::prefix('jadwal-siar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/jadwal-siar.php'));
+    }
+
+    protected function mapJadwalPiketRoutes()
+    {
+        Route::prefix('jadwal-piket')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/jadwal-piket.php'));
+    }
+
+    protected function mapPeminjamanRoutes()
+    {
+        Route::prefix('peminjaman')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/peminjaman.php'));
+    }
+
+    protected function mapKerjaBaktiRoutes()
+    {
+        Route::prefix('kerja-bakti')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/kerja-bakti.php'));
+    }
+
+    protected function mapPemancarRoutes()
+    {
+        Route::prefix('pemancar')
+            // ->namespace($this->namespace)
+            ->group(base_path('routes/panel/pemancar.php'));
     }
 }
