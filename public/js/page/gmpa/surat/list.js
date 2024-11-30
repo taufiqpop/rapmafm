@@ -175,7 +175,7 @@ $(() => {
         }, {
             data: 'keterangan',
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',

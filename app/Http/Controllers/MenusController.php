@@ -6,6 +6,7 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
 class MenusController extends Controller
@@ -34,6 +35,9 @@ class MenusController extends Controller
             ->addColumn('full_link', function ($row) {
                 if (empty($row->link)) return '-';
                 return url($row->link);
+            })
+            ->addColumn('encrypted_id', function ($row) {
+                return Crypt::encryptString($row->id);
             })
             ->make();
     }

@@ -6,9 +6,10 @@ use App\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
@@ -32,6 +33,9 @@ class UsersController extends Controller
 
         return DataTables::of($list)
             ->addIndexColumn()
+            ->addColumn('encrypted_id', function ($row) {
+                return Crypt::encryptString($row->id);
+            })
             ->make(true);
     }
 

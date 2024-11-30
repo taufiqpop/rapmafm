@@ -32,7 +32,6 @@ $(() => {
 
     $('#table-data').on('click', '.btn-update-role', function () {
         let data = table.row($(this).closest('tr')).data();
-
         let { id, name, roles } = data;
 
         $('.user-name').text(name);
@@ -257,7 +256,7 @@ $(() => {
         }, {
             data: 'real_password'
         }, {
-            data: null,
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 if (row.roles && Array.isArray(row.roles)) {
                     return row.roles.map(role => role.name).join(', ');
@@ -275,7 +274,7 @@ $(() => {
                 `;
             }
         }, {
-            data: 'id',
+            data: 'encrypted_id',
             render: (data, type, row) => {
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',
