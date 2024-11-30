@@ -146,7 +146,7 @@ class RapmaNewsController extends Controller
                     return response()->json(['status' => true], 200);
                 }
             } else {
-                return response()->json(['status' => false, 'msg' => 'Event not found'], 404);
+                return response()->json(['status' => false, 'msg' => 'Rapma News not found'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);

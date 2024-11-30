@@ -10,16 +10,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (rbacCheck('program_siar', 2))
+                    @if (rbacCheck('podcast', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <div class="text-sm-right">
-                                    <a href="{{ route('ref-jenis-program-siar') }}"
-                                        class="btn btn-primary btn-rounded waves-effect waves-light"><i
-                                            class="bx bx-package mr-1"></i> Jenis Program Siar</a>
-                                    <a href="{{ route('ref-program-siar') }}"
-                                        class="btn btn-info btn-rounded waves-effect waves-light"><i
-                                            class="bx bx-radio mr-1"></i> Daftar Program Siar</a>
                                     <button type="button"
                                         class="btn btn-success btn-rounded waves-effect waves-light btn-tambah"><i
                                             class="bx bx-plus-circle mr-1"></i> Tambah</button>
@@ -35,10 +29,8 @@
                                     <th style="width: 5%;">No</th>
                                     <th>Jenis Program</th>
                                     <th>Nama Program</th>
-                                    <th>Tahun</th>
-                                    <th>Order</th>
-                                    <th>Status</th>
-                                    <th>Artwork</th>
+                                    <th>Judul</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                     <th></th>
                                 </tr>
@@ -52,13 +44,13 @@
     </div>
 
     {{-- Create --}}
-    <div id="modal-program-siar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-program-siarLabel"
+    <div id="modal-podcast" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-podcastLabel"
         aria-hidden="true">
-        <form action="{{ route('program-siar.store') }}" method="post" id="form-program-siar" autocomplete="off">
-            <div class="modal-dialog">
+        <form action="{{ route('podcast.store') }}" method="post" id="form-podcast" autocomplete="off">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-program-siarLabel">Form Program Siar</h5>
+                        <h5 class="modal-title mt-0" id="modal-podcastLabel">Form Podcast</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -91,51 +83,36 @@
                                 </div>
                             </div>
 
-                            {{-- Tahun --}}
-                            <div class="col-6">
+                            {{-- Judul --}}
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="tahun">Tahun</label>
-                                    <input type="number" name="tahun" id="tahun" class="form-control"
-                                        placeholder="Masukkan Tahun" required>
-                                    <div id="error-tahun"></div>
+                                    <label for="judul">Judul</label>
+                                    <input type="text" name="judul" id="judul" class="form-control"
+                                        placeholder="Masukkan Judul" required>
+                                    <div id="error-judul"></div>
                                 </div>
                             </div>
 
-                            {{-- Order --}}
+                            {{-- Tanggal --}}
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="order">Order</label>
-                                    <input type="number" name="order" id="order" class="form-control"
-                                        placeholder="Masukkan Order" required>
-                                    <div id="error-order"></div>
+                                    <label for="tanggal">Tanggal</label>
+                                    <input type="date" name="tanggal" id="tanggal" class="form-control"
+                                        placeholder="Masukkan Tanggal" required>
+                                    <div id="error-tanggal"></div>
                                 </div>
                             </div>
 
                             {{-- Link --}}
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="link">Link</label>
                                     <input type="text" name="link" id="link" class="form-control"
-                                        placeholder="Masukkan Order" required>
+                                        placeholder="Masukkan Link" required>
                                     <div id="error-link"></div>
                                 </div>
                             </div>
 
-                            {{-- Artwork --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="image">Artwork</label>
-                                    <input type="file" name="image" id="image" class="form-control-file images"
-                                        accept="image/*">
-                                    <div id="error-image"></div>
-
-                                    {{-- Preview Images --}}
-                                    <div id="image-preview-container">
-                                        <img class="images-preview"
-                                            style="max-width: 100%; margin-top: 10px; display: none;">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -148,16 +125,15 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-program-siar-update" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modal-program-siar-updateLabel" aria-hidden="true">
-        <form action="{{ route('program-siar.update') }}" method="post" id="form-program-siar-update"
-            autocomplete="off">
+    <div id="modal-podcast-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-podcast-updateLabel" aria-hidden="true">
+        <form action="{{ route('podcast.update') }}" method="post" id="form-podcast-update" autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="modal-program-siar-updateLabel">Form Program Siar
+                        <h5 class="modal-title mt-0" id="modal-podcast-updateLabel">Form Podcast
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -192,50 +168,33 @@
                                 </div>
                             </div>
 
-                            {{-- Tahun --}}
-                            <div class="col-6">
+                            {{-- Judul --}}
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="update-tahun">Tahun</label>
-                                    <input type="number" name="tahun" id="update-tahun" class="form-control"
-                                        placeholder="Masukkan Tahun" required>
-                                    <div id="error-update-tahun"></div>
+                                    <label for="update-judul">Judul</label>
+                                    <input type="text" name="judul" id="update-judul" class="form-control"
+                                        placeholder="Masukkan Judul" required>
+                                    <div id="error-update-judul"></div>
                                 </div>
                             </div>
 
-                            {{-- Order --}}
+                            {{-- Tanggal --}}
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="update-order">Order</label>
-                                    <input type="number" name="order" id="update-order" class="form-control"
-                                        placeholder="Masukkan Order" required>
-                                    <div id="error-update-order"></div>
+                                    <label for="update-tanggal">Tanggal</label>
+                                    <input type="date" name="tanggal" id="update-tanggal" class="form-control"
+                                        placeholder="Masukkan Tanggal" required>
+                                    <div id="error-update-tanggal"></div>
                                 </div>
                             </div>
 
                             {{-- Link --}}
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-link">Link</label>
                                     <input type="text" name="link" id="update-link" class="form-control"
                                         placeholder="Masukkan Link" required>
                                     <div id="error-update-link"></div>
-                                </div>
-                            </div>
-
-                            {{-- Artwork --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="update-image">Artwork</label>
-                                    <input type="file" name="image" id="update-image"
-                                        class="form-control-file images" accept="image/*">
-                                    <small>*Kosongkan Jika Tidak Ingin Mengganti Artwork</small>
-                                    <div id="error-update-image"></div>
-
-                                    {{-- Preview Images --}}
-                                    <div id="image-preview-container">
-                                        <img class="images-preview"
-                                            style="max-width: 100%; margin-top: 10px; display: none;">
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -251,5 +210,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/page/kepenyiaran/program-siar/list.js?q=' . Str::random(5)) }}"></script>
+    <script src="{{ asset('js/page/kepenyiaran/podcast/list.js?q=' . Str::random(5)) }}"></script>
 @endpush

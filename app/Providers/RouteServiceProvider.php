@@ -51,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapTopChartsRoutes();
             $this->mapRapmaNewsRoutes();
             $this->mapJadwalSiarRoutes();
+            $this->mapPodcastRoutes();
 
             // Marketing
             $this->mapEventsRoutes();
@@ -189,6 +190,11 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapJadwalSiarRoutes()
     {
         Route::prefix('jadwal-siar')->group(base_path('routes/panel/kepenyiaran/jadwal-siar.php'));
+    }
+
+    protected function mapPodcastRoutes()
+    {
+        Route::prefix('podcast')->group(base_path('routes/panel/kepenyiaran/podcast.php'));
     }
 
     // Marketing
