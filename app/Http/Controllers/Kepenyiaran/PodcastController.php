@@ -18,11 +18,16 @@ class PodcastController extends Controller
     {
         $jenis_program = RefJenisProgramSiar::all();
         $program_siar = RefProgramSiar::all();
+        $years = Podcast::selectRaw('YEAR(tanggal) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->get();
 
         $data = [
             'title' => 'Podcast',
             'jenis_program' => $jenis_program,
             'program_siar' => $program_siar,
+            'years' => $years,
         ];
 
         return view('contents.kepenyiaran.podcast.list', $data);
@@ -31,6 +36,25 @@ class PodcastController extends Controller
     public function data(Request $request)
     {
         $list = Podcast::select(DB::raw('*'))->with(['program_siar.jenis_program']);
+
+        $years = Podcast::selectRaw('YEAR(tanggal) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->get();
+
+        if ($request->jenis_program_id) {
+            $list->whereHas('program_siar.jenis_program', function ($query) use ($request) {
+                $query->where('id', $request->jenis_program_id);
+            });
+        }
+
+        if ($request->program_id) {
+            $list->where('program_id', $request->program_id);
+        }
+
+        if ($request->tahun) {
+            $list->whereYear('tanggal', $request->tahun);
+        }
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -51,7 +75,8 @@ class PodcastController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'program_id' => 'required|int',
+            'jenis_program_id' => 'required|integer',
+            'program_id' => 'required|integer',
             'judul' => 'required|string',
             'tanggal' => 'required|date',
             'link' => 'required|string',
@@ -59,6 +84,7 @@ class PodcastController extends Controller
 
         try {
             $data = [
+                'jenis_program_id' => $request->jenis_program_id,
                 'program_id' => $request->program_id,
                 'judul' => $request->judul,
                 'tanggal' => $request->tanggal,
@@ -77,7 +103,8 @@ class PodcastController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'program_id' => 'required|int',
+            'jenis_program_id' => 'required|integer',
+            'program_id' => 'required|integer',
             'judul' => 'required|string',
             'tanggal' => 'required|date',
             'link' => 'required|string',
@@ -85,6 +112,7 @@ class PodcastController extends Controller
 
         try {
             $podcast = Podcast::find($request->id);
+            $podcast->jenis_program_id = $request->jenis_program_id;
             $podcast->program_id = $request->program_id;
             $podcast->judul = $request->judul;
             $podcast->tanggal = $request->tanggal;

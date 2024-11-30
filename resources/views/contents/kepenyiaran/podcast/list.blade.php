@@ -10,6 +10,35 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
+                    {{-- Filter --}}
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="filter-jenis-program">Jenis Program</label>
+                            <select id="filter-jenis-program" class="form-control">
+                                <option value="" selected>Semua Jenis Program</option>
+                                @foreach ($jenis_program as $jenis)
+                                    <option value="{{ $jenis->id }}">{{ $jenis->jenis }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filter-program-siar">Nama Program Siar</label>
+                            <select id="filter-program-siar" class="form-control">
+                                <option value="" selected>Semua Program Siar</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filter-tahun">Tahun</label>
+                            <select id="filter-tahun" class="form-control">
+                                <option value="" selected disabled>Pilih Tahun</option>
+                                @foreach ($years as $year)
+                                    <option value="{{ $year->year }}">{{ $year->year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     @if (rbacCheck('podcast', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
@@ -21,6 +50,7 @@
                             </div>
                         </div>
                     @endif
+
                     {{-- Table --}}
                     <div class="table-responsive" data-pattern="priority-columns">
                         <table class="table table-striped" id="table-data" style="width: 100%;">

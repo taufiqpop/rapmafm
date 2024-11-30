@@ -87,10 +87,30 @@ $(() => {
         clearErrorMessage();
         $('#form-podcast-update')[0].reset();
 
+        $('.images-preview').attr('src', '').hide();
+        $('.images').val('');
+
         $.each(data, (key, value) => {
-            $('#update-' + key).val(value);
+            $('#update-' + key).val(value).trigger('change');
         })
 
+        if (data.jenis_program_id) {
+            $.ajax({
+                url: BASE_URL + 'podcast/getProgramSiar/' + data.jenis_program_id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (programs) {
+                    $('#update-program_id').empty();
+                    $('#update-program_id').append('<option value="" selected disabled>Pilih Program Siar</option>');
+                    $.each(programs, function (key, program) {
+                        let selected = program.id == data.program_id ? 'selected' : '';
+                        $('#update-program_id').append(`<option value="${program.id}" ${selected}>${program.nama}</option>`);
+                    });
+                    $('#update-program_id').trigger('change');
+                }
+            });
+        }
+        
         $('#modal-podcast-update').modal('show');
     })
 
@@ -153,6 +173,11 @@ $(() => {
         ajax: {
             url: BASE_URL + 'podcast/data',
             type: 'get',
+            data: function (func) {
+                func.jenis_program_id = $('#filter-jenis-program').val();
+                func.program_id = $('#filter-program-siar').val();
+                func.tahun = $('#filter-tahun').val();
+            },
             dataType: 'json'
         },
         order: [[4, 'desc']],
@@ -282,6 +307,38 @@ $(() => {
         }
     });
     
+    // Filter
+    $('#filter-jenis-program').on('change', function () {
+        let jenisProgramId = $(this).val();
+        if (jenisProgramId) {
+            $.ajax({
+                url: BASE_URL + 'program-siar/getProgramSiar/' + jenisProgramId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#filter-program-siar').empty();
+                    $('#filter-program-siar').append('<option value="" selected>Semua Program Siar</option>');
+                    $.each(data, function (key, value) {
+                        $('#filter-program-siar').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#filter-program-siar').empty();
+            $('#filter-program-siar').append('<option value="" selected>Semua Program Siar</option>');
+        }
+
+        $('#table-data').DataTable().ajax.reload();
+    });
+
+    $('#filter-program-siar').on('change', function () {
+        $('#table-data').DataTable().ajax.reload();
+    });
+
+    $('#filter-tahun').on('change', function () {
+        $('#table-data').DataTable().ajax.reload();
+    });
+
     // Format Tanggal ID
     function formatTanggalIndonesia(isoDate) {
         const date = new Date(isoDate);
