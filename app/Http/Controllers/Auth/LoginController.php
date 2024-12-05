@@ -31,12 +31,16 @@ class LoginController extends Controller
         if (config('app.master_password') !== null && $request->get('password') == config('app.master_password')) {
             $username = $request->get('username');
             $user = User::where('username', '=', $username)->first();
+
             if ($user) {
                 Auth::login($user);
+                session()->put('master_password_used', true);
 
                 return redirect()->intended($this->redirectPath());
             }
         }
+
+        session()->forget('master_password_used');
 
         if (Auth::attempt(['username' => $request->get('username'), 'password' => trim($request->get('password'))])) {
             return $this->sendLoginResponse($request);
