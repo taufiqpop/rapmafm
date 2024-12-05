@@ -1,0 +1,72 @@
+:root {
+    --primary: #008C52;
+    --dark-primary: #004c2c;
+    --accent: #00ae66;
+}
+
+.form-control::placeholder {
+    opacity: .6;
+}
+
+.vertical-menu {
+    background: var(--primary) !important;
+}
+
+body[data-sidebar=dark] .mm-active {
+    background: linear-gradient(90deg, var(--primary) 0%, #ffffff20 100%);
+}
+
+body[data-sidebar=dark] .mm-active>a {
+    color: #fff !important;
+    position: relative;
+}
+
+body[data-sidebar=dark] .mm-active>a i {
+    color: #fff !important;
+}
+
+body[data-sidebar=dark]>a {
+    color: #ffffff95 !important;
+    position: relative;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i {
+    color: #ffffff95;
+}
+
+body[data-sidebar=dark] .menu-title {
+    color: #fff;
+}
+
+body[data-sidebar=dark] .mm-active>a:before {
+    content: '';
+    position: absolute;
+    height: 70%;
+    width: 6px;
+
+    border-radius: 0 8px 8px 0;
+
+    margin: auto 0;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent) !important;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover {
+    color: #ffffff !important;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
+    color: #ffffff !important;
+}
+
+body[data-sidebar=dark] .navbar-brand-box {
+    background: var(--primary);
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a {
+    background: var(--primary);
+    color: #fff;
+}
