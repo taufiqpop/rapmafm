@@ -27,7 +27,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">No</th>
-                                    <th>Nama</th>
+                                    <th>Divisi</th>
                                     <th>Keterangan</th>
                                     <th></th>
                                 </tr>

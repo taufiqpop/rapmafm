@@ -119,7 +119,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapRefSubDivisiRoutes()
     {
-        Route::prefix('ref-sub-divisi')->group(base_path('routes/panel/gmpa/ref-sub-divisi.php'));
+        Route::prefix('ref-subdivisi')->group(base_path('routes/panel/gmpa/ref-subdivisi.php'));
     }
 
     // Umum

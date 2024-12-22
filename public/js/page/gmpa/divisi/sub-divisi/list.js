@@ -1,5 +1,8 @@
 let table;
 $(() => {
+    const urlParts = window.location.pathname.split('/');
+    const divisiID = urlParts[urlParts.length - 1];
+
     // Delete
     $('#table-data').on('click', '.btn-delete', function () {
         let data = table.row($(this).closest('tr')).data();
@@ -8,7 +11,7 @@ $(() => {
 
         Swal.fire({
             title: 'Anda yakin?',
-            html: `Anda akan menghapus divisi "<b>${nama}</b>"!`,
+            html: `Anda akan menghapus subdivisi "<b>${nama}</b>"!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -17,11 +20,11 @@ $(() => {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.post(BASE_URL + 'ref-divisi/delete', {
+                $.post(BASE_URL + 'ref-subdivisi/delete', {
                     id,
                     _method: 'DELETE'
                 }).done((res) => {
-                    showSuccessToastr('Sukses', 'Divisi berhasil dihapus');
+                    showSuccessToastr('Sukses', 'Sub Divisi berhasil dihapus');
                     table.ajax.reload();
                 }).fail((res) => {
                     let { status, responseJSON } = res;
@@ -32,7 +35,7 @@ $(() => {
     })
 
     // Update
-    $('#form-divisi-update').on('submit', function (e) {
+    $('#form-subdivisi-update').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -46,14 +49,14 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-divisi-update').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-subdivisi-update').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-divisi-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-subdivisi-update').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-divisi-update').modal('hide');
+                $('#modal-subdivisi-update').modal('hide');
                 
                 Swal.fire({
                     title: 'Berhasil!',
@@ -63,7 +66,7 @@ $(() => {
                 });
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-divisi-update').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-subdivisi-update').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -80,17 +83,17 @@ $(() => {
         let data = table.row(tr).data();
 
         clearErrorMessage();
-        $('#form-divisi-update')[0].reset();
+        $('#form-subdivisi-update')[0].reset();
 
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
         })
 
-        $('#modal-divisi-update').modal('show');
+        $('#modal-subdivisi-update').modal('show');
     })
 
     // Create
-    $('#form-divisi').on('submit', function (e) {
+    $('#form-subdivisi').on('submit', function (e) {
         e.preventDefault();
 
         let data = new FormData(this);
@@ -104,14 +107,14 @@ $(() => {
             contentType: false,
             beforeSend: () => {
                 clearErrorMessage();
-                $('#modal-divisi').find('.modal-dialog').LoadingOverlay('show');
+                $('#modal-subdivisi').find('.modal-dialog').LoadingOverlay('show');
             },
             success: (res) => {
-                $('#modal-divisi').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-subdivisi').find('.modal-dialog').LoadingOverlay('hide', true);
                 $(this)[0].reset();
                 clearErrorMessage();
                 table.ajax.reload();
-                $('#modal-divisi').modal('hide');
+                $('#modal-subdivisi').modal('hide');
                 
                 Swal.fire({
                     title: 'Berhasil!',
@@ -121,7 +124,7 @@ $(() => {
                 });
             },
             error: ({ status, responseJSON }) => {
-                $('#modal-divisi').find('.modal-dialog').LoadingOverlay('hide', true);
+                $('#modal-subdivisi').find('.modal-dialog').LoadingOverlay('hide', true);
 
                 if (status == 422) {
                     generateErrorMessage(responseJSON);
@@ -134,9 +137,9 @@ $(() => {
     })
 
     $('.btn-tambah').on('click', function () {
-        $('#form-divisi')[0].reset();
+        $('#form-subdivisi')[0].reset();
         clearErrorMessage();
-        $('#modal-divisi').modal('show');
+        $('#modal-subdivisi').modal('show');
     });
 
     // List
@@ -145,7 +148,7 @@ $(() => {
         serverSide: true,
         language: dtLang,
         ajax: {
-            url: BASE_URL + 'ref-divisi/data',
+            url: BASE_URL + 'ref-subdivisi/data/' + divisiID,
             type: 'get',
             dataType: 'json'
         },
@@ -164,6 +167,8 @@ $(() => {
         }],
         columns: [{
             data: 'DT_RowIndex'
+        }, {
+            data: 'divisi.nama',
         }, {
             data: 'nama',
         }, {
@@ -189,16 +194,6 @@ $(() => {
                     'data-toggle': 'tooltip'
                 });
 
-                const button_subdivisi = $('<a>', {
-                    class: 'btn btn-info btn-subdivisi',
-                    html: '<i class="bx bx-user"></i>',
-                    'data-id': data,
-                    title: 'Sub Divisi',
-                    'data-placement': 'top',
-                    'data-toggle': 'tooltip',
-                    href: BASE_URL + 'ref-subdivisi/' + data
-                });
-
                 return $('<div>', {
                     class: 'btn-group',
                     html: () => {
@@ -206,7 +201,6 @@ $(() => {
 
                         if (permissions.update) {
                             arr.push(button_edit)
-                            arr.push(button_subdivisi)
                         }
 
                         if (permissions.delete) {
