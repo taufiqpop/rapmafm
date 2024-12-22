@@ -1,7 +1,7 @@
 :root {
-    --primary: #008C52;
-    --dark-primary: #004c2c;
-    --accent: #00ae66;
+    --primary: #006138;
+    --dark-primary: #002214;
+    --accent: #005934;
 }
 
 .form-control::placeholder {
