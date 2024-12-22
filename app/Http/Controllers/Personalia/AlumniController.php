@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Personalia;
 
-use App\Models\Alumni;
+use App\Models\Members;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +25,7 @@ class AlumniController extends Controller
 
     public function data(Request $request)
     {
-        $list = Alumni::select(DB::raw('*'));
+        $list = Members::select(DB::raw('*'))->where('rank', 'Alumni');
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -49,10 +49,12 @@ class AlumniController extends Controller
             'prodi' => 'required|string',
             'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
+            'twitter' => 'nullable|string',
         ]);
 
         try {
             $data = [
+                'rank' => 'Alumni',
                 'fullname' => $request->fullname,
                 'nickname' => $request->nickname,
                 'gender' => $request->gender,
@@ -61,11 +63,13 @@ class AlumniController extends Controller
                 'no_hp' => $request->no_hp,
                 'fakultas' => $request->fakultas,
                 'prodi' => $request->prodi,
+                'tahun_masuk' => $request->tahun_kepengurusan - 2,
                 'tahun_kepengurusan' => $request->tahun_kepengurusan,
                 'instagram' => $request->instagram,
+                'twitter' => $request->twitter,
             ];
 
-            Alumni::create($data);
+            Members::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -87,10 +91,12 @@ class AlumniController extends Controller
             'prodi' => 'required|string',
             'tahun_kepengurusan' => 'required|integer',
             'instagram' => 'required|string',
+            'twitter' => 'nullable|string',
         ]);
 
         try {
-            $alumni = Alumni::find($request->id);
+            $alumni = Members::find($request->id);
+            $alumni->rank = 'Alumni';
             $alumni->fullname = $request->fullname;
             $alumni->nickname = $request->nickname;
             $alumni->gender = $request->gender;
@@ -99,8 +105,10 @@ class AlumniController extends Controller
             $alumni->no_hp = $request->no_hp;
             $alumni->fakultas = $request->fakultas;
             $alumni->prodi = $request->prodi;
+            $alumni->tahun_masuk = $request->tahun_kepengurusan - 2;
             $alumni->tahun_kepengurusan = $request->tahun_kepengurusan;
             $alumni->instagram = $request->instagram;
+            $alumni->twitter = $request->twitter;
 
             if ($alumni->isDirty()) {
                 $alumni->save();
@@ -118,7 +126,7 @@ class AlumniController extends Controller
     public function delete(Request $request)
     {
         try {
-            $alumni = Alumni::find($request->id);
+            $alumni = Members::find($request->id);
             $alumni->delete();
 
             if ($alumni->trashed()) {
@@ -129,13 +137,12 @@ class AlumniController extends Controller
         }
     }
 
-
-    // Switch Status
-    public function switchStatus(Request $request)
+    // Change Rank
+    public function changeRank(Request $request)
     {
         try {
-            $alumni = Alumni::find($request->id);
-            $alumni->is_active = $request->value;
+            $alumni = Members::find($request->id);
+            $alumni->rank = $request->rank;
 
             if ($alumni->isDirty()) {
                 $alumni->save();
@@ -152,7 +159,7 @@ class AlumniController extends Controller
     // Export Excel
     public function exportExcel()
     {
-        $alumni = Alumni::orderBy('tahun_kepengurusan', 'asc')->orderBy('fullname', 'asc')->get();
+        $alumni = Members::where('rank', 'Alumni')->orderBy('tahun_kepengurusan', 'asc')->orderBy('fullname', 'asc')->get();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

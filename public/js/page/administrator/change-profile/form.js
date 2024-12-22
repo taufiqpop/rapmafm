@@ -8,9 +8,9 @@ $(() => {
             type: "GET",
             dataType: "json",
             success: (res) => {
-                $('#update-fullname').val(res.name);
-                $('#update-username').val(res.username);
-                $('#update-email').val(res.email);
+                $('#profile-fullname').val(res.name);
+                $('#profile-username').val(res.username);
+                $('#profile-email').val(res.email);
             },
             error: (xhr) => {
                 showErrorToastr('Oops', 'Gagal mengambil data profil pengguna.');

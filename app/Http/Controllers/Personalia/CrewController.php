@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Personalia;
 
-use App\Models\Crew;
+use App\Models\Members;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class CrewController extends Controller
 
     public function data(Request $request)
     {
-        $list = Crew::select(DB::raw('*'));
+        $list = Members::select(DB::raw('*'))->where('rank', 'Crew');
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -51,6 +51,7 @@ class CrewController extends Controller
 
         try {
             $data = [
+                'rank' => 'Crew',
                 'fullname' => $request->fullname,
                 'nickname' => $request->nickname,
                 'gender' => $request->gender,
@@ -63,7 +64,7 @@ class CrewController extends Controller
                 'twitter' => $request->twitter,
             ];
 
-            Crew::create($data);
+            Members::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -88,7 +89,8 @@ class CrewController extends Controller
         ]);
 
         try {
-            $crew = Crew::find($request->id);
+            $crew = Members::find($request->id);
+            $crew->rank = 'Crew';
             $crew->fullname = $request->fullname;
             $crew->nickname = $request->nickname;
             $crew->gender = $request->gender;
@@ -116,7 +118,7 @@ class CrewController extends Controller
     public function delete(Request $request)
     {
         try {
-            $crew = Crew::find($request->id);
+            $crew = Members::find($request->id);
             $crew->delete();
 
             if ($crew->trashed()) {
@@ -127,12 +129,30 @@ class CrewController extends Controller
         }
     }
 
+    // Change Rank
+    public function changeRank(Request $request)
+    {
+        try {
+            $crew = Members::find($request->id);
+            $crew->rank = $request->rank;
+
+            if ($crew->isDirty()) {
+                $crew->save();
+            }
+
+            if ($crew->wasChanged()) {
+                return response()->json(['status' => true], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
+        }
+    }
 
     // Switch Status
     public function switchStatus(Request $request)
     {
         try {
-            $crew = Crew::find($request->id);
+            $crew = Members::find($request->id);
             $crew->is_active = $request->value;
 
             if ($crew->isDirty()) {

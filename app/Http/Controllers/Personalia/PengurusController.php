@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Personalia;
 
-use App\Models\Pengurus;
+use App\Models\Members;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class PengurusController extends Controller
 
     public function data(Request $request)
     {
-        $list = Pengurus::select(DB::raw('*'));
+        $list = Members::select(DB::raw('*'))->where('rank', 'Pengurus');
 
         return DataTables::of($list)
             ->addIndexColumn()
@@ -52,6 +52,7 @@ class PengurusController extends Controller
 
         try {
             $data = [
+                'rank' => 'Pengurus',
                 'fullname' => $request->fullname,
                 'nickname' => $request->nickname,
                 'gender' => $request->gender,
@@ -65,7 +66,7 @@ class PengurusController extends Controller
                 'twitter' => $request->twitter,
             ];
 
-            Pengurus::create($data);
+            Members::create($data);
 
             return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
@@ -91,7 +92,8 @@ class PengurusController extends Controller
         ]);
 
         try {
-            $pengurus = Pengurus::find($request->id);
+            $pengurus = Members::find($request->id);
+            $pengurus->rank = 'Pengurus';
             $pengurus->fullname = $request->fullname;
             $pengurus->nickname = $request->nickname;
             $pengurus->gender = $request->gender;
@@ -120,7 +122,7 @@ class PengurusController extends Controller
     public function delete(Request $request)
     {
         try {
-            $pengurus = Pengurus::find($request->id);
+            $pengurus = Members::find($request->id);
             $pengurus->delete();
 
             if ($pengurus->trashed()) {
@@ -131,12 +133,30 @@ class PengurusController extends Controller
         }
     }
 
+    // Change Rank
+    public function changeRank(Request $request)
+    {
+        try {
+            $pengurus = Members::find($request->id);
+            $pengurus->rank = $request->rank;
+
+            if ($pengurus->isDirty()) {
+                $pengurus->save();
+            }
+
+            if ($pengurus->wasChanged()) {
+                return response()->json(['status' => true], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'msg' => $e->getMessage()], 400);
+        }
+    }
 
     // Switch Status
     public function switchStatus(Request $request)
     {
         try {
-            $pengurus = Pengurus::find($request->id);
+            $pengurus = Members::find($request->id);
             $pengurus->is_active = $request->value;
 
             if ($pengurus->isDirty()) {

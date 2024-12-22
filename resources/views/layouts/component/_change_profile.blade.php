@@ -13,22 +13,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="update-fullname">Nama Lengkap</label>
-                        <input type="text" name="name" id="update-fullname" class="form-control"
+                        <label for="profile-fullname">Nama Lengkap</label>
+                        <input type="text" name="name" id="profile-fullname" class="form-control"
                             placeholder="Masukkan Nama Lengkap" required>
-                        <div id="error-update-fullname"></div>
+                        <div id="error-profile-fullname"></div>
                     </div>
                     <div class="form-group">
-                        <label for="update-username">Username</label>
-                        <input type="text" name="username" id="update-username" class="form-control"
+                        <label for="profile-username">Username</label>
+                        <input type="text" name="username" id="profile-username" class="form-control"
                             placeholder="Masukkan Username" required>
-                        <div id="error-update-username"></div>
+                        <div id="error-profile-username"></div>
                     </div>
                     <div class="form-group">
-                        <label for="update-email">Email</label>
-                        <input type="email" name="email" id="update-email" class="form-control"
+                        <label for="profile-email">Email</label>
+                        <input type="email" name="email" id="profile-email" class="form-control"
                             placeholder="Masukkan Email" required>
-                        <div id="error-update-email"></div>
+                        <div id="error-profile-email"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

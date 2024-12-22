@@ -246,6 +246,15 @@ $(() => {
                     'data-placement': 'top',
                     'data-toggle': 'tooltip'
                 });
+                
+                const button_rank = $('<button>', {
+                    class: 'btn btn-success btn-rank',
+                    html: '<i class="bx bxs-user-detail"></i>',
+                    'data-id': data,
+                    title: 'Ganti Pangkat',
+                    'data-placement': 'top',
+                    'data-toggle': 'tooltip'
+                });
 
                 const button_delete = $('<button>', {
                     class: 'btn btn-danger btn-delete',
@@ -267,8 +276,9 @@ $(() => {
                         if (permissions.update) {
                             arr.push(button_edit)
                         }
-
+                        
                         if (permissions.delete) {
+                            arr.push(button_rank)
                             arr.push(button_delete)
                         }
 
@@ -297,5 +307,63 @@ $(() => {
             let { status, responseJSON } = res;
             showErrorToastr('oops', responseJSON.message);
         })
+    })
+
+    // Change Rank
+    $('#form-pengurus-rank').on('submit', function (e) {
+        e.preventDefault();
+
+        let data = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            beforeSend: () => {
+                clearErrorMessage();
+                $('#modal-pengurus-rank').find('.modal-dialog').LoadingOverlay('show');
+            },
+            success: (res) => {
+                $('#modal-pengurus-rank').find('.modal-dialog').LoadingOverlay('hide', true);
+                $(this)[0].reset();
+                clearErrorMessage();
+                table.ajax.reload();
+                $('#modal-pengurus-rank').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: ({ status, responseJSON }) => {
+                $('#modal-pengurus-rank').find('.modal-dialog').LoadingOverlay('hide', true);
+
+                if (status == 422) {
+                    generateErrorMessage(responseJSON);
+                    return false;
+                }
+
+                showErrorToastr('oops', responseJSON.msg)
+            }
+        })
+    })
+
+    $('#table-data').on('click', '.btn-rank', function () {
+        let tr = $(this).closest('tr');
+        let data = table.row(tr).data();
+
+        clearErrorMessage();
+        $('#form-pengurus-rank')[0].reset();
+        
+        $.each(data, (key, value) => {
+            $('#rank-' + key).val(value);
+        })
+
+        $('#modal-pengurus-rank').modal('show');
     })
 })

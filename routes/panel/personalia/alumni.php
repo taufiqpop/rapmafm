@@ -8,3 +8,4 @@ Route::post('/store', [AlumniController::class, 'store'])->name('alumni.store')-
 Route::patch('/update', [AlumniController::class, 'update'])->name('alumni.update')->middleware('rbac:alumni,3');
 Route::delete('/delete', [AlumniController::class, 'delete'])->name('alumni.delete')->middleware('rbac:alumni,4');
 Route::get('/exportExcel', [AlumniController::class, 'exportExcel'])->name('alumni.exportExcel');
+Route::patch('/changeRank', [AlumniController::class, 'changeRank'])->name('alumni.changeRank')->middleware('rbac:alumni,3');

@@ -124,6 +124,7 @@
                                     <label for="no_hp">No HP</label>
                                     <input type="number" name="no_hp" id="no_hp" class="form-control"
                                         placeholder="Masukkan No HP">
+                                    <small style="color: red">*Optional</small>
                                     <div id="error-no_hp"></div>
                                 </div>
                             </div>
@@ -149,7 +150,7 @@
                             </div>
 
                             {{-- Tahun Kepengurusan --}}
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="tahun_kepengurusan">Tahun Kepengurusan</label>
                                     <input type="number" name="tahun_kepengurusan" id="tahun_kepengurusan"
@@ -159,12 +160,23 @@
                             </div>
 
                             {{-- Instagram --}}
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="instagram">Instagram</label>
                                     <input type="text" name="instagram" id="instagram" class="form-control"
                                         placeholder="Masukkan Instagram (Tanpa @)" required>
                                     <div id="error-instagram"></div>
+                                </div>
+                            </div>
+
+                            {{-- Twitter --}}
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="twitter">Twitter</label>
+                                    <input type="text" name="twitter" id="twitter" class="form-control"
+                                        placeholder="Masukkan Twitter (Tanpa @)" required>
+                                    <div id="error-twitter"></div>
+                                    <small style="color: red">*Optional</small>
                                 </div>
                             </div>
 
@@ -279,7 +291,7 @@
                             </div>
 
                             {{-- Tahun Kepengurusan --}}
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="update-tahun_kepengurusan">Tahun Kepengurusan</label>
                                     <input type="number" name="tahun_kepengurusan" id="update-tahun_kepengurusan"
@@ -289,12 +301,64 @@
                             </div>
 
                             {{-- Instagram --}}
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="update-instagram">Instagram</label>
                                     <input type="text" name="instagram" id="update-instagram" class="form-control"
                                         placeholder="Masukkan Instagram (Tanpa @)" required>
                                     <div id="error-update-instagram"></div>
+                                </div>
+                            </div>
+
+                            {{-- Twitter --}}
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="update-twitter">Twitter</label>
+                                    <input type="text" name="twitter" id="update-twitter" class="form-control"
+                                        placeholder="Masukkan Twitter (Tanpa @)" required>
+                                    <div id="error-update-twitter"></div>
+                                    <small style="color: red">*Optional</small>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {{-- Change Rank --}}
+    <div id="modal-alumni-rank" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-alumni-rankLabel" aria-hidden="true">
+        <form action="{{ route('alumni.changeRank') }}" method="post" id="form-alumni-rank" autocomplete="off">
+            <input type="hidden" name="id" id="rank-id">
+            @method('PATCH')
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="modal-alumni-rankLabel">Form Ganti Pangkat</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            {{-- Ganti Rank --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="rank-rank">Ganti Pengkat</label>
+                                    <select name="rank" id="rank-rank" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Pangkat</option>
+                                        <option value="Crew">Crew</option>
+                                        <option value="Pengurus">Pengurus</option>
+                                        <option value="Alumni">Alumni</option>
+                                    </select>
+                                    <div id="error-rank-rank"></div>
                                 </div>
                             </div>
 

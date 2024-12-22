@@ -8,3 +8,4 @@ Route::post('/store', [CrewController::class, 'store'])->name('crew.store')->mid
 Route::patch('/update', [CrewController::class, 'update'])->name('crew.update')->middleware('rbac:crew,3');
 Route::delete('/delete', [CrewController::class, 'delete'])->name('crew.delete')->middleware('rbac:crew,4');
 Route::patch('/switch', [CrewController::class, 'switchStatus'])->name('crew.switch')->middleware('rbac:crew,3');
+Route::patch('/changeRank', [CrewController::class, 'changeRank'])->name('crew.changeRank')->middleware('rbac:crew,3');

@@ -224,12 +224,44 @@ $(() => {
                     href: `https://www.instagram.com/${row.instagram}`,
                     target: '_blank'
                 });
+                
+                const button_twitter = $('<a>', {
+                    style: 'color: white',
+                    class: 'btn btn-info btn-twitter',
+                    html: '<i class="bx bxl-twitter"></i>',
+                    'data-id': data,
+                    title: 'Link Twitter',
+                    'data-placement': 'top',
+                    'data-toggle': 'tooltip',
+                    href: `https://www.x.com/${row.twitter}`,
+                    target: '_blank'
+                });
+
+                const button_no_twitter = $('<button>', {
+                    class: 'btn btn-dark',
+                    html: '<i class="bx bxl-twitter"></i>',
+                    'data-id': data,
+                    title: 'Tidak Punya Twitter',
+                    'data-placement': 'top',
+                    'data-toggle': 'tooltip',
+                    style: 'cursor: default'
+                });
 
                 const button_edit = $('<button>', {
                     class: 'btn btn-primary btn-update',
                     html: '<i class="bx bx-pencil"></i>',
                     'data-id': data,
                     title: 'Update Data',
+                    'data-placement': 'top',
+                    'data-toggle': 'tooltip'
+                });
+
+                
+                const button_rank = $('<button>', {
+                    class: 'btn btn-success btn-rank',
+                    html: '<i class="bx bxs-user-detail"></i>',
+                    'data-id': data,
+                    title: 'Ganti Pangkat',
                     'data-placement': 'top',
                     'data-toggle': 'tooltip'
                 });
@@ -250,11 +282,18 @@ $(() => {
 
                         arr.push(button_instagram)
 
+                        if (row.twitter !== null) {
+                            arr.push(button_twitter)
+                        } else {
+                            arr.push(button_no_twitter)
+                        }
+
                         if (permissions.update) {
                             arr.push(button_edit)
                         }
 
                         if (permissions.delete) {
+                            arr.push(button_rank)
                             arr.push(button_delete)
                         }
 
@@ -267,22 +306,62 @@ $(() => {
         }]
     })
 
-    // Switch Status
-    $('#table-data').on('change', '.switch-active', function () {
-        let id = $(this).data('id');
-        let value = $(this).val();
+    // Change Rank
+    $('#form-alumni-rank').on('submit', function (e) {
+        e.preventDefault();
 
-        $.post(BASE_URL + 'alumni/switch', {
-            id,
-            value,
-            _method: 'PATCH'
-        }).done((res) => {
-            showSuccessToastr('sukses', value == '1' ? 'Alumni berhasil diaktifkan' : 'Alumni berhasil dinonaktifkan');
-            table.ajax.reload();
-        }).fail((res) => {
-            let { status, responseJSON } = res;
-            showErrorToastr('oops', responseJSON.message);
+        let data = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            beforeSend: () => {
+                clearErrorMessage();
+                $('#modal-alumni-rank').find('.modal-dialog').LoadingOverlay('show');
+            },
+            success: (res) => {
+                $('#modal-alumni-rank').find('.modal-dialog').LoadingOverlay('hide', true);
+                $(this)[0].reset();
+                clearErrorMessage();
+                table.ajax.reload();
+                $('#modal-alumni-rank').modal('hide');
+
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil disimpan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: ({ status, responseJSON }) => {
+                $('#modal-alumni-rank').find('.modal-dialog').LoadingOverlay('hide', true);
+
+                if (status == 422) {
+                    generateErrorMessage(responseJSON);
+                    return false;
+                }
+
+                showErrorToastr('oops', responseJSON.msg)
+            }
         })
+    })
+
+    $('#table-data').on('click', '.btn-rank', function () {
+        let tr = $(this).closest('tr');
+        let data = table.row(tr).data();
+
+        clearErrorMessage();
+        $('#form-alumni-rank')[0].reset();
+        
+        $.each(data, (key, value) => {
+            $('#rank-' + key).val(value);
+        })
+
+        $('#modal-alumni-rank').modal('show');
     })
 
     // Export Excel

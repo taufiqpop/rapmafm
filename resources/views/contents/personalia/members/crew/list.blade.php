@@ -303,6 +303,47 @@
             </div>
         </form>
     </div>
+
+    {{-- Change Rank --}}
+    <div id="modal-crew-rank" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-crew-rankLabel" aria-hidden="true">
+        <form action="{{ route('crew.changeRank') }}" method="post" id="form-crew-rank" autocomplete="off">
+            <input type="hidden" name="id" id="rank-id">
+            @method('PATCH')
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="modal-crew-rankLabel">Form Ganti Pangkat</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            {{-- Ganti Rank --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="rank-rank">Ganti Pengkat</label>
+                                    <select name="rank" id="rank-rank" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Pangkat</option>
+                                        <option value="Crew">Crew</option>
+                                        <option value="Pengurus">Pengurus</option>
+                                        <option value="Alumni">Alumni</option>
+                                    </select>
+                                    <div id="error-rank-rank"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @push('scripts')
