@@ -84,8 +84,12 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
+                                    <select name="divisi" id="divisi" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Divisi</option>
+                                        @foreach ($ref_divisi as $divisi)
+                                            <option value="{{ $divisi->nama }}">{{ $divisi->nama }}</option>
+                                        @endforeach
+                                    </select>
                                     <div id="error-divisi"></div>
                                 </div>
                             </div>
@@ -224,8 +228,12 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-divisi">Divisi</label>
-                                    <input type="text" name="divisi" id="update-divisi" class="form-control"
-                                        placeholder="Masukkan Divisi" required>
+                                        <select name="divisi" id="update-divisi" class="form-control" required>
+                                            <option value="" selected disabled>Pilih Divisi</option>
+                                            @foreach ($ref_divisi as $divisi)
+                                                <option value="{{ $divisi->nama }}">{{ $divisi->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     <div id="error-update-divisi"></div>
                                 </div>
                             </div>

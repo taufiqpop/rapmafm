@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Personalia;
 
 use App\Models\Members;
+use App\Models\RefDivisi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,8 +15,11 @@ class PengurusController extends Controller
     // List
     public function index(Request $request)
     {
+        $ref_divisi = RefDivisi::all();
+
         $data = [
-            'title' => 'Pengurus'
+            'title' => 'Pengurus',
+            'ref_divisi' => $ref_divisi
         ];
 
         return view('contents.personalia.members.pengurus.list', $data);
