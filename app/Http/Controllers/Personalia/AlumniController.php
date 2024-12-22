@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Personalia;
 
 use App\Models\Members;
 use App\Models\RefDivisi;
+use App\Models\RefSubDivisi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class AlumniController extends Controller
     // List
     public function index(Request $request)
     {
-        $ref_divisi = RefDivisi::all();
+        $ref_divisi = RefDivisi::with(['sub_divisi'])->get();
 
         $data = [
             'title' => 'Alumni',
@@ -37,6 +38,19 @@ class AlumniController extends Controller
                 return Crypt::encryptString($row->id);
             })
             ->make();
+    }
+
+    // Get Sub Divisi
+    public function getSubDivisi($nama)
+    {
+        $divisi = RefDivisi::where('nama', $nama)->first();
+    
+        if (!$divisi) {
+            return response()->json([], 404);
+        }
+    
+        $sub_divisi = $divisi->sub_divisi;
+        return response()->json($sub_divisi);
     }
 
     // Store

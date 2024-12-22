@@ -82,12 +82,37 @@ $(() => {
         clearErrorMessage();
         $('#form-pengurus-update')[0].reset();
 
-        $('.images-preview').attr('src', '').hide();
-        $('.images').val('');
-
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
         })
+        
+        let divisi = data.divisi;
+        let subDivisi = data.sub_divisi;
+
+        if (divisi) {
+            $('#update-divisi').val(divisi).trigger('change');
+    
+            $.ajax({
+                url: BASE_URL + 'pengurus/get-sub-divisi/' + encodeURIComponent(divisi),
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    $('#update-sub_divisi').html('<option value="" disabled>Pilih Sub Divisi</option>');
+    
+                    if (response.length > 0) {
+                        $.each(response, function (key, value) {
+                            let selected = value.nama === subDivisi ? 'selected' : '';
+                            $('#update-sub_divisi').append('<option value="' + value.nama + '" ' + selected + '>' + value.nama + '</option>');
+                        });
+                    } else {
+                        $('#update-sub_divisi').append('<option value="" disabled>Sub Divisi Tidak Ditemukan</option>');
+                    }
+                },
+                error: function () {
+                    alert('Gagal mengambil data sub divisi.');
+                }
+            });
+        }
 
         $('#modal-pengurus-update').modal('show');
     })
@@ -139,9 +164,6 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-pengurus')[0].reset();
         clearErrorMessage();
-
-        $('.images-preview').attr('src', '').hide();
-        $('.images').val('');
 
         $('#modal-pengurus').modal('show');
     });
@@ -366,4 +388,57 @@ $(() => {
 
         $('#modal-pengurus-rank').modal('show');
     })
+
+        // Get Sub Divisi (Create)
+        $('#divisi').on('change', function () {
+            let nama = $(this).val();
+    
+            $('#sub_divisi').html('<option value="" selected disabled>Pilih Sub Divisi</option>');
+    
+            if (nama) {
+                $.ajax({
+                    url: BASE_URL + 'pengurus/get-sub-divisi/' + nama,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (key, value) {
+                                $('#sub_divisi').append('<option value="' + value.nama + '">' + value.nama + '</option>');
+                            });
+                        } else {
+                            $('#sub_divisi').append('<option value="" disabled>Sub Divisi Tidak Ditemukan</option>');
+                        }
+                    },
+                    error: function () {
+                        alert('Gagal mengambil data sub divisi.');
+                    }
+                });
+            }
+        });
+    
+        // Get Sub Divisi (Update)
+        $('#update-divisi').on('change', function () {
+            let nama = $(this).val();
+            $('#update-sub_divisi').html('<option value="" selected disabled>Pilih Sub Divisi</option>');
+    
+            if (nama) {
+                $.ajax({
+                    url: BASE_URL + 'pengurus/get-sub-divisi/' + encodeURIComponent(nama),
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (key, value) {
+                                $('#update-sub_divisi').append('<option value="' + value.nama + '">' + value.nama + '</option>');
+                            });
+                        } else {
+                            $('#update-sub_divisi').append('<option value="" disabled>Sub Divisi Tidak Ditemukan</option>');
+                        }
+                    },
+                    error: function () {
+                        alert('Gagal mengambil data sub divisi.');
+                    }
+                });
+            }
+        });
 })

@@ -98,8 +98,9 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="sub_divisi">Sub Divisi</label>
-                                    <input type="text" name="sub_divisi" id="sub_divisi" class="form-control"
-                                        placeholder="Masukkan Sub Divisi" required>
+                                    <select name="sub_divisi" id="sub_divisi" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Sub Divisi</option>
+                                    </select>
                                     <div id="error-sub_divisi"></div>
                                 </div>
                             </div>
@@ -228,12 +229,12 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-divisi">Divisi</label>
-                                        <select name="divisi" id="update-divisi" class="form-control" required>
-                                            <option value="" selected disabled>Pilih Divisi</option>
-                                            @foreach ($ref_divisi as $divisi)
-                                                <option value="{{ $divisi->nama }}">{{ $divisi->nama }}</option>
-                                            @endforeach
-                                        </select>
+                                    <select name="divisi" id="update-divisi" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Divisi</option>
+                                        @foreach ($ref_divisi as $divisi)
+                                            <option value="{{ $divisi->nama }}">{{ $divisi->nama }}</option>
+                                        @endforeach
+                                    </select>
                                     <div id="error-update-divisi"></div>
                                 </div>
                             </div>
@@ -242,8 +243,9 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="update-sub_divisi">Sub Divisi</label>
-                                    <input type="text" name="sub_divisi" id="update-sub_divisi" class="form-control"
-                                        placeholder="Masukkan Sub Divisi" required>
+                                    <select name="sub_divisi" id="update-sub_divisi" class="form-control" required>
+                                        <option value="" selected disabled>Pilih Sub Divisi</option>
+                                    </select>
                                     <div id="error-update-sub_divisi"></div>
                                 </div>
                             </div>

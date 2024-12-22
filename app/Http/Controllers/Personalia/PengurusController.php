@@ -37,6 +37,19 @@ class PengurusController extends Controller
             ->make();
     }
 
+    // Get Sub Divisi
+    public function getSubDivisi($nama)
+    {
+        $divisi = RefDivisi::where('nama', $nama)->first();
+    
+        if (!$divisi) {
+            return response()->json([], 404);
+        }
+    
+        $sub_divisi = $divisi->sub_divisi;
+        return response()->json($sub_divisi);
+    }
+
     // Store
     public function store(Request $request)
     {

@@ -8,4 +8,5 @@ Route::post('/store', [PengurusController::class, 'store'])->name('pengurus.stor
 Route::patch('/update', [PengurusController::class, 'update'])->name('pengurus.update')->middleware('rbac:pengurus,3');
 Route::delete('/delete', [PengurusController::class, 'delete'])->name('pengurus.delete')->middleware('rbac:pengurus,4');
 Route::patch('/switch', [PengurusController::class, 'switchStatus'])->name('pengurus.switch')->middleware('rbac:pengurus,3');
+Route::get('/get-sub-divisi/{nama}', [PengurusController::class, 'getSubDivisi'])->name('pengurus.getSubDivisi')->middleware('rbac:pengurus');
 Route::patch('/changeRank', [PengurusController::class, 'changeRank'])->name('pengurus.changeRank')->middleware('rbac:pengurus,3');

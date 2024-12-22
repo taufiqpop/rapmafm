@@ -82,9 +82,6 @@ $(() => {
         clearErrorMessage();
         $('#form-crew-update')[0].reset();
 
-        $('.images-preview').attr('src', '').hide();
-        $('.images').val('');
-
         $.each(data, (key, value) => {
             $('#update-' + key).val(value);
         })
@@ -139,9 +136,6 @@ $(() => {
     $('.btn-tambah').on('click', function () {
         $('#form-crew')[0].reset();
         clearErrorMessage();
-
-        $('.images-preview').attr('src', '').hide();
-        $('.images').val('');
 
         $('#modal-crew').modal('show');
     });
