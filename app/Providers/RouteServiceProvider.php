@@ -31,6 +31,8 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapArusKasRoutes();
             $this->mapDanaUniversitasRoutes();
             $this->mapSuratRoutes();
+            $this->mapRefDivisiRoutes();
+            $this->mapRefSubDivisiRoutes();
 
             // Umum
             $this->mapPesanRoutes();
@@ -108,6 +110,16 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapSuratRoutes()
     {
         Route::prefix('surat')->group(base_path('routes/panel/gmpa/surat.php'));
+    }
+
+    protected function mapRefDivisiRoutes()
+    {
+        Route::prefix('ref-divisi')->group(base_path('routes/panel/gmpa/ref-divisi.php'));
+    }
+
+    protected function mapRefSubDivisiRoutes()
+    {
+        Route::prefix('ref-sub-divisi')->group(base_path('routes/panel/gmpa/ref-sub-divisi.php'));
     }
 
     // Umum
