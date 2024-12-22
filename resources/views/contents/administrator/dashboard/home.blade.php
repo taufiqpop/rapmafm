@@ -14,7 +14,7 @@
                         Jumlah Crew Aktif
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $crewCount }}</h5>
+                        <h5 class="card-title">{{ $crew->count() }}</h5>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                         Jumlah Pengurus Aktif
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $pengurusCount }}</h5>
+                        <h5 class="card-title">{{ $pengurus->count() }}</h5>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         Jumlah Alumni
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $alumniCount }}</h5>
+                        <h5 class="card-title">{{ $alumni->count() }}</h5>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 labels: ['Crew', 'Pengurus', 'Alumni'],
                 datasets: [{
                     label: 'Data Count',
-                    data: [{{ $crewCount }}, {{ $pengurusCount }}, {{ $alumniCount }}],
+                    data: [{{ $crew->count() }}, {{ $pengurus->count() }}, {{ $alumni->count() }}],
                     backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
