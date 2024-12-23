@@ -14,8 +14,14 @@ class SuratController extends Controller
     // List
     public function index(Request $request)
     {
+        $years = Surat::selectRaw('YEAR(tanggal) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->get();
+
         $data = [
-            'title' => 'Surat'
+            'title' => 'Surat',
+            'years' => $years,
         ];
 
         return view('contents.gmpa.surat.list', $data);
@@ -24,6 +30,14 @@ class SuratController extends Controller
     public function data(Request $request)
     {
         $list = Surat::select(DB::raw('*'));
+
+        if ($request->perihal) {
+            $list->where('perihal', $request->perihal);
+        }
+
+        if ($request->tahun) {
+            $list->whereYear('tanggal', $request->tahun);
+        }
 
         return DataTables::of($list)
             ->addIndexColumn()

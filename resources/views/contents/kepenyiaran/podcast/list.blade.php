@@ -31,7 +31,7 @@
                         <div class="col-md-4">
                             <label for="filter-tahun">Tahun</label>
                             <select id="filter-tahun" class="form-control">
-                                <option value="" selected disabled>Pilih Tahun</option>
+                                <option value="" selected>Semua Tahun</option>
                                 @foreach ($years as $year)
                                     <option value="{{ $year->year }}">{{ $year->year }}</option>
                                 @endforeach

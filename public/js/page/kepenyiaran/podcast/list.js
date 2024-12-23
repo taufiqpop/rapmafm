@@ -173,12 +173,12 @@ $(() => {
         ajax: {
             url: BASE_URL + 'podcast/data',
             type: 'get',
+            dataType: 'json',
             data: function (func) {
                 func.jenis_program_id = $('#filter-jenis-program').val();
                 func.program_id = $('#filter-program-siar').val();
                 func.tahun = $('#filter-tahun').val();
-            },
-            dataType: 'json'
+            }
         },
         order: [[4, 'desc']],
         columnDefs: [{

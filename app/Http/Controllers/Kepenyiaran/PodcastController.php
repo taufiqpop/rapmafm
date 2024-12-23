@@ -37,11 +37,6 @@ class PodcastController extends Controller
     {
         $list = Podcast::select(DB::raw('*'))->with(['program_siar.jenis_program']);
 
-        $years = Podcast::selectRaw('YEAR(tanggal) as year')
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->get();
-
         if ($request->jenis_program_id) {
             $list->whereHas('program_siar.jenis_program', function ($query) use ($request) {
                 $query->where('id', $request->jenis_program_id);

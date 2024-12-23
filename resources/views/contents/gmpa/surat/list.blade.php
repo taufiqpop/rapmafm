@@ -10,6 +10,28 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
+                    {{-- Filter --}}
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="filter-perihal">Perihal</label>
+                            <select id="filter-perihal" class="form-control">
+                                <option value="" selected>Semua Perihal</option>
+                                <option value="Surat Masuk">Surat Masuk</option>
+                                <option value="Surat Keluar">Surat Keluar</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filter-tahun">Tahun</label>
+                            <select id="filter-tahun" class="form-control">
+                                <option value="" selected>Semua Tahun</option>
+                                @foreach ($years as $year)
+                                    <option value="{{ $year->year }}">{{ $year->year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     @if (rbacCheck('surat', 2))
                         <div class="row mb-2">
                             <div class="col-sm-12">
@@ -21,6 +43,7 @@
                             </div>
                         </div>
                     @endif
+
                     {{-- Table --}}
                     <div class="table-responsive" data-pattern="priority-columns">
                         <table class="table table-striped" id="table-data" style="width: 100%;">
@@ -120,8 +143,8 @@
     </div>
 
     {{-- Update --}}
-    <div id="modal-surat-update" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-surat-updateLabel"
-        aria-hidden="true">
+    <div id="modal-surat-update" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modal-surat-updateLabel" aria-hidden="true">
         <form action="{{ route('surat.update') }}" method="post" id="form-surat-update" autocomplete="off">
             <input type="hidden" name="id" id="update-id">
             @method('PATCH')

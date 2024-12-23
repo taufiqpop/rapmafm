@@ -147,7 +147,11 @@ $(() => {
         ajax: {
             url: BASE_URL + 'surat/data',
             type: 'get',
-            dataType: 'json'
+            dataType: 'json',
+            data: function (func) {
+                func.perihal = $('#filter-perihal').val();
+                func.tahun = $('#filter-tahun').val();
+            }
         },
         order: [[7, 'desc']],
         columnDefs: [{
@@ -168,6 +172,9 @@ $(() => {
             data: 'perihal',
         }, {
             data: 'tanggal',
+            render: (data, type, row) => {
+                return formatTanggalIndonesia(data);
+            }
         }, {
             data: 'asal_surat',
         }, {
@@ -216,4 +223,26 @@ $(() => {
             data: 'created_at'
         }]
     })
+
+    $('#filter-perihal').on('change', function () {
+        $('#table-data').DataTable().ajax.reload();
+    });
+
+    $('#filter-tahun').on('change', function () {
+        $('#table-data').DataTable().ajax.reload();
+    });
+
+    // Format Tanggal ID
+    function formatTanggalIndonesia(isoDate) {
+        const date = new Date(isoDate);
+    
+        const tanggal = date.toLocaleDateString('id-ID', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    
+        return `${tanggal}`;
+    }
 })
